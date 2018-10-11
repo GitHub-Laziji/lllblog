@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="javascript,html," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="Laziji 的博客">
-<meta name="keywords" content="编程,计算机,java,python,go,c++">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Laziji 的博客">
-<meta property="og:url" content="https://laboo.top/archives/2018/index.html">
+<meta name="description" content="实现 思路及实现给图片添加额外属性data-src, 并用空白小图片填充1&amp;lt;img data-src=&amp;quot;./image.png&amp;quot; src=&amp;quot;./blank.png&amp;quot;&amp;gt; 找到页面内的所有图片1let imgs = $(&amp;quot;img[data-src]&amp;quot;); 根据滚动条高度以及窗口的高度判断图片是否在视野中, 若在, 将img.src">
+<meta name="keywords" content="javascript,html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Js实现图片懒加载">
+<meta property="og:url" content="https://laboo.top/2018/10/11/img-lazy/index.html">
 <meta property="og:site_name" content="Laziji 的博客">
-<meta property="og:description" content="Laziji 的博客">
+<meta property="og:description" content="实现 思路及实现给图片添加额外属性data-src, 并用空白小图片填充1&amp;lt;img data-src=&amp;quot;./image.png&amp;quot; src=&amp;quot;./blank.png&amp;quot;&amp;gt; 找到页面内的所有图片1let imgs = $(&amp;quot;img[data-src]&amp;quot;); 根据滚动条高度以及窗口的高度判断图片是否在视野中, 若在, 将img.src">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-11T08:08:11.466Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Laziji 的博客">
-<meta name="twitter:description" content="Laziji 的博客">
+<meta name="twitter:title" content="Js实现图片懒加载">
+<meta name="twitter:description" content="实现 思路及实现给图片添加额外属性data-src, 并用空白小图片填充1&amp;lt;img data-src=&amp;quot;./image.png&amp;quot; src=&amp;quot;./blank.png&amp;quot;&amp;gt; 找到页面内的所有图片1let imgs = $(&amp;quot;img[data-src]&amp;quot;); 根据滚动条高度以及窗口的高度判断图片是否在视野中, 若在, 将img.src">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://laboo.top/archives/2018/"/>
+  <link rel="canonical" href="https://laboo.top/2018/10/11/img-lazy/"/>
 
 
 
 
 
-  <title>归档 | Laziji 的博客</title>
+  <title>Js实现图片懒加载 | Laziji 的博客</title>
   
 
 
@@ -144,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -218,148 +219,175 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://laboo.top/2018/10/11/img-lazy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Laziji">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/30425217?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laziji 的博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Js实现图片懒加载</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-11T15:55:24+08:00">
+                2018-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 3 篇日志。 继续努力。
-      </span>
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/11/img-lazy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/10/11/img-lazy/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
 
-        
+          
+          
+             <span id="/2018/10/11/img-lazy/" class="leancloud_visitors" data-flag-title="Js实现图片懒加载">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/11/img-lazy/" itemprop="url">
-              
-                <span itemprop="name">Js实现图片懒加载</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-11T15:55:24+08:00"
-              content="2018-10-11" >
-          10-11
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/11/git-ss/" itemprop="url">
-              
-                <span itemprop="name">解决git clone下载速度过慢的问题</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-11T09:43:14+08:00"
-              content="2018-10-11" >
-          10-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/11/hexo/" itemprop="url">
-              
-                <span itemprop="name">使用Hexo 在github pages 搭建博客</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-11T00:28:39+08:00"
-              content="2018-10-11" >
-          10-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
+      
+        <p>实现</p>
+<h2 id="思路及实现"><a href="#思路及实现" class="headerlink" title="思路及实现"></a>思路及实现</h2><p>给图片添加额外属性<code>data-src</code>, 并用空白小图片填充<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img data-src=&quot;./image.png&quot; src=&quot;./blank.png&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>找到页面内的所有图片<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let imgs = $(&quot;img[data-src]&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>根据滚动条高度以及窗口的高度判断图片是否在视野中, 若在, 将<code>img.src= img.data-src</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let bodyScrollHeight = document.body.scrollTop </span><br><span class="line">        || document.documentElement.scrollTop;</span><br><span class="line">let windowHeight = window.innerHeight;</span><br><span class="line">for (let i = 0; i &lt; imgs.length; i++) &#123;</span><br><span class="line">    let imgHeight = $(imgs[i]).offset().top;</span><br><span class="line">    if (imgHeight &lt;= windowHeight + bodyScrollHeight </span><br><span class="line">        &amp;&amp; imgHeight &gt;= bodyScrollHeight) &#123;</span><br><span class="line">        imgs[i].src = imgs[i].getAttribute(&apos;data-src&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p>具体实现及添加动画效果见Github</p>
+<p><a href="https://github.com/GitHub-Laziji/JS-plugins" target="_blank" rel="noopener">https://github.com/GitHub-Laziji/JS-plugins</a></p>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"><i class="fa fa-tag"></i> javascript</a>
+          
+            <a href="/tags/html/" rel="tag"><i class="fa fa-tag"></i> html</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/11/git-ss/" rel="next" title="解决git clone下载速度过慢的问题">
+                <i class="fa fa-chevron-left"></i> 解决git clone下载速度过慢的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -367,6 +395,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -387,8 +426,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -471,6 +519,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#思路及实现"><span class="nav-number">1.</span> <span class="nav-text">思路及实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码"><span class="nav-number">2.</span> <span class="nav-text">源码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -621,6 +685,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -667,6 +735,30 @@
 
     
 
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'github-laziji',
+            repo: 'lllblog',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '8b97e3c3a7e68a0ac4ede8f9264f87a58c6b8f73',
+            
+                client_id: '5ec107060fd6ace9bb37'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
     
 
 
