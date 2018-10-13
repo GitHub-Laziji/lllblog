@@ -2,37 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://laboo.top/2018/10/13/javascript-db/</loc>
+    <loc>https://laboo.top/categories/index.html</loc>
     
-    <lastmod>2018-10-12T19:01:24.802Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://laboo.top/2018/10/11/img-lazy/</loc>
-    
-    <lastmod>2018-10-12T18:03:05.593Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://laboo.top/2018/10/13/java-db/</loc>
-    
-    <lastmod>2018-10-12T18:02:04.257Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://laboo.top/2018/10/12/java-db/</loc>
-    
-    <lastmod>2018-10-12T18:01:56.652Z</lastmod>
+    <lastmod>2018-10-13T03:00:10.521Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://laboo.top/tags/index.html</loc>
     
-    <lastmod>2018-10-11T08:34:56.122Z</lastmod>
+    <lastmod>2018-10-13T03:00:03.925Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://laboo.top/2018/10/13/javascript-db/</loc>
+    
+    <lastmod>2018-10-13T02:56:44.629Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://laboo.top/2018/10/13/java-db/</loc>
+    
+    <lastmod>2018-10-13T02:56:40.543Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://laboo.top/2018/10/12/java-db/</loc>
+    
+    <lastmod>2018-10-13T02:56:36.734Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://laboo.top/2018/10/11/img-lazy/</loc>
+    
+    <lastmod>2018-10-13T02:56:31.465Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://laboo.top/2018/10/11/git-ss/</loc>
+    
+    <lastmod>2018-10-13T02:56:25.824Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://laboo.top/2018/10/11/hexo/</loc>
+    
+    <lastmod>2018-10-13T02:56:10.580Z</lastmod>
     
   </url>
   
@@ -47,20 +68,6 @@
     <loc>https://laboo.top/googleb219f08529217007.html</loc>
     
     <lastmod>2018-10-11T04:29:26.201Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://laboo.top/2018/10/11/git-ss/</loc>
-    
-    <lastmod>2018-10-11T01:49:01.032Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://laboo.top/2018/10/11/hexo/</loc>
-    
-    <lastmod>2018-10-10T19:06:42.515Z</lastmod>
     
   </url>
   
