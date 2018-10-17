@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laboo.top/"/>
-  <updated>2018-10-16T06:43:34.635Z</updated>
+  <updated>2018-10-17T11:43:07.855Z</updated>
   <id>https://laboo.top/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用视图代替Mybatis中的多表查询的设计</title>
+    <link href="https://laboo.top/2018/10/17/java-db/"/>
+    <id>https://laboo.top/2018/10/17/java-db/</id>
+    <published>2018-10-17T10:02:37.000Z</published>
+    <updated>2018-10-17T11:43:07.855Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用Mybatis开发项目时, 若是简单的单表查询, 完全可以全部使用<code>代码生成工具</code>自动生成, 但是如果有需要多表联合查询的时候就无能为力了, 不得不手动编写<code>Entity</code>、<code>Dao</code>以及<code>Service</code> 显得很不统一<br>但是如果使用视图的话, 就又能利用<code>代码生成工具</code>的便利自动生成<code>Entity</code>、<code>Dao</code>以及<code>Service</code>, 而且可以在Java代码中完全隐藏掉<code>数据库层</code>专注于应用的开发</p><h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><p><a href="https://github.com/GitHub-Laziji/commons-mybatis" target="_blank" rel="noopener">commons-mybatis</a></p><h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><h3 id="DO-java"><a href="#DO-java" class="headerlink" title="DO.java"></a>DO.java</h3><p>这里的数据库表设计是遵循<a href="https://github.com/alibaba/p3c/blob/master/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C%EF%BC%88%E8%AF%A6%E5%B0%BD%E7%89%88%EF%BC%89.pdf" target="_blank" rel="noopener">阿里巴巴Java编码规范</a><br>每个表固定三个字段<code>id</code>, <code>gmt_create</code>, <code>gmt_modified</code><br>实体类继承<code>BaseDO</code> 默认拥有三个属性<code>id</code>, <code>gmtCreate</code>, <code>gmtModified</code>以及重写的<code>toString()</code></p><h3 id="VO-java"><a href="#VO-java" class="headerlink" title="VO.java"></a>VO.java</h3><p>视图名以<code>_view</code>为后缀<br>视图类继承<code>BaseVO</code> 由于视图的字段不一定, 所以<code>BaseVO</code>中只重写了<code>toString()</code></p><h2 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h2><h3 id="DODao-java"><a href="#DODao-java" class="headerlink" title="DODao.java"></a>DODao.java</h3><p>常用的增删改查方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">T <span class="title">selectById</span><span class="params">(Long id)</span></span>;</span><br><span class="line"><span class="function">List&lt;T&gt; <span class="title">select</span><span class="params">(T bean)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">selectCount</span><span class="params">(T bean)</span></span>;</span><br><span class="line"><span class="function">List&lt;T&gt; <span class="title">select</span><span class="params">(Query&lt;T&gt; query)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">selectCount</span><span class="params">(Query&lt;T&gt; query)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">insert</span><span class="params">(T bean)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">update</span><span class="params">(T bean)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">delete</span><span class="params">(Long id)</span></span>;</span><br></pre></td></tr></table></figure></p><h3 id="VODao-java"><a href="#VODao-java" class="headerlink" title="VODao.java"></a>VODao.java</h3><p>由于视图不能删增删改, 所以只有<code>select</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;T&gt; <span class="title">select</span><span class="params">(T bean)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">selectCount</span><span class="params">(T bean)</span></span>;</span><br><span class="line"><span class="function">List&lt;T&gt; <span class="title">select</span><span class="params">(Query&lt;T&gt; query)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">selectCount</span><span class="params">(Query&lt;T&gt; query)</span></span>;</span><br></pre></td></tr></table></figure></p><h2 id="Service-以及-Controller-见源码"><a href="#Service-以及-Controller-见源码" class="headerlink" title="Service 以及 Controller 见源码"></a>Service 以及 Controller 见源码</h2><p>…</p><h1 id="Mybatis-Generator"><a href="#Mybatis-Generator" class="headerlink" title="Mybatis Generator"></a>Mybatis Generator</h1><p>代码生成器使用<code>velocity</code>模版</p><p>获取表信息<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> information_schema.tables </span><br><span class="line"><span class="keyword">where</span> table_schema = (<span class="keyword">select</span> <span class="keyword">database</span>()) <span class="keyword">and</span> table_name = ?</span><br></pre></td></tr></table></figure></p><p>获取列信息<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> information_schema.columns </span><br><span class="line"><span class="keyword">where</span> table_name = ?</span><br><span class="line"><span class="keyword">and</span> table_schema = (<span class="keyword">select</span> <span class="keyword">database</span>()) <span class="keyword">order</span> <span class="keyword">by</span> ordinal_position</span><br></pre></td></tr></table></figure></p><p>动态获取表信息注入模版, 自动生成<code>DO</code>, <code>VO</code></p><h2 id="Dao-java-vm"><a href="#Dao-java-vm" class="headerlink" title="Dao.java.vm"></a>Dao.java.vm</h2><p>例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package $&#123;package&#125;.database.dao;</span><br><span class="line"></span><br><span class="line">import $&#123;package&#125;.database.model.$&#123;className&#125;$&#123;suffix&#125;;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.annotations.Mapper;</span><br><span class="line">import org.laziji.commons.mybatis.dao.$&#123;suffix&#125;Dao;</span><br><span class="line"></span><br><span class="line">@Mapper</span><br><span class="line">public interface $&#123;className&#125;Dao extends $&#123;suffix&#125;Dao&lt;$&#123;className&#125;$&#123;suffix&#125;&gt; &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;使用Mybatis开发项目时, 若是简单的单表查询, 完全可以全部使用&lt;code&gt;代码生成工具&lt;/code&gt;自动生成, 但是如果有需要多表联合查询的时候就无能为力了, 不得不手动编写&lt;code&gt;Entity&lt;/code&gt;、&lt;code&gt;Dao&lt;/code&gt;以及&lt;code&gt;Se
+      
+    
+    </summary>
+    
+      <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+      <category term="Java" scheme="https://laboo.top/tags/Java/"/>
+    
+      <category term="Mybatis" scheme="https://laboo.top/tags/Mybatis/"/>
+    
+  </entry>
   
   <entry>
     <title>Java中静态成员变量的内部调用</title>
@@ -63,9 +90,9 @@
       <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
-      <category term="Java" scheme="https://laboo.top/tags/Java/"/>
-    
       <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
+    
+      <category term="Java" scheme="https://laboo.top/tags/Java/"/>
     
   </entry>
   

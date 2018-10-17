@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,Spring," />
+  <meta name="keywords" content="Java,Mybatis," />
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="接上一篇, 上一篇文章写了Dao、Service、Controller的实现, 这篇讲述其中用到的Query以及Page 还是以app表为例, 表结构如下1234`id` bigint(20)`gmt_create` datetime`gmt_modified` datetime`name` varchar(32) Query 查询类Query是select查询信息 如limit, page, o">
-<meta name="keywords" content="Java,Spring">
+<meta name="description" content="使用Mybatis开发项目时, 若是简单的单表查询, 完全可以全部使用代码生成工具自动生成, 但是如果有需要多表联合查询的时候就无能为力了, 不得不手动编写Entity、Dao以及Service 显得很不统一但是如果使用视图的话, 就又能利用代码生成工具的便利自动生成Entity、Dao以及Service, 而且可以在Java代码中完全隐藏掉数据库层专注于应用的开发 源码commons-mybat">
+<meta name="keywords" content="Java,Mybatis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Springboot Mybatis 实现通用Dao、Service、Controller (二)">
-<meta property="og:url" content="https://laboo.top/2018/10/13/java-db/index.html">
+<meta property="og:title" content="使用视图代替Mybatis中的多表查询的设计">
+<meta property="og:url" content="https://laboo.top/2018/10/17/java-db/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:description" content="接上一篇, 上一篇文章写了Dao、Service、Controller的实现, 这篇讲述其中用到的Query以及Page 还是以app表为例, 表结构如下1234`id` bigint(20)`gmt_create` datetime`gmt_modified` datetime`name` varchar(32) Query 查询类Query是select查询信息 如limit, page, o">
+<meta property="og:description" content="使用Mybatis开发项目时, 若是简单的单表查询, 完全可以全部使用代码生成工具自动生成, 但是如果有需要多表联合查询的时候就无能为力了, 不得不手动编写Entity、Dao以及Service 显得很不统一但是如果使用视图的话, 就又能利用代码生成工具的便利自动生成Entity、Dao以及Service, 而且可以在Java代码中完全隐藏掉数据库层专注于应用的开发 源码commons-mybat">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-13T02:56:40.543Z">
+<meta property="og:updated_time" content="2018-10-17T11:43:07.855Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Springboot Mybatis 实现通用Dao、Service、Controller (二)">
-<meta name="twitter:description" content="接上一篇, 上一篇文章写了Dao、Service、Controller的实现, 这篇讲述其中用到的Query以及Page 还是以app表为例, 表结构如下1234`id` bigint(20)`gmt_create` datetime`gmt_modified` datetime`name` varchar(32) Query 查询类Query是select查询信息 如limit, page, o">
+<meta name="twitter:title" content="使用视图代替Mybatis中的多表查询的设计">
+<meta name="twitter:description" content="使用Mybatis开发项目时, 若是简单的单表查询, 完全可以全部使用代码生成工具自动生成, 但是如果有需要多表联合查询的时候就无能为力了, 不得不手动编写Entity、Dao以及Service 显得很不统一但是如果使用视图的话, 就又能利用代码生成工具的便利自动生成Entity、Dao以及Service, 而且可以在Java代码中完全隐藏掉数据库层专注于应用的开发 源码commons-mybat">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://laboo.top/2018/10/13/java-db/"/>
+  <link rel="canonical" href="https://laboo.top/2018/10/17/java-db/"/>
 
 
 
 
 
-  <title>Springboot Mybatis 实现通用Dao、Service、Controller (二) | ☻Blog("Laziji")</title>
+  <title>使用视图代替Mybatis中的多表查询的设计 | ☻Blog("Laziji")</title>
   
 
 
@@ -256,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laboo.top/2018/10/13/java-db/">
+    <link itemprop="mainEntityOfPage" href="https://laboo.top/2018/10/17/java-db/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Laziji">
@@ -273,7 +273,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Springboot Mybatis 实现通用Dao、Service、Controller (二)</h2>
+          <h2 class="post-title" itemprop="name headline">使用视图代替Mybatis中的多表查询的设计</h2>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-13T00:57:06+08:00">
-                2018-10-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-17T18:02:37+08:00">
+                2018-10-17
               </time>
             
 
@@ -326,8 +326,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/13/java-db/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/13/java-db/" itemprop="commentCount"></span>
+                <a href="/2018/10/17/java-db/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/17/java-db/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -335,7 +335,7 @@
 
           
           
-             <span id="/2018/10/13/java-db/" class="leancloud_visitors" data-flag-title="Springboot Mybatis 实现通用Dao、Service、Controller (二)">
+             <span id="/2018/10/17/java-db/" class="leancloud_visitors" data-flag-title="使用视图代替Mybatis中的多表查询的设计">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -360,7 +360,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  333
+                  447
                 </span>
               
 
@@ -376,7 +376,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -397,14 +397,19 @@
       
 
       
-        <p>接上一篇, 上一篇文章写了Dao、Service、Controller的实现, 这篇讲述其中用到的Query<d>以及Page<d></d></d></p>
-<p>还是以app表为例, 表结构如下<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">`id` bigint(20)</span><br><span class="line">`gmt_create` datetime</span><br><span class="line">`gmt_modified` datetime</span><br><span class="line">`name` varchar(32)</span><br></pre></td></tr></table></figure></p>
-<h1 id="Query-查询类"><a href="#Query-查询类" class="headerlink" title="Query 查询类"></a>Query 查询类</h1><p>Query是select查询信息 如limit, page, order by的封装</p>
-<h2 id="AppQuery-java"><a href="#AppQuery-java" class="headerlink" title="AppQuery.java"></a>AppQuery.java</h2><p>省略其中get, set方法, Query的属性是DO的扩展,如其中<code>nameLike</code>为name字段的模糊查询, <code>toBean()</code>实现Query转换为DO<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppQuery</span> <span class="keyword">extends</span> <span class="title">BaseQuery</span>&lt;<span class="title">AppDO</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> Date gmtCreate;</span><br><span class="line">    <span class="keyword">private</span> Date gmtModified;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String nameLike;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...get()</span></span><br><span class="line">    <span class="comment">// ...set()</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ClassifyDO <span class="title">toBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> JSON.parseObject(JSON.toJSONString(<span class="keyword">this</span>),ClassifyDO.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="BaseQuery-java"><a href="#BaseQuery-java" class="headerlink" title="BaseQuery.java"></a>BaseQuery.java</h2><p>BaseQuery中包含公共的查询属性, 例如分页, 排序, 省略其他默认的get, set<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseQuery</span>&lt;<span class="title">D</span>&gt; <span class="keyword">implements</span> <span class="title">Query</span>&lt;<span class="title">D</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer limit = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> Integer page = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> Integer offset = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> String sort;</span><br><span class="line">    <span class="keyword">private</span> String order;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLimit</span><span class="params">(Integer limit)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.limit = limit &gt; <span class="number">0</span> ? limit : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">this</span>.offset = <span class="keyword">this</span>.page * <span class="keyword">this</span>.limit;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPage</span><span class="params">(<span class="keyword">int</span> page)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.page = page &gt;= <span class="number">0</span> ? page : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>.offset = <span class="keyword">this</span>.page * <span class="keyword">this</span>.limit;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...get()</span></span><br><span class="line">    <span class="comment">// ...set()</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> JSON.toJSONString(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="Query-java"><a href="#Query-java" class="headerlink" title="Query.java"></a>Query.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Query</span>&lt;<span class="title">D</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">D <span class="title">toBean</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Page-分页查询结果类"><a href="#Page-分页查询结果类" class="headerlink" title="Page 分页查询结果类"></a>Page 分页查询结果类</h1><p>由于前端分页显示时常常同时需要每页数据以及总条目数, 所以对分页查询结果简单封装</p>
-<h2 id="Page-java"><a href="#Page-java" class="headerlink" title="Page.java"></a>Page.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Page</span>&lt;<span class="title">D</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;D&gt; list;</span><br><span class="line">    <span class="keyword">private</span> Integer total;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...get()</span></span><br><span class="line">    <span class="comment">// ...set()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>使用Mybatis开发项目时, 若是简单的单表查询, 完全可以全部使用<code>代码生成工具</code>自动生成, 但是如果有需要多表联合查询的时候就无能为力了, 不得不手动编写<code>Entity</code>、<code>Dao</code>以及<code>Service</code> 显得很不统一<br>但是如果使用视图的话, 就又能利用<code>代码生成工具</code>的便利自动生成<code>Entity</code>、<code>Dao</code>以及<code>Service</code>, 而且可以在Java代码中完全隐藏掉<code>数据库层</code>专注于应用的开发</p>
+<h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><p><a href="https://github.com/GitHub-Laziji/commons-mybatis" target="_blank" rel="noopener">commons-mybatis</a></p>
+<h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><h3 id="DO-java"><a href="#DO-java" class="headerlink" title="DO.java"></a>DO.java</h3><p>这里的数据库表设计是遵循<a href="https://github.com/alibaba/p3c/blob/master/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C%EF%BC%88%E8%AF%A6%E5%B0%BD%E7%89%88%EF%BC%89.pdf" target="_blank" rel="noopener">阿里巴巴Java编码规范</a><br>每个表固定三个字段<code>id</code>, <code>gmt_create</code>, <code>gmt_modified</code><br>实体类继承<code>BaseDO</code> 默认拥有三个属性<code>id</code>, <code>gmtCreate</code>, <code>gmtModified</code>以及重写的<code>toString()</code></p>
+<h3 id="VO-java"><a href="#VO-java" class="headerlink" title="VO.java"></a>VO.java</h3><p>视图名以<code>_view</code>为后缀<br>视图类继承<code>BaseVO</code> 由于视图的字段不一定, 所以<code>BaseVO</code>中只重写了<code>toString()</code></p>
+<h2 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h2><h3 id="DODao-java"><a href="#DODao-java" class="headerlink" title="DODao.java"></a>DODao.java</h3><p>常用的增删改查方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">T <span class="title">selectById</span><span class="params">(Long id)</span></span>;</span><br><span class="line"><span class="function">List&lt;T&gt; <span class="title">select</span><span class="params">(T bean)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">selectCount</span><span class="params">(T bean)</span></span>;</span><br><span class="line"><span class="function">List&lt;T&gt; <span class="title">select</span><span class="params">(Query&lt;T&gt; query)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">selectCount</span><span class="params">(Query&lt;T&gt; query)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">insert</span><span class="params">(T bean)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">update</span><span class="params">(T bean)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">delete</span><span class="params">(Long id)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="VODao-java"><a href="#VODao-java" class="headerlink" title="VODao.java"></a>VODao.java</h3><p>由于视图不能删增删改, 所以只有<code>select</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;T&gt; <span class="title">select</span><span class="params">(T bean)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">selectCount</span><span class="params">(T bean)</span></span>;</span><br><span class="line"><span class="function">List&lt;T&gt; <span class="title">select</span><span class="params">(Query&lt;T&gt; query)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">selectCount</span><span class="params">(Query&lt;T&gt; query)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Service-以及-Controller-见源码"><a href="#Service-以及-Controller-见源码" class="headerlink" title="Service 以及 Controller 见源码"></a>Service 以及 Controller 见源码</h2><p>…</p>
+<h1 id="Mybatis-Generator"><a href="#Mybatis-Generator" class="headerlink" title="Mybatis Generator"></a>Mybatis Generator</h1><p>代码生成器使用<code>velocity</code>模版</p>
+<p>获取表信息<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> information_schema.tables </span><br><span class="line"><span class="keyword">where</span> table_schema = (<span class="keyword">select</span> <span class="keyword">database</span>()) <span class="keyword">and</span> table_name = ?</span><br></pre></td></tr></table></figure></p>
+<p>获取列信息<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> information_schema.columns </span><br><span class="line"><span class="keyword">where</span> table_name = ?</span><br><span class="line"><span class="keyword">and</span> table_schema = (<span class="keyword">select</span> <span class="keyword">database</span>()) <span class="keyword">order</span> <span class="keyword">by</span> ordinal_position</span><br></pre></td></tr></table></figure></p>
+<p>动态获取表信息注入模版, 自动生成<code>DO</code>, <code>VO</code></p>
+<h2 id="Dao-java-vm"><a href="#Dao-java-vm" class="headerlink" title="Dao.java.vm"></a>Dao.java.vm</h2><p>例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package $&#123;package&#125;.database.dao;</span><br><span class="line"></span><br><span class="line">import $&#123;package&#125;.database.model.$&#123;className&#125;$&#123;suffix&#125;;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.annotations.Mapper;</span><br><span class="line">import org.laziji.commons.mybatis.dao.$&#123;suffix&#125;Dao;</span><br><span class="line"></span><br><span class="line">@Mapper</span><br><span class="line">public interface $&#123;className&#125;Dao extends $&#123;suffix&#125;Dao&lt;$&#123;className&#125;$&#123;suffix&#125;&gt; &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
@@ -423,7 +428,7 @@
           
             <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           
-            <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+            <a href="/tags/Mybatis/" rel="tag"><i class="fa fa-tag"></i> Mybatis</a>
           
         </div>
       
@@ -436,8 +441,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/12/java-db/" rel="next" title="Springboot Mybatis 实现通用Dao、Service、Controller">
-                <i class="fa fa-chevron-left"></i> Springboot Mybatis 实现通用Dao、Service、Controller
+              <a href="/2018/10/16/java-class/" rel="next" title="Java中静态成员变量的内部调用">
+                <i class="fa fa-chevron-left"></i> Java中静态成员变量的内部调用
               </a>
             
           </div>
@@ -445,10 +450,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/13/javascript-db/" rel="prev" title="JavaScript实现类似Java的泛型">
-                JavaScript实现类似Java的泛型 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -622,7 +623,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Query-查询类"><span class="nav-number">1.</span> <span class="nav-text">Query 查询类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AppQuery-java"><span class="nav-number">1.1.</span> <span class="nav-text">AppQuery.java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BaseQuery-java"><span class="nav-number">1.2.</span> <span class="nav-text">BaseQuery.java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Query-java"><span class="nav-number">1.3.</span> <span class="nav-text">Query.java</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Page-分页查询结果类"><span class="nav-number">2.</span> <span class="nav-text">Page 分页查询结果类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Page-java"><span class="nav-number">2.1.</span> <span class="nav-text">Page.java</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#源码"><span class="nav-number">1.</span> <span class="nav-text">源码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Model"><span class="nav-number">1.1.</span> <span class="nav-text">Model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DO-java"><span class="nav-number">1.1.1.</span> <span class="nav-text">DO.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VO-java"><span class="nav-number">1.1.2.</span> <span class="nav-text">VO.java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dao"><span class="nav-number">1.2.</span> <span class="nav-text">Dao</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DODao-java"><span class="nav-number">1.2.1.</span> <span class="nav-text">DODao.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VODao-java"><span class="nav-number">1.2.2.</span> <span class="nav-text">VODao.java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-以及-Controller-见源码"><span class="nav-number">1.3.</span> <span class="nav-text">Service 以及 Controller 见源码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis-Generator"><span class="nav-number">2.</span> <span class="nav-text">Mybatis Generator</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dao-java-vm"><span class="nav-number">2.1.</span> <span class="nav-text">Dao.java.vm</span></a></li></ol></li></ol></div>
             
 
           </div>
