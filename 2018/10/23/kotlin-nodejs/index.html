@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaScript,Kotlin,Node.js," />
 
 
 
@@ -81,17 +81,18 @@
 
 
 
-<meta name="description" content="自由博客">
-<meta name="keywords" content="编程,计算机,java,python,go,c++">
-<meta property="og:type" content="website">
-<meta property="og:title" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:url" content="https://laboo.top/tags/hexo/index.html">
+<meta name="description" content="Kotlin是JetBrains推出的一款语言, 相比Java有更简洁的语法, 能编译为Java Class, 也能编译为JavaScriptNode.js则是可以运行在服务端的JavaScript, 这里把二者结合, 搭建一个用Kotlin编写的服务端应用 创建打开Idea 创建一个Kotlin(JavaScript)项目编写一个测试文件, 检查是否可以正常编译 Test.kt123fun ma">
+<meta name="keywords" content="JavaScript,Kotlin,Node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin + Node.js 搭建教程">
+<meta property="og:url" content="https://laboo.top/2018/10/23/kotlin-nodejs/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:description" content="自由博客">
+<meta property="og:description" content="Kotlin是JetBrains推出的一款语言, 相比Java有更简洁的语法, 能编译为Java Class, 也能编译为JavaScriptNode.js则是可以运行在服务端的JavaScript, 这里把二者结合, 搭建一个用Kotlin编写的服务端应用 创建打开Idea 创建一个Kotlin(JavaScript)项目编写一个测试文件, 检查是否可以正常编译 Test.kt123fun ma">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-23T07:57:04.289Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="☻Blog(&quot;Laziji&quot;)">
-<meta name="twitter:description" content="自由博客">
+<meta name="twitter:title" content="Kotlin + Node.js 搭建教程">
+<meta name="twitter:description" content="Kotlin是JetBrains推出的一款语言, 相比Java有更简洁的语法, 能编译为Java Class, 也能编译为JavaScriptNode.js则是可以运行在服务端的JavaScript, 这里把二者结合, 搭建一个用Kotlin编写的服务端应用 创建打开Idea 创建一个Kotlin(JavaScript)项目编写一个测试文件, 检查是否可以正常编译 Test.kt123fun ma">
 
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://laboo.top/tags/hexo/"/>
+  <link rel="canonical" href="https://laboo.top/2018/10/23/kotlin-nodejs/"/>
 
 
 
 
 
-  <title>标签: hexo | ☻Blog("Laziji")</title>
+  <title>Kotlin + Node.js 搭建教程 | ☻Blog("Laziji")</title>
   
 
 
@@ -146,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/GitHub-Laziji" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
@@ -241,54 +242,234 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>hexo<small>标签</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://laboo.top/2018/10/23/kotlin-nodejs/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Laziji">
+      <meta itemprop="description" content="自由博客">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/30425217?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="☻Blog("Laziji")">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/10/11/hexo/" itemprop="url">
-              
-                <span itemprop="name">使用Hexo 在github pages 搭建博客</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">Kotlin + Node.js 搭建教程</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-11T00:28:39+08:00"
-              content="2018-10-11" >
-          10-11
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-23T15:04:21+08:00">
+                2018-10-23
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术分享/" itemprop="url" rel="index">
+                    <span itemprop="name">技术分享</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/23/kotlin-nodejs/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/23/kotlin-nodejs/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/10/23/kotlin-nodejs/" class="leancloud_visitors" data-flag-title="Kotlin + Node.js 搭建教程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  331
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>Kotlin</code>是<code>JetBrains</code>推出的一款语言, 相比<code>Java</code>有更简洁的语法, 能编译为<code>Java Class</code>, 也能编译为<code>JavaScript</code><br><code>Node.js</code>则是可以运行在服务端的<code>JavaScript</code>, 这里把二者结合, 搭建一个用<code>Kotlin</code>编写的服务端应用</p>
+<h1 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h1><p>打开Idea 创建一个<code>Kotlin(JavaScript)</code>项目<br>编写一个测试文件, 检查是否可以正常编译</p>
+<h2 id="Test-kt"><a href="#Test-kt" class="headerlink" title="Test.kt"></a>Test.kt</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;</span><br><span class="line">    println(<span class="string">"hello kt"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>按<code>Ctrl+F9</code>编译, 如果看到生成了编译文件, 就可以了, 其中<code>{projectName}.js</code>的文件就是编译后的文件<br>如果没问题的话就可以开始了创建App.kt</p>
+<h2 id="App-kt"><a href="#App-kt" class="headerlink" title="App.kt"></a>App.kt</h2><p>监听<code>8888</code>端口 对任何请求都返回<code>hello world</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlin.js.json</span><br><span class="line"></span><br><span class="line"><span class="function">external fun <span class="title">require</span><span class="params">(<span class="keyword">module</span>: String)</span>: dynamic</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;</span><br><span class="line">    println(<span class="string">"hello kt"</span>)</span><br><span class="line">    val http = require(<span class="string">"http"</span>)</span><br><span class="line"></span><br><span class="line">    http.createServer &#123; _, response -&gt;</span><br><span class="line">        response.writeHead(<span class="number">200</span>, json(<span class="string">"Content-Type"</span> to <span class="string">"text/plain"</span>))</span><br><span class="line">        response.end(<span class="string">"Hello World"</span>)</span><br><span class="line">    &#125;.listen(<span class="number">8888</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h1><p>打开终端运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm init</span><br></pre></td></tr></table></figure></p>
+<h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"kt-node"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">"kt-node"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"start"</span>: <span class="string">"node ./out/production/kt-node/kt-node.js"</span>   //这里改成你编译后文件的位置</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"author"</span>: <span class="string">"laziji"</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"express"</span>: <span class="string">"^4.15.4"</span>,</span><br><span class="line">    <span class="attr">"kotlin"</span>: <span class="string">"^1.1.4"</span>,</span><br><span class="line">    <span class="attr">"mongoose"</span>: <span class="string">"^4.11.7"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br><span class="line">$ npm start</span><br></pre></td></tr></table></figure>
+<p>打开<code>localhost:8888</code> 查看效果</p>
+<h1 id="若有报错"><a href="#若有报错" class="headerlink" title="若有报错"></a>若有报错</h1><p>如果运行的时候报错<br>打开<code>project setting -&gt; Kotlin Complier</code><br>将 <code>Module kind</code> 改为 <code>UMD</code> 再尝试编译 运行</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/Kotlin/" rel="tag"><i class="fa fa-tag"></i> Kotlin</a>
+          
+            <a href="/tags/Node-js/" rel="tag"><i class="fa fa-tag"></i> Node.js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/22/java-form/" rel="next" title="Java注解表单验证">
+                <i class="fa fa-chevron-left"></i> Java注解表单验证
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -296,6 +477,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -316,8 +504,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -416,6 +613,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建"><span class="nav-number">1.</span> <span class="nav-text">创建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-kt"><span class="nav-number">1.1.</span> <span class="nav-text">Test.kt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App-kt"><span class="nav-number">1.2.</span> <span class="nav-text">App.kt</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NPM"><span class="nav-number">2.</span> <span class="nav-text">NPM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#package-json"><span class="nav-number">2.1.</span> <span class="nav-text">package.json</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#若有报错"><span class="nav-number">3.</span> <span class="nav-text">若有报错</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -575,6 +788,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
