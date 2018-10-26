@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript,Java," />
+  <meta name="keywords" content="Java,JavaScript," />
 
 
 
@@ -82,14 +82,14 @@
 
 
 <meta name="description" content="当Web项目前后端分离开发的时候, 由于域名不一致, 会出现无法请求和无法维持会话的情况 OPTIONS在前端Ajax请求后台的时候, 打开控制台可以看到, 每一次请求之前都会有一次OPTIONS类型的请求OPTIONS称为预检请求, 通过这个请求, 浏览器会告知服务器,接下来的请求的情况12Access-Control-Request-Method: POST Access-Control-Re">
-<meta name="keywords" content="JavaScript,Java">
+<meta name="keywords" content="Java,JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前后端分离项目的跨域及保持Session会话">
 <meta property="og:url" content="https://laboo.top/2018/10/15/http/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
 <meta property="og:description" content="当Web项目前后端分离开发的时候, 由于域名不一致, 会出现无法请求和无法维持会话的情况 OPTIONS在前端Ajax请求后台的时候, 打开控制台可以看到, 每一次请求之前都会有一次OPTIONS类型的请求OPTIONS称为预检请求, 通过这个请求, 浏览器会告知服务器,接下来的请求的情况12Access-Control-Request-Method: POST Access-Control-Re">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-26T02:49:59.182Z">
+<meta property="og:updated_time" content="2018-10-26T02:59:38.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前后端分离项目的跨域及保持Session会话">
 <meta name="twitter:description" content="当Web项目前后端分离开发的时候, 由于域名不一致, 会出现无法请求和无法维持会话的情况 OPTIONS在前端Ajax请求后台的时候, 打开控制台可以看到, 每一次请求之前都会有一次OPTIONS类型的请求OPTIONS称为预检请求, 通过这个请求, 浏览器会告知服务器,接下来的请求的情况12Access-Control-Request-Method: POST Access-Control-Re">
@@ -408,7 +408,7 @@
 <p>接上一段代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object o)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    HttpSession session = request.getSession();</span><br><span class="line">    response.setHeader(<span class="string">"TK"</span>,session.getId());</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>由于设置了<code>response.setHeader(&quot;Access-Control-Expose-Headers&quot;, &quot;TK&quot;);</code><br>表示客户端可以读取header中的<code>TK</code>字段, 客户端就可以读取放在<code>TK</code>中的<code>SessionId</code>保存到本地, 存储方式可以是<code>Cookie</code>或者是<code>LocalStorage</code>都可以<br>当需要请求时用<code>http://service;jsessionid=${token}</code>的形式传给服务器, 这个与传统Web中<code>Cookie:JSESSIONID=sessionid</code>的形式效果是一致的<br>如此就达到了保持会话的目的了</p>
 <h1 id="为什么能维持会话"><a href="#为什么能维持会话" class="headerlink" title="为什么能维持会话"></a>为什么能维持会话</h1><p>服务器根据<code>sessionid</code>保持会话这件事是容器完成的, 根据的就是请求中所传来的URL后的<code>;jsessionid=</code> 或者 cookie中的<code>JSESSIONID=</code>,<br>容器根据<code>sessionid</code>自动找到内存中的Session。<br>这也是选择<code>;jsessionid=</code>方式的原因。这会让你没有感觉像在做前后端分离的开发, 就像传统的JSP开发一样, 前后端融合在一起。</p>
-<p>当然你也可以用其他方式手动操作, 比如直接传参 <code>http://service?JID=${token}</code>, 在请求头中带过去之类的, 然后手动取得ID再去找对应的Session, 不过这就有的多此一举了</p>
+<p>当然你也可以用其他方式手动操作, 比如直接传参 <code>http://service?JID=${token}</code>, 在请求头中带过去之类的, 然后手动取得ID再去找对应的Session, 不过这就有点多此一举了</p>
 
       
     </div>
@@ -426,9 +426,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
-          
             <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
           
         </div>
       
