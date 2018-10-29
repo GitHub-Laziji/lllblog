@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,JavaScript," />
+  <meta name="keywords" content="JavaScript,Java," />
 
 
 
@@ -82,7 +82,7 @@
 
 
 <meta name="description" content="当Web项目前后端分离开发的时候, 由于域名不一致, 会出现无法请求和无法维持会话的情况 OPTIONS在前端Ajax请求后台的时候, 打开控制台可以看到, 每一次请求之前都会有一次OPTIONS类型的请求OPTIONS称为预检请求, 通过这个请求, 浏览器会告知服务器,接下来的请求的情况12Access-Control-Request-Method: POST Access-Control-Re">
-<meta name="keywords" content="Java,JavaScript">
+<meta name="keywords" content="JavaScript,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前后端分离项目的跨域及保持Session会话">
 <meta property="og:url" content="https://laboo.top/2018/10/15/http/index.html">
@@ -419,6 +419,35 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果觉得我的文章对你有用，请随意赞赏</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Laziji 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Laziji 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
 
@@ -426,9 +455,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
-          
             <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           
         </div>
       
