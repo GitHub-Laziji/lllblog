@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java," />
+  <meta name="keywords" content="ACM,Python,动态规划," />
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="前一个成员变量调用其后的成员变量例如:12public static final Object A = B;public static final Object B = &quot;String B&quot;; 这种显然是不行的, 编译都通不过, 而下面一种就有点不一样了 前成员变量在静态方法中调用其后的成员变量例如:123456789public class Test &amp;#123;    public stati">
-<meta name="keywords" content="Java">
+<meta name="description" content="题目地址https://leetcode-cn.com/problems/jump-game-ii/ 解题题目咋一看可以用动态规划来做, 第i个位置到终点的位置f(i) = min(f(i+1),f(i+2)...f(k)) + 1 其中f(n-1) = 0, i 从 n-2 -&amp;gt; 0。这样的时间复杂度O(N^2), 数据量一大就不行了, 例如: [1,1,1,1,....1]一万个1不过只">
+<meta name="keywords" content="ACM,Python,动态规划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java中静态成员变量的内部调用">
-<meta property="og:url" content="https://laboo.top/2018/10/16/java-class/index.html">
+<meta property="og:title" content="LeetCode 45.跳跃游戏 II (DP+线段树)">
+<meta property="og:url" content="https://laboo.top/2018/11/02/acm-lc-45/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:description" content="前一个成员变量调用其后的成员变量例如:12public static final Object A = B;public static final Object B = &quot;String B&quot;; 这种显然是不行的, 编译都通不过, 而下面一种就有点不一样了 前成员变量在静态方法中调用其后的成员变量例如:123456789public class Test &amp;#123;    public stati">
+<meta property="og:description" content="题目地址https://leetcode-cn.com/problems/jump-game-ii/ 解题题目咋一看可以用动态规划来做, 第i个位置到终点的位置f(i) = min(f(i+1),f(i+2)...f(k)) + 1 其中f(n-1) = 0, i 从 n-2 -&amp;gt; 0。这样的时间复杂度O(N^2), 数据量一大就不行了, 例如: [1,1,1,1,....1]一万个1不过只">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-16T06:43:34.635Z">
+<meta property="og:updated_time" content="2018-11-01T17:34:17.239Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java中静态成员变量的内部调用">
-<meta name="twitter:description" content="前一个成员变量调用其后的成员变量例如:12public static final Object A = B;public static final Object B = &quot;String B&quot;; 这种显然是不行的, 编译都通不过, 而下面一种就有点不一样了 前成员变量在静态方法中调用其后的成员变量例如:123456789public class Test &amp;#123;    public stati">
+<meta name="twitter:title" content="LeetCode 45.跳跃游戏 II (DP+线段树)">
+<meta name="twitter:description" content="题目地址https://leetcode-cn.com/problems/jump-game-ii/ 解题题目咋一看可以用动态规划来做, 第i个位置到终点的位置f(i) = min(f(i+1),f(i+2)...f(k)) + 1 其中f(n-1) = 0, i 从 n-2 -&amp;gt; 0。这样的时间复杂度O(N^2), 数据量一大就不行了, 例如: [1,1,1,1,....1]一万个1不过只">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://laboo.top/2018/10/16/java-class/"/>
+  <link rel="canonical" href="https://laboo.top/2018/11/02/acm-lc-45/"/>
 
 
 
 
 
-  <title>Java中静态成员变量的内部调用 | ☻Blog("Laziji")</title>
+  <title>LeetCode 45.跳跃游戏 II (DP+线段树) | ☻Blog("Laziji")</title>
   
 
 
@@ -256,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laboo.top/2018/10/16/java-class/">
+    <link itemprop="mainEntityOfPage" href="https://laboo.top/2018/11/02/acm-lc-45/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Laziji">
@@ -273,7 +273,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Java中静态成员变量的内部调用</h2>
+          <h2 class="post-title" itemprop="name headline">LeetCode 45.跳跃游戏 II (DP+线段树)</h2>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-16T13:43:15+08:00">
-                2018-10-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-02T01:12:11+08:00">
+                2018-11-02
               </time>
             
 
@@ -308,8 +308,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术分享/" itemprop="url" rel="index">
-                    <span itemprop="name">技术分享</span>
+                  <a href="/categories/ACM/" itemprop="url" rel="index">
+                    <span itemprop="name">ACM</span>
                   </a>
                 </span>
 
@@ -326,8 +326,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/16/java-class/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/16/java-class/" itemprop="commentCount"></span>
+                <a href="/2018/11/02/acm-lc-45/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/02/acm-lc-45/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -335,7 +335,7 @@
 
           
           
-             <span id="/2018/10/16/java-class/" class="leancloud_visitors" data-flag-title="Java中静态成员变量的内部调用">
+             <span id="/2018/11/02/acm-lc-45/" class="leancloud_visitors" data-flag-title="LeetCode 45.跳跃游戏 II (DP+线段树)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -360,7 +360,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  314
+                  387
                 </span>
               
 
@@ -376,7 +376,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -397,14 +397,8 @@
       
 
       
-        <h1 id="前一个成员变量调用其后的成员变量"><a href="#前一个成员变量调用其后的成员变量" class="headerlink" title="前一个成员变量调用其后的成员变量"></a>前一个成员变量调用其后的成员变量</h1><p>例如:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Object A = B;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Object B = <span class="string">"String B"</span>;</span><br></pre></td></tr></table></figure></p>
-<p>这种显然是不行的, 编译都通不过, 而下面一种就有点不一样了</p>
-<h1 id="前成员变量在静态方法中调用其后的成员变量"><a href="#前成员变量在静态方法中调用其后的成员变量" class="headerlink" title="前成员变量在静态方法中调用其后的成员变量"></a>前成员变量在静态方法中调用其后的成员变量</h1><p>例如:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Object A = getB();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Object B = <span class="string">"String B"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> B;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>此时编译正常但是, 打印一下A看看:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Test.A); <span class="comment">// null</span></span><br><span class="line">System.out.println(Test.B); <span class="comment">// "String B"</span></span><br><span class="line">System.out.println(Test.getB()); <span class="comment">// "String B"</span></span><br></pre></td></tr></table></figure></p>
-<p>发现A是<code>null</code>, 因为此时B还未初始化, 但是当把B的类型改为<code>String</code>时<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Object A = getB();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String B = <span class="string">"String B"</span>; <span class="comment">// B 的类型改为 String</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> B;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>此时A的值就不是<code>null</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Test.A); <span class="comment">// "String B"</span></span><br></pre></td></tr></table></figure></p>
-<p>这是因为Java的静态成员变量加载时<code>类型为基本类型和String, 并且赋值为常量表达式的成员变量</code>的加载顺序优与其他<br>常量表达式指能立即得出的运算 包括<code>普通运算以及字符串运算</code></p>
-<p>当静态方法太复杂的时候就可能会碰到这种问题, 而且难找到原因所在</p>
+        <h1 id="题目地址"><a href="#题目地址" class="headerlink" title="题目地址"></a>题目地址</h1><p><a href="https://leetcode-cn.com/problems/jump-game-ii/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/jump-game-ii/</a></p>
+<h1 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h1><p>题目咋一看可以用动态规划来做, 第<code>i</code>个位置到终点的位置<code>f(i) = min(f(i+1),f(i+2)...f(k)) + 1</code> 其中<code>f(n-1) = 0</code>, <code>i 从 n-2 -&gt; 0</code>。这样的时间复杂度<code>O(N^2)</code>, 数据量一大就不行了, 例如: <code>[1,1,1,1,....1]</code>一万个<code>1</code><br>不过只要稍微优化一下就能达到很好的效果, 上面的解法很多时间是花在求<code>[i,k]</code>区间内的最小值, 这里我们可以利用线段树高效求解, 线段树每次插入, 查询花费<code>O(logN)</code>, 优化后时间复杂度为<code>O(NlogN)</code> 可以轻松应对大型测试用例了<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">jump</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line"></span><br><span class="line">        n = len(nums)</span><br><span class="line">        self.init(n)</span><br><span class="line">        self.update(n<span class="number">-1</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n<span class="number">-2</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">            a = i + <span class="number">1</span></span><br><span class="line">            b = i + nums[i] + <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> b &gt; n:</span><br><span class="line">                b = n</span><br><span class="line">            p = self.query(a, b, <span class="number">0</span>, <span class="number">0</span>, self.n) + <span class="number">1</span></span><br><span class="line">            self.update(i, p)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self.query(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, self.n)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">init</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        self.INT_MAX = n</span><br><span class="line">        self.n = <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> self.n &lt; n:</span><br><span class="line">            self.n *= <span class="number">2</span></span><br><span class="line"></span><br><span class="line">        self.dat = [self.INT_MAX <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span> * self.n - <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self, k, a)</span>:</span></span><br><span class="line">        k += self.n - <span class="number">1</span></span><br><span class="line">        self.dat[k] = a</span><br><span class="line">        <span class="keyword">while</span> k &gt; <span class="number">0</span>:</span><br><span class="line">            k = (k - <span class="number">1</span>) // <span class="number">2</span></span><br><span class="line">            self.dat[k] = min(self.dat[k * <span class="number">2</span> + <span class="number">1</span>],self.dat[k * <span class="number">2</span> + <span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">query</span><span class="params">(self, a, b, k, l, r)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> r &lt;= a <span class="keyword">or</span> b &lt;= l:</span><br><span class="line">            <span class="keyword">return</span> self.INT_MAX</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> a &lt;= l <span class="keyword">and</span> r &lt;= b:</span><br><span class="line">            <span class="keyword">return</span> self.dat[k]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            vl = self.query(a, b, k * <span class="number">2</span> + <span class="number">1</span>, l, (l + r) // <span class="number">2</span>)</span><br><span class="line">            vr = self.query(a, b, k * <span class="number">2</span> + <span class="number">2</span>, (l + r) // <span class="number">2</span>, r)</span><br><span class="line">            <span class="keyword">return</span> min(vl, vr)</span><br><span class="line"></span><br><span class="line">print(Solution().jump([<span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">4</span>]))</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -451,7 +445,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            <a href="/tags/ACM/" rel="tag"><i class="fa fa-tag"></i> ACM</a>
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/动态规划/" rel="tag"><i class="fa fa-tag"></i> 动态规划</a>
           
         </div>
       
@@ -464,8 +462,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/15/http/" rel="next" title="前后端分离项目的跨域及保持Session会话">
-                <i class="fa fa-chevron-left"></i> 前后端分离项目的跨域及保持Session会话
+              <a href="/2018/10/30/acm-lc-42/" rel="next" title="LeetCode 42.接雨水">
+                <i class="fa fa-chevron-left"></i> LeetCode 42.接雨水
               </a>
             
           </div>
@@ -473,10 +471,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/17/java-db/" rel="prev" title="使用视图代替Mybatis中的多表查询的设计">
-                使用视图代替Mybatis中的多表查询的设计 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -664,7 +658,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前一个成员变量调用其后的成员变量"><span class="nav-number">1.</span> <span class="nav-text">前一个成员变量调用其后的成员变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前成员变量在静态方法中调用其后的成员变量"><span class="nav-number">2.</span> <span class="nav-text">前成员变量在静态方法中调用其后的成员变量</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目地址"><span class="nav-number">1.</span> <span class="nav-text">题目地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解题"><span class="nav-number">2.</span> <span class="nav-text">解题</span></a></li></ol></div>
             
 
           </div>
