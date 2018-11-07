@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laboo.top/"/>
-  <updated>2018-11-04T14:00:57.210Z</updated>
+  <updated>2018-11-07T03:13:14.178Z</updated>
   <id>https://laboo.top/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vue组件插槽的使用以及调用组件内的方法</title>
+    <link href="https://laboo.top/2018/11/07/vue/"/>
+    <id>https://laboo.top/2018/11/07/vue/</id>
+    <published>2018-11-07T02:01:21.000Z</published>
+    <updated>2018-11-07T03:13:14.178Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="组件传参"><a href="#组件传参" class="headerlink" title="组件传参"></a>组件传参</h1><p>通过给组件传递参数, 可以让组件变得更加可扩展, 组件内使用<code>props</code>接收参数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  props: [<span class="string">'options'</span>],</span><br><span class="line">  data()&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>但是这个方法有局限性, 例如我写了一个对话框组件, 对话框的内容是自定义的<br>如果我只是显示文字的话, 我可以简单的将字符串传进去<code>props: [&#39;message&#39;]</code><br>但是如果需要在其中添加一个按钮的话, 这种方法就显得很笨重了, 所以我们用另一种办法  <code>插槽</code></p><h1 id="slot-插槽"><a href="#slot-插槽" class="headerlink" title="slot 插槽"></a>slot 插槽</h1><p><code>slot</code>的使用就像它的名字一样, 在组件内定义一块空间, 取名为<code>slotA</code><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dialog"</span>&gt;</span></span><br><span class="line">  我是对话框</span><br><span class="line">  <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">"slotA"</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p><p>在组件外, 我们可以往插槽里填入任何元素, <code>dialog-a</code>为组件的名称<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dialog-a</span> <span class="attr">:options</span>=<span class="string">"hello"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">"slotA"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    // ... 可以是任何元素</span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dialog-a</span>&gt;</span></span><br></pre></td></tr></table></figure></p><h1 id="slot-scope-获取插槽作用域"><a href="#slot-scope-获取插槽作用域" class="headerlink" title="slot-scope 获取插槽作用域"></a>slot-scope 获取插槽作用域</h1><p>前面讲的只是实现往组件内加入元素, 但是并没有和组件的数据有任何的交互<br><code>slot-scope</code>的作用就是把组件内的数据带出来<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dialog"</span>&gt;</span></span><br><span class="line">  我是对话框<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  &#123;&#123;message&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">"slotA"</span> <span class="attr">:message</span>=<span class="string">"message"</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p><p>在组件外就可以得到其中的<code>message</code><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dialog-a</span> <span class="attr">:options</span>=<span class="string">"hello"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">"slotA"</span> <span class="attr">slot-scope</span>=<span class="string">"scope"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>&#123;&#123;scope.message&#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dialog-a</span>&gt;</span></span><br></pre></td></tr></table></figure></p><h1 id="ref-调用组件内的方法"><a href="#ref-调用组件内的方法" class="headerlink" title="ref 调用组件内的方法"></a>ref 调用组件内的方法</h1><p>使用<code>this.$refs</code>找到组件后, 就可以调用其中<code>methods</code>中的方法</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dialog-a</span> <span class="attr">ref</span>=<span class="string">"dialogA"</span>&gt;</span><span class="tag">&lt;/<span class="name">dialog-a</span>&gt;</span></span><br></pre></td></tr></table></figure><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test()&#123;</span><br><span class="line">  <span class="keyword">this</span>.$refs.dialogA.func()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;组件传参&quot;&gt;&lt;a href=&quot;#组件传参&quot; class=&quot;headerlink&quot; title=&quot;组件传参&quot;&gt;&lt;/a&gt;组件传参&lt;/h1&gt;&lt;p&gt;通过给组件传递参数, 可以让组件变得更加可扩展, 组件内使用&lt;code&gt;props&lt;/code&gt;接收参数&lt;br&gt;&lt;figur
+      
+    
+    </summary>
+    
+      <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
+    
+      <category term="Vue" scheme="https://laboo.top/tags/Vue/"/>
+    
+  </entry>
   
   <entry>
     <title>TensorFlow.js (一)</title>
@@ -281,9 +308,9 @@
       <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
-      <category term="Java" scheme="https://laboo.top/tags/Java/"/>
-    
       <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
+    
+      <category term="Java" scheme="https://laboo.top/tags/Java/"/>
     
   </entry>
   
