@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laboo.top/"/>
-  <updated>2018-11-07T13:06:38.613Z</updated>
+  <updated>2018-11-10T19:38:57.098Z</updated>
   <id>https://laboo.top/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>谈 target=&quot;_blank&quot; 的安全问题</title>
+    <link href="https://laboo.top/2018/11/11/html/"/>
+    <id>https://laboo.top/2018/11/11/html/</id>
+    <published>2018-11-10T18:59:44.000Z</published>
+    <updated>2018-11-10T19:38:57.098Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="target-”-blank”-的安全问题"><a href="#target-”-blank”-的安全问题" class="headerlink" title="target=”_blank” 的安全问题"></a>target=”_blank” 的安全问题</h1><p>当我们在网站中引入外部链接的时候往往使用的是<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></p><p>大家都喜欢<code>target=&quot;_blank&quot;</code>, 因为新页面打开不影响原来的页面<br>但是这个存在安全问题, 由<code>target=&quot;_blank&quot;</code>打开的页面, 可以通过<code>window.opener</code>访问原来的窗口<br>例如:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.opener.location = <span class="string">"http://..."</span></span><br></pre></td></tr></table></figure></p><p>遍可以简单的将网页导航到其他网站, 这就存在很多的安全隐患了, 比如钓鱼<br>这种问题解决起来也很简单, 在链接中加入<code>rel=&quot;noreferrer noopener&quot;</code>属性就可以了<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">rel</span>=<span class="string">"noreferrer noopener"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></p><h1 id="CSDN-中的-target-”-blank”"><a href="#CSDN-中的-target-”-blank”" class="headerlink" title="CSDN 中的 target=”_blank”"></a>CSDN 中的 target=”_blank”</h1><p>我查看了几个可以发布文章的平台, 例如掘金、思否、知乎 还有CSDN, 果不其然CSDN是唯一有这个问题的<br>CSDN总是慢一拍, 一个技术网站却总是显得那么不专业, 就像当初的数据库明文存储密码</p><h1 id="CSDN-漏洞的利用"><a href="#CSDN-漏洞的利用" class="headerlink" title="CSDN 漏洞的利用"></a>CSDN 漏洞的利用</h1><h2 id="钓鱼"><a href="#钓鱼" class="headerlink" title="钓鱼"></a>钓鱼</h2><p>这是最先想到的, 如果有人仿做一个登录页面, 然后发布一片文章, 插入一条带有漏洞的链接, 当读者查看完, 返回时, 看到一个登录页面<br>读者可能会奇怪, 但是我相信还是会有很多人会中这个陷阱<br>输入密码后, 登录的钓鱼网站只需返回原来的页面即可, 因为<code>Cookie</code>的存在就好像真的登录了一样, 此时密码已经不知不觉泄露了</p><h2 id="骚操作-自动关注"><a href="#骚操作-自动关注" class="headerlink" title="骚操作 自动关注"></a>骚操作 自动关注</h2><p>这里不得不再吐槽一下CSDN, 关注用户的<code>api</code>不仅简单, 而且是<code>get post</code>请求均可的, 这就给了我们很大的操作空间了<br>我们只需利用<code>window.opener.location</code>导航到<code>关注api</code>, 再返回回去即可, 读者在不知不觉中就进行了关注<br>一小段代码的例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.opener.location = <span class="string">"https://my.csdn.net/index.php/follow/do_follow?..."</span></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.opener.location = <span class="string">"https://blog.csdn.net/Dogfights/article/details/..."</span></span><br><span class="line">&#125;,<span class="number">1000</span>)</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;target-”-blank”-的安全问题&quot;&gt;&lt;a href=&quot;#target-”-blank”-的安全问题&quot; class=&quot;headerlink&quot; title=&quot;target=”_blank” 的安全问题&quot;&gt;&lt;/a&gt;target=”_blank” 的安全问题&lt;/
+      
+    
+    </summary>
+    
+      <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
+    
+      <category term="Html" scheme="https://laboo.top/tags/Html/"/>
+    
+      <category term="安全" scheme="https://laboo.top/tags/%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>连连看~辅助程序</title>
@@ -116,9 +145,9 @@
       <category term="ACM" scheme="https://laboo.top/categories/ACM/"/>
     
     
-      <category term="Python" scheme="https://laboo.top/tags/Python/"/>
-    
       <category term="ACM" scheme="https://laboo.top/tags/ACM/"/>
+    
+      <category term="Python" scheme="https://laboo.top/tags/Python/"/>
     
       <category term="动态规划" scheme="https://laboo.top/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
@@ -147,9 +176,9 @@
       <category term="ACM" scheme="https://laboo.top/categories/ACM/"/>
     
     
-      <category term="Python" scheme="https://laboo.top/tags/Python/"/>
-    
       <category term="ACM" scheme="https://laboo.top/tags/ACM/"/>
+    
+      <category term="Python" scheme="https://laboo.top/tags/Python/"/>
     
   </entry>
   
@@ -333,9 +362,9 @@
       <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
-      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
-    
       <category term="Java" scheme="https://laboo.top/tags/Java/"/>
+    
+      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
     
   </entry>
   
