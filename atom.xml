@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laboo.top/"/>
-  <updated>2018-11-12T14:31:46.357Z</updated>
+  <updated>2018-11-15T07:35:30.589Z</updated>
   <id>https://laboo.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Google AdSense的使用</title>
+    <link href="https://laboo.top/2018/11/15/ggad/"/>
+    <id>https://laboo.top/2018/11/15/ggad/</id>
+    <published>2018-11-15T06:39:52.000Z</published>
+    <updated>2018-11-15T07:35:30.589Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>谷歌的广告插入方式分为传统的<code>广告单元</code>和新出的<code>自动广告</code>, 相比于百度联盟, 谷歌广告的使用说甩前者几条街也不过分, 下面介绍这两种插入方式的使用</p><h1 id="自动广告"><a href="#自动广告" class="headerlink" title="自动广告"></a>自动广告</h1><p>顾名思义就是全权交给谷歌, 所有的事情都帮你处理好。<br>点击Google AdSense控制台的<code>自动广告</code>, 它会让你把一段代码插入网页。<br>这段代码最好插入所有网页的公共部分, 比如公共<code>&lt;head&gt;</code>中, 后面需在哪些网页中显示广告都可以在控制台在进行控制。<br>插入完成后, 等待几十分钟, 就可以在网站上看到广告了, 广告的位置是通过算法智能判断自动插入的, 所以称之为<code>自动广告</code>,</p><p>之后就可以点击<code>新的网址群组</code>按钮进行详细设置, 群组种类可以如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">网域，例如 example.com</span><br><span class="line">子网域，例如 forums.example.com</span><br><span class="line">版块，例如 example.com/directory/</span><br><span class="line">网页，例如 example.com/directory/page.html</span><br></pre></td></tr></table></figure></p><p>如果设置了<code>example.com/directory/</code>, 前缀是该url的所有网站都会应用这个群组的设置, 除非匹配到更详细的群组。</p><p><code>自动广告</code>虽然很省心, 但是太不可控了, 有写页面并不能很好的判断插入位置, 并且使用过后发现在移动端显示广告后出现了按钮无法点击的问题, 暂未解决。</p><h1 id="广告单元"><a href="#广告单元" class="headerlink" title="广告单元"></a>广告单元</h1><p>广告单元就是传统的创建一块广告, 把代码粘进需要显示的地方<br>广告单元分为<code>文字广告</code>, <code>信息流广告</code>和<code>文章内嵌广告</code>,<br>这几种感觉比较好的就是<code>信息流广告</code>, 比较美观, 也比较通用, 不管是文章, 还是主页, 在尾部插入一条, 都不会显得违和。<br>这种类型的广告的大部分样式参数都可以自行选择, 并且宽度是自适应的, 只需创建后把代码插入网页, 之后需要修改只需修改控制台中的样式即可, 修改后会有半小时左右的延迟才会生效。</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总的来说<code>自动广告</code>不适合太复杂的页面, 可以在一些博客文章之类的简单页面尝试一下, 主要方式还是使用<code>广告单元</code>进行显示。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;谷歌的广告插入方式分为传统的&lt;code&gt;广告单元&lt;/code&gt;和新出的&lt;code&gt;自动广告&lt;/code&gt;, 相比于百度联盟, 谷歌广告的使用
+      
+    
+    </summary>
+    
+      <category term="工具使用" scheme="https://laboo.top/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="Google" scheme="https://laboo.top/tags/Google/"/>
+    
+  </entry>
   
   <entry>
     <title>新浪博客写文章可以手动输入Html??</title>
@@ -524,31 +549,6 @@
     
     
       <category term="git" scheme="https://laboo.top/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Hexo 在github pages 搭建博客</title>
-    <link href="https://laboo.top/2018/10/11/hexo/"/>
-    <id>https://laboo.top/2018/10/11/hexo/</id>
-    <published>2018-10-10T16:28:39.000Z</published>
-    <updated>2018-10-13T02:56:10.580Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="创建Github-Pages"><a href="#创建Github-Pages" class="headerlink" title="创建Github Pages"></a>创建Github Pages</h2><p>一个Github用户可以存在多个Github Pages每个项目都可以有自己的Github Pages, 在项目的 <code>setting &gt; github pages</code> 中进行设置 </p><p>Github Pages访问路径为 <code>https://username.github.io/project</code></p><p>若是项目名为 <code>username.github.io</code> 为主页项目, 则访问路径为 <code>https://username.github.io</code></p><p>创建好后无需在其中添加任何文件, 待之后 git push 即可</p><h2 id="安装Nodejs"><a href="#安装Nodejs" class="headerlink" title="安装Nodejs"></a>安装Nodejs</h2><p><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">下载</a></p><h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure><h2 id="创建Hexo文件"><a href="#创建Hexo文件" class="headerlink" title="创建Hexo文件"></a>创建Hexo文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ cd &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure><p>几个常见的Hexo命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//新建文章 生成的文章在source文件夹下</span><br><span class="line">$ hexo n &quot;hello&quot;</span><br><span class="line"></span><br><span class="line">//构建 生成html</span><br><span class="line">$ hexo g</span><br><span class="line"></span><br><span class="line">//清除已生成的文件</span><br><span class="line">$ hexo clean</span><br><span class="line"></span><br><span class="line">//本地预览</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure></p><h2 id="提交至Git"><a href="#提交至Git" class="headerlink" title="提交至Git"></a>提交至Git</h2><p>打开根目录下的<code>_config.yml</code>文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//github page的访问地址</span><br><span class="line"># url: https://github-laziji.github.io</span><br><span class="line">url: https://github-laziji.github.io/lllblog</span><br><span class="line"></span><br><span class="line"># root: /</span><br><span class="line">root: /lllblog/</span><br><span class="line"></span><br><span class="line">//repo 从你新建的项目中复制过来</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:GitHub-Laziji/lllblog.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p><p>最后提交至github<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p><p>可以看到项目已经提交了, 访问 <code>https://username.github.io/project</code> 即可看到你的博客了</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;创建Github-Pages&quot;&gt;&lt;a href=&quot;#创建Github-Pages&quot; class=&quot;headerlink&quot; title=&quot;创建Github Pages&quot;&gt;&lt;/a&gt;创建Github Pages&lt;/h2&gt;&lt;p&gt;一个Github用户可以存在多个Github
-      
-    
-    </summary>
-    
-      <category term="环境部署" scheme="https://laboo.top/categories/%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/"/>
-    
-    
-      <category term="hexo" scheme="https://laboo.top/tags/hexo/"/>
     
   </entry>
   
