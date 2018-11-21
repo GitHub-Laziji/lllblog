@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript,Vue," />
+  <meta name="keywords" content="JavaScript,Tensorflow," />
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="组件传参通过给组件传递参数, 可以让组件变得更加可扩展, 组件内使用props接收参数123456export default &amp;#123;  props: [&apos;options&apos;],  data()&amp;#123;    return &amp;#123;&amp;#125;  &amp;#125;&amp;#125; 但是这个方法有局限性, 例如我写了一个对话框组件, 对话框的内容是自定义的如果我只是显示文字的话, 我可以简单的将">
-<meta name="keywords" content="JavaScript,Vue">
+<meta name="description" content="源码digit-recognizer demohttps://github-laziji.github.io/digit-recognizer/演示开始时需要加载大概100M的训练数据, 稍等片刻 调整训练集的大小, 观察测试结果的准确性 数据来源数据来源与 https://www.kaggle.com 中的一道题目 digit-recognizer题目给出42000条训练数据(包含图片和标签)以">
+<meta name="keywords" content="JavaScript,Tensorflow">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue组件插槽的使用以及调用组件内的方法">
-<meta property="og:url" content="https://laboo.top/2018/11/07/vue/index.html">
+<meta property="og:title" content="Tensorflow.js 手写数字识别">
+<meta property="og:url" content="https://laboo.top/2018/11/21/tfjs-dr/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:description" content="组件传参通过给组件传递参数, 可以让组件变得更加可扩展, 组件内使用props接收参数123456export default &amp;#123;  props: [&apos;options&apos;],  data()&amp;#123;    return &amp;#123;&amp;#125;  &amp;#125;&amp;#125; 但是这个方法有局限性, 例如我写了一个对话框组件, 对话框的内容是自定义的如果我只是显示文字的话, 我可以简单的将">
+<meta property="og:description" content="源码digit-recognizer demohttps://github-laziji.github.io/digit-recognizer/演示开始时需要加载大概100M的训练数据, 稍等片刻 调整训练集的大小, 观察测试结果的准确性 数据来源数据来源与 https://www.kaggle.com 中的一道题目 digit-recognizer题目给出42000条训练数据(包含图片和标签)以">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-07T03:13:14.178Z">
+<meta property="og:updated_time" content="2018-11-21T09:44:54.618Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue组件插槽的使用以及调用组件内的方法">
-<meta name="twitter:description" content="组件传参通过给组件传递参数, 可以让组件变得更加可扩展, 组件内使用props接收参数123456export default &amp;#123;  props: [&apos;options&apos;],  data()&amp;#123;    return &amp;#123;&amp;#125;  &amp;#125;&amp;#125; 但是这个方法有局限性, 例如我写了一个对话框组件, 对话框的内容是自定义的如果我只是显示文字的话, 我可以简单的将">
+<meta name="twitter:title" content="Tensorflow.js 手写数字识别">
+<meta name="twitter:description" content="源码digit-recognizer demohttps://github-laziji.github.io/digit-recognizer/演示开始时需要加载大概100M的训练数据, 稍等片刻 调整训练集的大小, 观察测试结果的准确性 数据来源数据来源与 https://www.kaggle.com 中的一道题目 digit-recognizer题目给出42000条训练数据(包含图片和标签)以">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://laboo.top/2018/11/07/vue/"/>
+  <link rel="canonical" href="https://laboo.top/2018/11/21/tfjs-dr/"/>
 
 
 
 
 
-  <title>Vue组件插槽的使用以及调用组件内的方法 | ☻Blog("Laziji")</title>
+  <title>Tensorflow.js 手写数字识别 | ☻Blog("Laziji")</title>
   
 
 
@@ -256,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laboo.top/2018/11/07/vue/">
+    <link itemprop="mainEntityOfPage" href="https://laboo.top/2018/11/21/tfjs-dr/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Laziji">
@@ -273,7 +273,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Vue组件插槽的使用以及调用组件内的方法</h2>
+          <h2 class="post-title" itemprop="name headline">Tensorflow.js 手写数字识别</h2>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-07T10:01:21+08:00">
-                2018-11-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T16:51:21+08:00">
+                2018-11-21
               </time>
             
 
@@ -326,8 +326,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/11/07/vue/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/07/vue/" itemprop="commentCount"></span>
+                <a href="/2018/11/21/tfjs-dr/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/21/tfjs-dr/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -335,7 +335,7 @@
 
           
           
-             <span id="/2018/11/07/vue/" class="leancloud_visitors" data-flag-title="Vue组件插槽的使用以及调用组件内的方法">
+             <span id="/2018/11/21/tfjs-dr/" class="leancloud_visitors" data-flag-title="Tensorflow.js 手写数字识别">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -360,7 +360,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  440
+                  514
                 </span>
               
 
@@ -376,7 +376,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -397,15 +397,16 @@
       
 
       
-        <h1 id="组件传参"><a href="#组件传参" class="headerlink" title="组件传参"></a>组件传参</h1><p>通过给组件传递参数, 可以让组件变得更加可扩展, 组件内使用<code>props</code>接收参数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  props: [<span class="string">'options'</span>],</span><br><span class="line">  data()&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>但是这个方法有局限性, 例如我写了一个对话框组件, 对话框的内容是自定义的<br>如果我只是显示文字的话, 我可以简单的将字符串传进去<code>props: [&#39;message&#39;]</code><br>但是如果需要在其中添加一个按钮的话, 这种方法就显得很笨重了, 所以我们用另一种办法  <code>插槽</code></p>
-<h1 id="slot-插槽"><a href="#slot-插槽" class="headerlink" title="slot 插槽"></a>slot 插槽</h1><p><code>slot</code>的使用就像它的名字一样, 在组件内定义一块空间, 取名为<code>slotA</code><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dialog"</span>&gt;</span></span><br><span class="line">  我是对话框</span><br><span class="line">  <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">"slotA"</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>在组件外, 我们可以往插槽里填入任何元素, <code>dialog-a</code>为组件的名称<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dialog-a</span> <span class="attr">:options</span>=<span class="string">"hello"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">"slotA"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    // ... 可以是任何元素</span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dialog-a</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="slot-scope-获取插槽作用域"><a href="#slot-scope-获取插槽作用域" class="headerlink" title="slot-scope 获取插槽作用域"></a>slot-scope 获取插槽作用域</h1><p>前面讲的只是实现往组件内加入元素, 但是并没有和组件的数据有任何的交互<br><code>slot-scope</code>的作用就是把组件内的数据带出来<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dialog"</span>&gt;</span></span><br><span class="line">  我是对话框<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  &#123;&#123;message&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">"slotA"</span> <span class="attr">:message</span>=<span class="string">"message"</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>在组件外就可以得到其中的<code>message</code><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dialog-a</span> <span class="attr">:options</span>=<span class="string">"hello"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">"slotA"</span> <span class="attr">slot-scope</span>=<span class="string">"scope"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>&#123;&#123;scope.message&#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dialog-a</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="ref-调用组件内的方法"><a href="#ref-调用组件内的方法" class="headerlink" title="ref 调用组件内的方法"></a>ref 调用组件内的方法</h1><p>使用<code>this.$refs</code>找到组件后, 就可以调用其中<code>methods</code>中的方法</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dialog-a</span> <span class="attr">ref</span>=<span class="string">"dialogA"</span>&gt;</span><span class="tag">&lt;/<span class="name">dialog-a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test()&#123;</span><br><span class="line">  <span class="keyword">this</span>.$refs.dialogA.func()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><p><a href="https://github.com/GitHub-Laziji/digit-recognizer" target="_blank" rel="noopener">digit-recognizer</a></p>
+<h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><p><a href="https://github-laziji.github.io/digit-recognizer/" target="_blank" rel="noopener">https://github-laziji.github.io/digit-recognizer/</a><br>演示开始时需要加载大概<code>100M</code>的训练数据, 稍等片刻</p>
+<p>调整训练集的大小, 观察测试结果的准确性</p>
+<h1 id="数据来源"><a href="#数据来源" class="headerlink" title="数据来源"></a>数据来源</h1><p>数据来源与 <a href="https://www.kaggle.com" target="_blank" rel="noopener">https://www.kaggle.com</a> 中的一道题目 <code>digit-recognizer</code><br>题目给出<code>42000</code>条训练数据(包含图片和标签)以及<code>28000</code>条测试数据(只包含图片)<br>要求给这些测试数据打上标签[0,1,2,3….,9] 要尽可能的准确</p>
+<p>网站中还有许多其他的机器学习的题目以及数据, 是个很好的练手的地方</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>这里我们使用<code>Tensorflow.js</code>来实现这个项目</p>
+<h2 id="创建模型"><a href="#创建模型" class="headerlink" title="创建模型"></a>创建模型</h2><p>卷积神经网络的第一层有两种作用, 它既是输入层也是执行层, 接收<code>IMAGE_H * IMAGE_W</code>大小的黑白像素<br>最后一层是输出层, 有10个输出单元, 代表着<code>0-9</code>这十个值的概率分布, 例如 Label=2 , 输出为<code>[0.02,0.01,0.9,...,0.01]</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createConvModel</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> model = tf.sequential();</span><br><span class="line"></span><br><span class="line">  model.add(tf.layers.conv2d(&#123;</span><br><span class="line">    inputShape: [IMAGE_H, IMAGE_W, <span class="number">1</span>],</span><br><span class="line">    kernelSize: <span class="number">3</span>,</span><br><span class="line">    filters: <span class="number">16</span>,</span><br><span class="line">    activation: <span class="string">'relu'</span></span><br><span class="line">  &#125;));</span><br><span class="line"></span><br><span class="line">  model.add(tf.layers.maxPooling2d(&#123; <span class="attr">poolSize</span>: <span class="number">2</span>, <span class="attr">strides</span>: <span class="number">2</span> &#125;));</span><br><span class="line">  model.add(tf.layers.conv2d(&#123; <span class="attr">kernelSize</span>: <span class="number">3</span>, <span class="attr">filters</span>: <span class="number">32</span>, <span class="attr">activation</span>: <span class="string">'relu'</span> &#125;));</span><br><span class="line">  model.add(tf.layers.maxPooling2d(&#123; <span class="attr">poolSize</span>: <span class="number">2</span>, <span class="attr">strides</span>: <span class="number">2</span> &#125;));</span><br><span class="line">  model.add(tf.layers.conv2d(&#123; <span class="attr">kernelSize</span>: <span class="number">3</span>, <span class="attr">filters</span>: <span class="number">32</span>, <span class="attr">activation</span>: <span class="string">'relu'</span> &#125;));</span><br><span class="line">  model.add(tf.layers.flatten(&#123;&#125;));</span><br><span class="line"></span><br><span class="line">  model.add(tf.layers.dense(&#123; <span class="attr">units</span>: <span class="number">64</span>, <span class="attr">activation</span>: <span class="string">'relu'</span> &#125;));</span><br><span class="line">  model.add(tf.layers.dense(&#123; <span class="attr">units</span>: <span class="number">10</span>, <span class="attr">activation</span>: <span class="string">'softmax'</span> &#125;));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> model;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h2><p>我们选择适当的优化器和损失函数, 来编译模型<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">train</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  ui.trainLog(<span class="string">'Create model...'</span>);</span><br><span class="line">  model = createConvModel();</span><br><span class="line">  </span><br><span class="line">  ui.trainLog(<span class="string">'Compile model...'</span>);</span><br><span class="line">  <span class="keyword">const</span> optimizer = <span class="string">'rmsprop'</span>;</span><br><span class="line">  model.compile(&#123;</span><br><span class="line">    optimizer,</span><br><span class="line">    loss: <span class="string">'categoricalCrossentropy'</span>,</span><br><span class="line">    metrics: [<span class="string">'accuracy'</span>],</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> trainData = Data.getTrainData(ui.getTrainNum());</span><br><span class="line">  </span><br><span class="line">  ui.trainLog(<span class="string">'Training model...'</span>);</span><br><span class="line">  <span class="keyword">await</span> model.fit(trainData.xs, trainData.labels, &#123;&#125;);</span><br><span class="line"></span><br><span class="line">  ui.trainLog(<span class="string">'Completed!'</span>);</span><br><span class="line">  ui.trainCompleted();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>这里测试一组测试数据, 返回对应的标签, 即十个输出单元中概率最高的下标<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testOne</span>(<span class="params">xs</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!model)&#123;</span><br><span class="line">    ui.viewLog(<span class="string">'Need to train the model first'</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  ui.viewLog(<span class="string">'Testing...'</span>);</span><br><span class="line">  <span class="keyword">let</span> output = model.predict(xs);</span><br><span class="line">  ui.viewLog(<span class="string">'Completed!'</span>);</span><br><span class="line">  output.print();</span><br><span class="line">  <span class="keyword">const</span> axis = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">const</span> predictions = output.argMax(axis).dataSync();</span><br><span class="line">  <span class="keyword">return</span> predictions[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
@@ -461,7 +462,7 @@
           
             <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
           
-            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+            <a href="/tags/Tensorflow/" rel="tag"><i class="fa fa-tag"></i> Tensorflow</a>
           
         </div>
       
@@ -474,8 +475,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/04/tfjs-1/" rel="next" title="TensorFlow.js (一)">
-                <i class="fa fa-chevron-left"></i> TensorFlow.js (一)
+              <a href="/2018/11/15/ggad/" rel="next" title="Google AdSense的使用">
+                <i class="fa fa-chevron-left"></i> Google AdSense的使用
               </a>
             
           </div>
@@ -483,10 +484,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/07/lianliankan/" rel="prev" title="连连看~辅助程序">
-                连连看~辅助程序 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -674,7 +671,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#组件传参"><span class="nav-number">1.</span> <span class="nav-text">组件传参</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#slot-插槽"><span class="nav-number">2.</span> <span class="nav-text">slot 插槽</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#slot-scope-获取插槽作用域"><span class="nav-number">3.</span> <span class="nav-text">slot-scope 获取插槽作用域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ref-调用组件内的方法"><span class="nav-number">4.</span> <span class="nav-text">ref 调用组件内的方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#源码"><span class="nav-number">1.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#demo"><span class="nav-number">2.</span> <span class="nav-text">demo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据来源"><span class="nav-number">3.</span> <span class="nav-text">数据来源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">4.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建模型"><span class="nav-number">4.1.</span> <span class="nav-text">创建模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练模型"><span class="nav-number">4.2.</span> <span class="nav-text">训练模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">4.3.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></div>
             
 
           </div>
