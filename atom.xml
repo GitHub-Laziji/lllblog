@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laboo.top/"/>
-  <updated>2018-11-22T11:09:57.359Z</updated>
+  <updated>2018-11-24T05:53:20.862Z</updated>
   <id>https://laboo.top/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>快速区间查询算法 - 线段树</title>
+    <link href="https://laboo.top/2018/11/24/xds/"/>
+    <id>https://laboo.top/2018/11/24/xds/</id>
+    <published>2018-11-24T03:48:36.000Z</published>
+    <updated>2018-11-24T05:53:20.862Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>线段树算法是一种快速查询一段区间内的信息的算法, 由于其实现简单, 所以广泛应用于程序设计竞赛中。<br>线段树是一棵完美二叉树, 即所有的叶子节点的深度均相同, 并且所有的非叶子节点都有两个子节点。每个节点维护一个区间, 这个区间为父节点二分后的子区间, 根节点维护整个区间, 叶子节点维护单个元素, 当元素个数为<code>n</code>时, 对区间的操作都可以在<code>O(log n)</code>的时间内完成, 因为此时树的深度为<code>log2 n + 1</code>, 每次操作只需从叶子节点开始, 往上更新至根节点, 每层只需更新相关的一个区间即可, 操作次数<code>log2 n + 1</code>, 即在<code>O(log n)</code>的时间内可完成。</p><h1 id="可实现的功能"><a href="#可实现的功能" class="headerlink" title="可实现的功能"></a>可实现的功能</h1><p>线段树可以提供不同的功能, 例如最常见的求区间内的最大最小值和求区间内的和, 还有其他类似的功能, 实现思路基本相同</p><h2 id="求区间最小值-最小值"><a href="#求区间最小值-最小值" class="headerlink" title="求区间最小值(最小值)"></a>求区间最小值(最小值)</h2><p>给定任意数列<code>[a0, a1,...,an-1]</code>, 在<code>O(log n)</code>的时间内完成下列的两种操作</p><ul><li><code>query(s, t)</code> 求 <code>[as,as+1,...,at-1]</code> 内的最小值(最小值)</li><li><code>update(i, x)</code> 把 <code>ai</code> 的值改为 <code>x</code></li></ul><h2 id="求区间的和"><a href="#求区间的和" class="headerlink" title="求区间的和"></a>求区间的和</h2><p>给定初始值全为<code>0</code>的数列<code>[a0, a1,...,an-1]</code>, 在<code>O(log n)</code>的时间内完成下列的两种操作</p><ul><li><code>query(s, t)</code> 求 <code>[as,as+1,...,at-1]</code> 内的和</li><li><code>add(i, x)</code> 执行 <code>ai += x</code></li></ul><h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>这里我们以<code>求区间最小值</code>内的最小值为例, 用<code>Python</code>来实现原始的一棵线段树</p><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>这里创建一个数组<code>dat[]</code>并赋予初始最大值, 为了让其成为一棵完美的二叉树, 便于计算, 我们把<code>n</code>扩大到<code>2的幂</code>, 由于我们在数组中填充了<code>int32</code>的最大整数<code>2147483647</code>, 所以多余出来的的元素总是最大值, 不会影响原来区间的结果<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init</span><span class="params">(self, n)</span>:</span></span><br><span class="line">    self.INT_MAX = <span class="number">2147483647</span></span><br><span class="line">    self.n = <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">while</span> self.n &lt; n:</span><br><span class="line">        self.n *= <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    self.dat = [self.INT_MAX <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span> * self.n - <span class="number">1</span>)]</span><br></pre></td></tr></table></figure></p><h2 id="更新元素"><a href="#更新元素" class="headerlink" title="更新元素"></a>更新元素</h2><p>我们把一棵完美二叉树压成一个数组, 下标为<code>i</code>的子节点为<code>i*2+1 和 i*2+2</code>, <code>a0</code>为根节点, 每次更新时, 首先更新叶子节点, 之后一层层往上更新, 节点<code>a[k] = min(a[k * 2 + 1],a[k * 2 + 2])</code>, 操作在<code>O(log n)</code>的时间内完成<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self, k, a)</span>:</span></span><br><span class="line">    k += self.n - <span class="number">1</span></span><br><span class="line">    self.dat[k] = a</span><br><span class="line">    <span class="keyword">while</span> k &gt; <span class="number">0</span>:</span><br><span class="line">        k = (k - <span class="number">1</span>) // <span class="number">2</span></span><br><span class="line">        self.dat[k] = min(self.dat[k * <span class="number">2</span> + <span class="number">1</span>],self.dat[k * <span class="number">2</span> + <span class="number">2</span>])</span><br></pre></td></tr></table></figure></p><h2 id="查询元素"><a href="#查询元素" class="headerlink" title="查询元素"></a>查询元素</h2><p><code>query</code>的功能为查询<code>[a, b)</code>区间内的最小值, 参数<code>k, l, r</code>是辅助参数</p><ul><li>k 当前计算的节点</li><li>l, r 当前节点区间的范围</li></ul><p>当<code>[a,b)</code>, 不在<code>k</code>节点管理的区间<code>[l, r)</code>内时, 直接返回<code>INT_MAX</code><br>当<code>[a,b)</code>, 重合于<code>k</code>节点管理的区间<code>[l, r)</code>时, 直接返回<code>k</code>节点的值<br>否则, 递归<code>k</code>的两个子节点, 返回其中的最小值<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">query</span><span class="params">(self, a, b, k, l, r)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> r &lt;= a <span class="keyword">or</span> b &lt;= l:</span><br><span class="line">        <span class="keyword">return</span> self.INT_MAX</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> a &lt;= l <span class="keyword">and</span> r &lt;= b:</span><br><span class="line">        <span class="keyword">return</span> self.dat[k]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        vl = self.query(a, b, k * <span class="number">2</span> + <span class="number">1</span>, l, (l + r) // <span class="number">2</span>)</span><br><span class="line">        vr = self.query(a, b, k * <span class="number">2</span> + <span class="number">2</span>, (l + r) // <span class="number">2</span>, r)</span><br><span class="line">        <span class="keyword">return</span> min(vl, vr)</span><br></pre></td></tr></table></figure></p><h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>至此我们就简单地实现了一棵线段树, 这只是线段树的其中一种形式, 线段树还有其他的变体。线段树的使用实例可以看我的另一篇文章<a href="https://laboo.top/2018/11/02/acm-lc-45/#more">https://laboo.top/2018/11/02/acm-lc-45/#more</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;线段树算法是一种快速查询一段区间内的信息的算法, 由于其实现简单, 所以广泛应用于程序设计竞赛中。&lt;br&gt;线段树是一棵完美二叉树, 即所有的
+      
+    
+    </summary>
+    
+      <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+      <category term="Python" scheme="https://laboo.top/tags/Python/"/>
+    
+      <category term="线段树" scheme="https://laboo.top/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/"/>
+    
+  </entry>
   
   <entry>
     <title>TensorFlow.js 卷积神经网络手写数字识别</title>
@@ -439,9 +466,9 @@
       <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
-      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
-    
       <category term="Java" scheme="https://laboo.top/tags/Java/"/>
+    
+      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
     
   </entry>
   
@@ -522,34 +549,6 @@
       <category term="Java" scheme="https://laboo.top/tags/Java/"/>
     
       <category term="Spring" scheme="https://laboo.top/tags/Spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Js实现图片懒加载</title>
-    <link href="https://laboo.top/2018/10/11/img-lazy/"/>
-    <id>https://laboo.top/2018/10/11/img-lazy/</id>
-    <published>2018-10-11T07:55:24.000Z</published>
-    <updated>2018-10-13T02:56:31.465Z</updated>
-    
-    <content type="html"><![CDATA[<p>js实现动态加载图片, 节省流量, 并在加载时显示动画效果</p><h2 id="思路及实现"><a href="#思路及实现" class="headerlink" title="思路及实现"></a>思路及实现</h2><p>给图片添加额外属性<code>data-src</code>, 并用空白小图片填充<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">"./image.png"</span> <span class="attr">src</span>=<span class="string">"./blank.png"</span>&gt;</span></span><br></pre></td></tr></table></figure></p><p>找到页面内的所有图片<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> imgs = $(<span class="string">"img[data-src]"</span>);</span><br></pre></td></tr></table></figure></p><p>根据滚动条高度以及窗口的高度判断图片是否在视野中, 若在, 将<code>img.src= img.data-src</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bodyScrollHeight = <span class="built_in">document</span>.body.scrollTop </span><br><span class="line">        || <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line"><span class="keyword">let</span> windowHeight = <span class="built_in">window</span>.innerHeight;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; imgs.length; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> imgHeight = $(imgs[i]).offset().top;</span><br><span class="line">    <span class="keyword">if</span> (imgHeight &lt;= windowHeight + bodyScrollHeight </span><br><span class="line">        &amp;&amp; imgHeight &gt;= bodyScrollHeight) &#123;</span><br><span class="line">        imgs[i].src = imgs[i].getAttribute(<span class="string">'data-src'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p>具体实现及添加动画效果见Github</p><p><a href="https://github.com/GitHub-Laziji/JS-plugins" target="_blank" rel="noopener">https://github.com/GitHub-Laziji/JS-plugins</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;js实现动态加载图片, 节省流量, 并在加载时显示动画效果&lt;/p&gt;
-&lt;h2 id=&quot;思路及实现&quot;&gt;&lt;a href=&quot;#思路及实现&quot; class=&quot;headerlink&quot; title=&quot;思路及实现&quot;&gt;&lt;/a&gt;思路及实现&lt;/h2&gt;&lt;p&gt;给图片添加额外属性&lt;code&gt;data-s
-      
-    
-    </summary>
-    
-      <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
-    
-    
-      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
-    
-      <category term="HTML" scheme="https://laboo.top/tags/HTML/"/>
     
   </entry>
   
