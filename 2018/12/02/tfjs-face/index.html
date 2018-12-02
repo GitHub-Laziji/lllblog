@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,Spring," />
+  <meta name="keywords" content="Python,TensorFlow," />
 
 
 
@@ -81,18 +81,21 @@
 
 
 
-<meta name="description" content="接上一篇, 上一篇文章写了Dao、Service、Controller的实现, 这篇讲述其中用到的Query以及Page 还是以app表为例, 表结构如下1234`id` bigint(20)`gmt_create` datetime`gmt_modified` datetime`name` varchar(32) Query 查询类Query是select查询信息 如limit, page, o">
-<meta name="keywords" content="Java,Spring">
+<meta name="description" content="在传统编程中, 图像识别一直是一个难点, 虽然人能轻松做到, 但是用逻辑来描述这个过程, 并转换成程序是很难的。机器学习的出现让图像识别技术有了突破性的进展, 卷积神经网络的出现, 又使图像识别更上了一次层次。  卷积神经网络由一个或多个卷积层和顶端的全连通层组成, 这一结构使得卷积神经网络能够利用输入数据的二维结构。与其他深度学习结构相比，卷积神经网络在图像和语音识别方面能够给出更好的结果。">
+<meta name="keywords" content="Python,TensorFlow">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Springboot Mybatis 实现通用Dao、Service、Controller (二)">
-<meta property="og:url" content="https://laboo.top/2018/10/13/java-db/index.html">
+<meta property="og:title" content="机器学习人脸性别识别">
+<meta property="og:url" content="https://laboo.top/2018/12/02/tfjs-face/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:description" content="接上一篇, 上一篇文章写了Dao、Service、Controller的实现, 这篇讲述其中用到的Query以及Page 还是以app表为例, 表结构如下1234`id` bigint(20)`gmt_create` datetime`gmt_modified` datetime`name` varchar(32) Query 查询类Query是select查询信息 如limit, page, o">
+<meta property="og:description" content="在传统编程中, 图像识别一直是一个难点, 虽然人能轻松做到, 但是用逻辑来描述这个过程, 并转换成程序是很难的。机器学习的出现让图像识别技术有了突破性的进展, 卷积神经网络的出现, 又使图像识别更上了一次层次。  卷积神经网络由一个或多个卷积层和顶端的全连通层组成, 这一结构使得卷积神经网络能够利用输入数据的二维结构。与其他深度学习结构相比，卷积神经网络在图像和语音识别方面能够给出更好的结果。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-13T02:56:40.543Z">
+<meta property="og:image" content="https://github.com/GitHub-Laziji/face-gender-classification/raw/master/screenshots/1.png">
+<meta property="og:image" content="https://github.com/GitHub-Laziji/face-gender-classification/raw/master/screenshots/2.png">
+<meta property="og:updated_time" content="2018-12-02T08:14:18.201Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Springboot Mybatis 实现通用Dao、Service、Controller (二)">
-<meta name="twitter:description" content="接上一篇, 上一篇文章写了Dao、Service、Controller的实现, 这篇讲述其中用到的Query以及Page 还是以app表为例, 表结构如下1234`id` bigint(20)`gmt_create` datetime`gmt_modified` datetime`name` varchar(32) Query 查询类Query是select查询信息 如limit, page, o">
+<meta name="twitter:title" content="机器学习人脸性别识别">
+<meta name="twitter:description" content="在传统编程中, 图像识别一直是一个难点, 虽然人能轻松做到, 但是用逻辑来描述这个过程, 并转换成程序是很难的。机器学习的出现让图像识别技术有了突破性的进展, 卷积神经网络的出现, 又使图像识别更上了一次层次。  卷积神经网络由一个或多个卷积层和顶端的全连通层组成, 这一结构使得卷积神经网络能够利用输入数据的二维结构。与其他深度学习结构相比，卷积神经网络在图像和语音识别方面能够给出更好的结果。">
+<meta name="twitter:image" content="https://github.com/GitHub-Laziji/face-gender-classification/raw/master/screenshots/1.png">
 
 
 
@@ -122,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://laboo.top/2018/10/13/java-db/"/>
+  <link rel="canonical" href="https://laboo.top/2018/12/02/tfjs-face/"/>
 
 
 
 
 
-  <title>Springboot Mybatis 实现通用Dao、Service、Controller (二) | ☻Blog("Laziji")</title>
+  <title>机器学习人脸性别识别 | ☻Blog("Laziji")</title>
   
 
 
@@ -256,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laboo.top/2018/10/13/java-db/">
+    <link itemprop="mainEntityOfPage" href="https://laboo.top/2018/12/02/tfjs-face/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Laziji">
@@ -273,7 +276,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Springboot Mybatis 实现通用Dao、Service、Controller (二)</h2>
+          <h2 class="post-title" itemprop="name headline">机器学习人脸性别识别</h2>
         
 
         <div class="post-meta">
@@ -285,8 +288,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-13T00:57:06+08:00">
-                2018-10-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-02T12:04:47+08:00">
+                2018-12-02
               </time>
             
 
@@ -326,8 +329,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/13/java-db/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/13/java-db/" itemprop="commentCount"></span>
+                <a href="/2018/12/02/tfjs-face/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/02/tfjs-face/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -335,7 +338,7 @@
 
           
           
-             <span id="/2018/10/13/java-db/" class="leancloud_visitors" data-flag-title="Springboot Mybatis 实现通用Dao、Service、Controller (二)">
+             <span id="/2018/12/02/tfjs-face/" class="leancloud_visitors" data-flag-title="机器学习人脸性别识别">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -360,7 +363,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  333
+                  903
                 </span>
               
 
@@ -376,7 +379,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  3
                 </span>
               
             </div>
@@ -397,14 +400,22 @@
       
 
       
-        <p>接上一篇, 上一篇文章写了Dao、Service、Controller的实现, 这篇讲述其中用到的Query<d>以及Page<d></d></d></p>
-<p>还是以app表为例, 表结构如下<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">`id` bigint(20)</span><br><span class="line">`gmt_create` datetime</span><br><span class="line">`gmt_modified` datetime</span><br><span class="line">`name` varchar(32)</span><br></pre></td></tr></table></figure></p>
-<h1 id="Query-查询类"><a href="#Query-查询类" class="headerlink" title="Query 查询类"></a>Query 查询类</h1><p>Query是select查询信息 如limit, page, order by的封装</p>
-<h2 id="AppQuery-java"><a href="#AppQuery-java" class="headerlink" title="AppQuery.java"></a>AppQuery.java</h2><p>省略其中get, set方法, Query的属性是DO的扩展,如其中<code>nameLike</code>为name字段的模糊查询, <code>toBean()</code>实现Query转换为DO<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppQuery</span> <span class="keyword">extends</span> <span class="title">BaseQuery</span>&lt;<span class="title">AppDO</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> Date gmtCreate;</span><br><span class="line">    <span class="keyword">private</span> Date gmtModified;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String nameLike;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...get()</span></span><br><span class="line">    <span class="comment">// ...set()</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ClassifyDO <span class="title">toBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> JSON.parseObject(JSON.toJSONString(<span class="keyword">this</span>),ClassifyDO.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="BaseQuery-java"><a href="#BaseQuery-java" class="headerlink" title="BaseQuery.java"></a>BaseQuery.java</h2><p>BaseQuery中包含公共的查询属性, 例如分页, 排序, 省略其他默认的get, set<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseQuery</span>&lt;<span class="title">D</span>&gt; <span class="keyword">implements</span> <span class="title">Query</span>&lt;<span class="title">D</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer limit = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> Integer page = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> Integer offset = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> String sort;</span><br><span class="line">    <span class="keyword">private</span> String order;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLimit</span><span class="params">(Integer limit)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.limit = limit &gt; <span class="number">0</span> ? limit : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">this</span>.offset = <span class="keyword">this</span>.page * <span class="keyword">this</span>.limit;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPage</span><span class="params">(<span class="keyword">int</span> page)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.page = page &gt;= <span class="number">0</span> ? page : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>.offset = <span class="keyword">this</span>.page * <span class="keyword">this</span>.limit;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...get()</span></span><br><span class="line">    <span class="comment">// ...set()</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> JSON.toJSONString(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="Query-java"><a href="#Query-java" class="headerlink" title="Query.java"></a>Query.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Query</span>&lt;<span class="title">D</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">D <span class="title">toBean</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Page-分页查询结果类"><a href="#Page-分页查询结果类" class="headerlink" title="Page 分页查询结果类"></a>Page 分页查询结果类</h1><p>由于前端分页显示时常常同时需要每页数据以及总条目数, 所以对分页查询结果简单封装</p>
-<h2 id="Page-java"><a href="#Page-java" class="headerlink" title="Page.java"></a>Page.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Page</span>&lt;<span class="title">D</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;D&gt; list;</span><br><span class="line">    <span class="keyword">private</span> Integer total;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...get()</span></span><br><span class="line">    <span class="comment">// ...set()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>在传统编程中, 图像识别一直是一个难点, 虽然人能轻松做到, 但是用逻辑来描述这个过程, 并转换成程序是很难的。机器学习的出现让图像识别技术有了突破性的进展, 卷积神经网络的出现, 又使图像识别更上了一次层次。</p>
+<blockquote>
+<p>卷积神经网络由一个或多个卷积层和顶端的全连通层组成, 这一结构使得卷积神经网络能够利用输入数据的二维结构。与其他深度学习结构相比，卷积神经网络在图像和语音识别方面能够给出更好的结果。</p>
+</blockquote>
+<p>这里我们使用卷积神经网络对人脸进行性别识别, 项目中使用了<code>TensorFlow</code>机器学习库。</p>
+<h1 id="数据收集与处理"><a href="#数据收集与处理" class="headerlink" title="数据收集与处理"></a>数据收集与处理</h1><p>机器学习的基础就是大量的数据。我以前从网上爬了一万张证件照, 现在正好用上, 作为训练数据。<br>简便的也可以从谷歌直接搜搜索 <code>男(女)性证件照</code>也可以得到并且有标签的数据。<br>由于我收集的照片没有标签, 于是我花了一点时间从其中人工选出男女照片各200张并打上标记。</p>
+<p>为了使识别更加准确, 项目中利用<code>openCV</code>裁剪出人脸部分的图像, 并缩放至<code>28*28</code>大小。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">recognizer = cv2.CascadeClassifier(<span class="string">"model/haarcascade_frontalface_default.xml"</span>)</span><br><span class="line">crop(img_path):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        img = cv2.imread(img_path)</span><br><span class="line">        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line">        faces = recognizer.detectMultiScale(gray)</span><br><span class="line">        <span class="keyword">if</span> len(faces):</span><br><span class="line">            x, y, w, h = faces[<span class="number">0</span>]</span><br><span class="line">            c_img = img[y:y + h, x:x + w]</span><br><span class="line">            <span class="keyword">return</span> cv2.resize(c_img, (<span class="number">28</span>, <span class="number">28</span>), interpolation=cv2.INTER_AREA)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">None</span></span><br></pre></td></tr></table></figure></p>
+<p>对所有的数据都进行这样处理, 结果如下:<br><img src="https://github.com/GitHub-Laziji/face-gender-classification/raw/master/screenshots/1.png" alt="1"><br>最后我们还需要清理异常的数据, 过一遍训练集, 把其中没有定位到人脸的图片去除掉。</p>
+<h1 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h1><p>读取训练数据。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_img</span><span class="params">(files)</span>:</span></span><br><span class="line">    arr = []</span><br><span class="line">    <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">        img = Image.open(<span class="string">"%s"</span> % file)</span><br><span class="line">        pix = img.load()</span><br><span class="line">        view = np.zeros((IMAGE_H, IMAGE_W, <span class="number">1</span>), dtype=np.float)</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(IMAGE_H):</span><br><span class="line">            <span class="keyword">for</span> y <span class="keyword">in</span> range(IMAGE_W):</span><br><span class="line">                r, g, b = pix[y, x]</span><br><span class="line">                view[x, y, <span class="number">0</span>] = (r + g + b) // <span class="number">3</span></span><br><span class="line">        arr.append(view)</span><br><span class="line">    <span class="keyword">return</span> np.array(arr)</span><br></pre></td></tr></table></figure></p>
+<p>这里对训练图像灰度化, 并且将训练数据中的一小部分作为验证集。</p>
+<p>开始创建模型。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">model = keras.Sequential([</span><br><span class="line">    keras.layers.Conv2D(<span class="number">32</span>, (<span class="number">3</span>, <span class="number">3</span>), input_shape=(IMAGE_W, IMAGE_H, <span class="number">1</span>), strides=(<span class="number">1</span>, <span class="number">1</span>), activation=<span class="string">'relu'</span>),</span><br><span class="line">    keras.layers.MaxPool2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>)),</span><br><span class="line">    keras.layers.Conv2D(<span class="number">64</span>, (<span class="number">3</span>, <span class="number">3</span>), strides=(<span class="number">1</span>, <span class="number">1</span>), activation=<span class="string">'relu'</span>),</span><br><span class="line">    keras.layers.MaxPool2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>)),</span><br><span class="line">    keras.layers.Flatten(),</span><br><span class="line">    keras.layers.Dense(<span class="number">128</span>, activation=tf.nn.relu),</span><br><span class="line">    keras.layers.Dropout(<span class="number">0.2</span>),</span><br><span class="line">    keras.layers.Dense(<span class="number">2</span>, activation=tf.nn.softmax)</span><br><span class="line">])</span><br></pre></td></tr></table></figure></p>
+<p>选择适当的优化器和损失函数编译模型。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model.compile(optimizer=tf.train.AdamOptimizer(learning_rate=<span class="number">0.001</span>),</span><br><span class="line">              loss=<span class="string">'categorical_crossentropy'</span>,</span><br><span class="line">              metrics=[<span class="string">'accuracy'</span>])</span><br></pre></td></tr></table></figure></p>
+<p>开始训练模型。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">model.fit(x=train_x,</span><br><span class="line">          y=train_y,</span><br><span class="line">          batch_size=<span class="number">32</span>,</span><br><span class="line">          epochs=<span class="number">30</span>,</span><br><span class="line">          verbose=<span class="number">1</span>,</span><br><span class="line">          callbacks=my_callbacks,</span><br><span class="line">          validation_split=<span class="number">0.05</span>,</span><br><span class="line">          shuffle=<span class="keyword">True</span></span><br><span class="line">          )</span><br></pre></td></tr></table></figure></p>
+<h1 id="测试模型"><a href="#测试模型" class="headerlink" title="测试模型"></a>测试模型</h1><p>这里使用matplotlib来显示测试图片及结果。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">predictions = model.predict(test_x)</span><br><span class="line"></span><br><span class="line">class_names = [<span class="string">"Female"</span>, <span class="string">"Male"</span>]</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>, <span class="number">6</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(min(<span class="number">9</span>, len(test_y))):</span><br><span class="line">    result = predictions[i]</span><br><span class="line">    max_label = int(np.argmax(result))</span><br><span class="line">    correct_label = int(np.argmax(test_y[i]))</span><br><span class="line"></span><br><span class="line">    plt.subplot(<span class="number">3</span>, <span class="number">6</span>, <span class="number">2</span> * i + <span class="number">1</span>)</span><br><span class="line">    plt.grid(<span class="keyword">False</span>)</span><br><span class="line">    plt.xticks([])</span><br><span class="line">    plt.yticks([])</span><br><span class="line">    img = test_x.reshape(test_x.shape[<span class="number">0</span>], IMAGE_W, IMAGE_H)[i]</span><br><span class="line">    plt.imshow(img, cmap=<span class="string">"gray"</span>)</span><br><span class="line">    plt.xlabel(<span class="string">"&#123;&#125; - prob:&#123;:2.0f&#125;%"</span>.format(class_names[max_label], <span class="number">100</span> * np.max(result)))</span><br><span class="line"></span><br><span class="line">    plt.subplot(<span class="number">3</span>, <span class="number">6</span>, <span class="number">2</span> * i + <span class="number">2</span>)</span><br><span class="line">    plt.grid(<span class="keyword">False</span>)</span><br><span class="line">    plt.yticks([])</span><br><span class="line">    plt.ylim([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">    bar = plt.bar(range(<span class="number">2</span>), result)</span><br><span class="line">    bar[max_label].set_color(<span class="string">'red'</span>)</span><br><span class="line">    bar[correct_label].set_color(<span class="string">'green'</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://github.com/GitHub-Laziji/face-gender-classification/raw/master/screenshots/2.png" alt="2"><br>脸部头像右侧的两列分别代表<code>女性概率</code>和<code>男性概率</code>。<br>这里我们看到全都对了, 正确率非常高。<br>模型并不复杂, 大部分工作都在收集数据和调整训练参数上, 这也体现出了卷积神经网络对图像强大的处理能力。</p>
+
       
     </div>
     
@@ -458,9 +469,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
           
-            <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
           
         </div>
       
@@ -473,8 +484,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/12/java-db/" rel="next" title="Springboot Mybatis 实现通用Dao、Service、Controller">
-                <i class="fa fa-chevron-left"></i> Springboot Mybatis 实现通用Dao、Service、Controller
+              <a href="/2018/11/26/a-db/" rel="next" title="Java实现Mybatis代码生成器">
+                <i class="fa fa-chevron-left"></i> Java实现Mybatis代码生成器
               </a>
             
           </div>
@@ -482,10 +493,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/13/javascript-db/" rel="prev" title="JavaScript实现类似Java的泛型">
-                JavaScript实现类似Java的泛型 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -673,7 +680,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Query-查询类"><span class="nav-number">1.</span> <span class="nav-text">Query 查询类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AppQuery-java"><span class="nav-number">1.1.</span> <span class="nav-text">AppQuery.java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BaseQuery-java"><span class="nav-number">1.2.</span> <span class="nav-text">BaseQuery.java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Query-java"><span class="nav-number">1.3.</span> <span class="nav-text">Query.java</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Page-分页查询结果类"><span class="nav-number">2.</span> <span class="nav-text">Page 分页查询结果类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Page-java"><span class="nav-number">2.1.</span> <span class="nav-text">Page.java</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据收集与处理"><span class="nav-number">1.</span> <span class="nav-text">数据收集与处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#训练模型"><span class="nav-number">2.</span> <span class="nav-text">训练模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试模型"><span class="nav-number">3.</span> <span class="nav-text">测试模型</span></a></li></ol></div>
             
 
           </div>
