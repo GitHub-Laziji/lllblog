@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Python,TensorFlow," />
 
 
 
@@ -81,17 +81,18 @@
 
 
 
-<meta name="description" content="自由博客">
-<meta name="keywords" content="编程,计算机,java,python,go,c++">
-<meta property="og:type" content="website">
-<meta property="og:title" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:url" content="https://laboo.top/archives/2018/10/index.html">
+<meta name="description" content="AlphaZero的设计十分精妙, 模拟人的思维方式, 并且相比上一代的AlphaGo去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次设计主要分为两部分 神经网络(走子价值网络)神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 判断哪里是好棋哪里是坏棋 输入谷歌的AlphaGo Zero采用的19 * 19 * 17的输入即一个19 * 19代表当前局面的黑棋或白棋">
+<meta name="keywords" content="Python,TensorFlow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AlphaZero五子棋的实现">
+<meta property="og:url" content="https://laboo.top/2018/12/20/gomoku/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:description" content="自由博客">
+<meta property="og:description" content="AlphaZero的设计十分精妙, 模拟人的思维方式, 并且相比上一代的AlphaGo去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次设计主要分为两部分 神经网络(走子价值网络)神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 判断哪里是好棋哪里是坏棋 输入谷歌的AlphaGo Zero采用的19 * 19 * 17的输入即一个19 * 19代表当前局面的黑棋或白棋">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-20T13:31:23.929Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="☻Blog(&quot;Laziji&quot;)">
-<meta name="twitter:description" content="自由博客">
+<meta name="twitter:title" content="AlphaZero五子棋的实现">
+<meta name="twitter:description" content="AlphaZero的设计十分精妙, 模拟人的思维方式, 并且相比上一代的AlphaGo去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次设计主要分为两部分 神经网络(走子价值网络)神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 判断哪里是好棋哪里是坏棋 输入谷歌的AlphaGo Zero采用的19 * 19 * 17的输入即一个19 * 19代表当前局面的黑棋或白棋">
 
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://laboo.top/archives/2018/10/"/>
+  <link rel="canonical" href="https://laboo.top/2018/12/20/gomoku/"/>
 
 
 
 
 
-  <title>归档 | ☻Blog("Laziji")</title>
+  <title>AlphaZero五子棋的实现 | ☻Blog("Laziji")</title>
   
 
 
@@ -146,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/GitHub-Laziji" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
@@ -241,411 +242,268 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://laboo.top/2018/12/20/gomoku/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Laziji">
+      <meta itemprop="description" content="自由博客">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/30425217?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="☻Blog("Laziji")">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h2 class="post-title" itemprop="name headline">AlphaZero五子棋的实现</h2>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-20T19:14:03+08:00">
+                2018-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 26 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术分享/" itemprop="url" rel="index">
+                    <span itemprop="name">技术分享</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h2 class="archive-year" id="archive-year-2018">2018</h2>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/20/gomoku/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/20/gomoku/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
+             <span id="/2018/12/20/gomoku/" class="leancloud_visitors" data-flag-title="AlphaZero五子棋的实现">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/30/acm-lc-42/" itemprop="url">
+          
+
+          
+            <div class="post-wordcount">
               
-                <span itemprop="name">LeetCode 42.接雨水</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  554
+                </span>
               
-            </a>
-        
-      </h3>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-30T23:26:04+08:00"
-              content="2018-10-30" >
-          10-30
-        </time>
-      </div>
+              
+                <span class="post-meta-divider">|</span>
+              
 
-    </header>
-  </article>
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
 
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/29/share/" itemprop="url">
-              
-                <span itemprop="name">JS自动生成QQ、微博等页面分享按钮</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-29T19:43:54+08:00"
-              content="2018-10-29" >
-          10-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/23/kotlin-nodejs/" itemprop="url">
-              
-                <span itemprop="name">Kotlin + Node.js 搭建教程</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-23T15:04:21+08:00"
-              content="2018-10-23" >
-          10-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p><code>AlphaZero</code>的设计十分精妙, 模拟人的思维方式, 并且相比上一代的<code>AlphaGo</code>去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次<br>设计主要分为两部分</p>
+<h1 id="神经网络-走子价值网络"><a href="#神经网络-走子价值网络" class="headerlink" title="神经网络(走子价值网络)"></a>神经网络(走子价值网络)</h1><p>神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 判断哪里是好棋哪里是坏棋</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>谷歌的<code>AlphaGo Zero</code>采用的<code>19 * 19 * 17</code>的输入<br>即一个<code>19 * 19</code>代表当前局面的黑棋或白棋的位置, <code>0</code>代表没有, <code>1</code>代表有<br>所以一个完整的局面需要<code>19 * 19 * 2</code>来表示, 输入包含<code>8</code>个历史输入, 因为围棋中存在打劫, 当前可选位置与历史有关, 所以历史局面是必须的<br>除此之外还有一个参数就是当前局面是哪一方走子, 用<code>0或1</code>表示, 为了方便, 把<code>0或1</code>扩展到<code>19 * 19</code>的平面, 即全为<code>0或1</code>的平面<br>一共<code>2*8+1</code>, <code>17</code>个平面作为神经网络的输入</p>
+<p>这里以无禁手五子棋为例, 在五子棋中输入可以进行简化, 因为五子棋的下子可以认为只与当前局面有关, 与历史无关<br>可以采用<code>15 * 15 * 3</code>的输入</p>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>大小为<code>361</code>的<code>pi</code>, 代表每个位置下子的概率<br>以及<code>z</code>当前局面的价值, 在<code>[-1,1]</code>之间</p>
+<h1 id="MCTS-蒙特卡洛树搜索"><a href="#MCTS-蒙特卡洛树搜索" class="headerlink" title="MCTS(蒙特卡洛树搜索)"></a>MCTS(蒙特卡洛树搜索)</h1><p><code>MCTS</code>相当于人在下棋过程中的推演过程, 利用MCTS改善每个局面的走子概率, 就像人可以通过推演发现一些在当前局面看起来不是很好的棋<br><code>MCTS</code>分为这几个过程</p>
+<h2 id="A-选择"><a href="#A-选择" class="headerlink" title="A 选择"></a>A 选择</h2><p>从当前局面节点(通过N,P,V计算所有节点的价值)选择价值最大的节点, 最为下一个节点</p>
+<h2 id="B-扩展"><a href="#B-扩展" class="headerlink" title="B 扩展"></a>B 扩展</h2><p>若当前局面没有搜索过, 使用神经网络预测当前局面的走子概率</p>
+<h2 id="C-价值回传"><a href="#C-价值回传" class="headerlink" title="C 价值回传"></a>C 价值回传</h2><p>不断进行<code>AB</code>, 直到达到叶子节点, 棋局结束, 把胜负结果回传, 并将节点加入神经网络进行训练</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/22/java-form/" itemprop="url">
-              
-                <span itemprop="name">Java注解表单验证</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-22T12:38:31+08:00"
-              content="2018-10-22" >
-          10-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/17/mk/" itemprop="url">
-              
-                <span itemprop="name">在Markdown中绘制流程图、时序图</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-17T19:53:06+08:00"
-              content="2018-10-17" >
-          10-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/17/java-db/" itemprop="url">
-              
-                <span itemprop="name">使用视图代替Mybatis中的多表查询的设计</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-17T18:02:37+08:00"
-              content="2018-10-17" >
-          10-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/16/java-class/" itemprop="url">
-              
-                <span itemprop="name">Java中静态成员变量的内部调用</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-16T13:43:15+08:00"
-              content="2018-10-16" >
-          10-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/15/http/" itemprop="url">
-              
-                <span itemprop="name">前后端分离项目的跨域及保持Session会话</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-15T00:24:51+08:00"
-              content="2018-10-15" >
-          10-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/13/javascript-db/" itemprop="url">
-              
-                <span itemprop="name">JavaScript实现类似Java的泛型</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-13T02:04:07+08:00"
-              content="2018-10-13" >
-          10-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/13/java-db/" itemprop="url">
-              
-                <span itemprop="name">Springboot Mybatis 实现通用Dao、Service、Controller (二)</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-13T00:57:06+08:00"
-              content="2018-10-13" >
-          10-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+      <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+        <div><i class="fa fa-wechat"></i>&nbsp;欢迎关注我的博客公众号</div>
+        <img src="/images/wechat_blog.png" style="width: 180px;max-width: 100%;display: inline-block;"/>
+      </div>
+    
+
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果觉得我的文章对你有用，请随意赞赏</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Laziji 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Laziji 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/02/tfjs-face/" rel="next" title="机器学习人脸性别识别">
+                <i class="fa fa-chevron-left"></i> 机器学习人脸性别识别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2018/10/page/2/">2</a><a class="extend next" rel="next" href="/archives/2018/10/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -653,6 +511,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -673,8 +538,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -787,6 +661,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络-走子价值网络"><span class="nav-number">1.</span> <span class="nav-text">神经网络(走子价值网络)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">1.1.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出"><span class="nav-number">1.2.</span> <span class="nav-text">输出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MCTS-蒙特卡洛树搜索"><span class="nav-number">2.</span> <span class="nav-text">MCTS(蒙特卡洛树搜索)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-选择"><span class="nav-number">2.1.</span> <span class="nav-text">A 选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-扩展"><span class="nav-number">2.2.</span> <span class="nav-text">B 扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-价值回传"><span class="nav-number">2.3.</span> <span class="nav-text">C 价值回传</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -946,6 +836,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
