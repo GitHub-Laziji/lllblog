@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laboo.top/"/>
-  <updated>2018-12-20T13:31:23.929Z</updated>
+  <updated>2018-12-21T15:34:20.473Z</updated>
   <id>https://laboo.top/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://laboo.top/2018/12/20/gomoku/"/>
     <id>https://laboo.top/2018/12/20/gomoku/</id>
     <published>2018-12-20T11:14:03.000Z</published>
-    <updated>2018-12-20T13:31:23.929Z</updated>
+    <updated>2018-12-21T15:34:20.473Z</updated>
     
-    <content type="html"><![CDATA[<p><code>AlphaZero</code>的设计十分精妙, 模拟人的思维方式, 并且相比上一代的<code>AlphaGo</code>去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次<br>设计主要分为两部分</p><h1 id="神经网络-走子价值网络"><a href="#神经网络-走子价值网络" class="headerlink" title="神经网络(走子价值网络)"></a>神经网络(走子价值网络)</h1><p>神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 判断哪里是好棋哪里是坏棋</p><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>谷歌的<code>AlphaGo Zero</code>采用的<code>19 * 19 * 17</code>的输入<br>即一个<code>19 * 19</code>代表当前局面的黑棋或白棋的位置, <code>0</code>代表没有, <code>1</code>代表有<br>所以一个完整的局面需要<code>19 * 19 * 2</code>来表示, 输入包含<code>8</code>个历史输入, 因为围棋中存在打劫, 当前可选位置与历史有关, 所以历史局面是必须的<br>除此之外还有一个参数就是当前局面是哪一方走子, 用<code>0或1</code>表示, 为了方便, 把<code>0或1</code>扩展到<code>19 * 19</code>的平面, 即全为<code>0或1</code>的平面<br>一共<code>2*8+1</code>, <code>17</code>个平面作为神经网络的输入</p><p>这里以无禁手五子棋为例, 在五子棋中输入可以进行简化, 因为五子棋的下子可以认为只与当前局面有关, 与历史无关<br>可以采用<code>15 * 15 * 3</code>的输入</p><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>大小为<code>361</code>的<code>pi</code>, 代表每个位置下子的概率<br>以及<code>z</code>当前局面的价值, 在<code>[-1,1]</code>之间</p><h1 id="MCTS-蒙特卡洛树搜索"><a href="#MCTS-蒙特卡洛树搜索" class="headerlink" title="MCTS(蒙特卡洛树搜索)"></a>MCTS(蒙特卡洛树搜索)</h1><p><code>MCTS</code>相当于人在下棋过程中的推演过程, 利用MCTS改善每个局面的走子概率, 就像人可以通过推演发现一些在当前局面看起来不是很好的棋<br><code>MCTS</code>分为这几个过程</p><h2 id="A-选择"><a href="#A-选择" class="headerlink" title="A 选择"></a>A 选择</h2><p>从当前局面节点(通过N,P,V计算所有节点的价值)选择价值最大的节点, 最为下一个节点</p><h2 id="B-扩展"><a href="#B-扩展" class="headerlink" title="B 扩展"></a>B 扩展</h2><p>若当前局面没有搜索过, 使用神经网络预测当前局面的走子概率</p><h2 id="C-价值回传"><a href="#C-价值回传" class="headerlink" title="C 价值回传"></a>C 价值回传</h2><p>不断进行<code>AB</code>, 直到达到叶子节点, 棋局结束, 把胜负结果回传, 并将节点加入神经网络进行训练</p>]]></content>
+    <content type="html"><![CDATA[<p><code>AlphaZero</code>的设计十分精妙, 模拟人的思维方式, 并且相比上一代的<code>AlphaGo</code>去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次<br>设计主要分为两部分</p><h1 id="神经网络-走子价值网络"><a href="#神经网络-走子价值网络" class="headerlink" title="神经网络(走子价值网络)"></a>神经网络(走子价值网络)</h1><p>神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 判断哪里是好棋哪里是坏棋</p><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>谷歌的<code>AlphaGo Zero</code>采用的<code>19 * 19 * 17</code>的输入<br>即一个<code>19 * 19</code>代表当前局面的黑棋或白棋的位置, <code>0</code>代表没有, <code>1</code>代表有<br>所以一个完整的局面需要<code>19 * 19 * 2</code>来表示, 输入包含<code>8</code>个历史输入, 因为围棋中存在打劫, 当前可选位置与历史有关, 所以历史局面是必须的<br>除此之外还有一个参数就是当前局面是哪一方走子, 用<code>0或1</code>表示, 为了方便, 把<code>0或1</code>扩展到<code>19 * 19</code>的平面, 即全为<code>0或1</code>的平面<br>一共<code>2*8+1</code>, <code>17</code>个平面作为神经网络的输入</p><p>这里以无禁手五子棋为例, 在五子棋中输入可以进行简化, 因为五子棋的下子可以认为只与当前局面有关, 与历史无关<br>可以采用<code>15 * 15 * 3</code>的输入</p><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>大小为<code>361</code>的<code>pi</code>, 代表每个位置下子的概率<br>以及<code>z</code>当前局面的价值, 在<code>[-1,1]</code>之间</p><h2 id="中间层"><a href="#中间层" class="headerlink" title="中间层"></a>中间层</h2><p><code>AlphaZero</code>中使用了多层残差网络来获得更强的学习能力, 但是在普通PC上自我对弈时过于缓慢, 可以尝试减少层数, 或者去掉残差网络<br>可以先实现, 之后再优化的时候适当加入</p><h1 id="MCTS-蒙特卡洛树搜索"><a href="#MCTS-蒙特卡洛树搜索" class="headerlink" title="MCTS(蒙特卡洛树搜索)"></a>MCTS(蒙特卡洛树搜索)</h1><p><code>MCTS</code>相当于人在下棋过程中的推演过程, 利用MCTS改善每个局面的走子概率, 就像人可以通过推演发现一些在当前局面看起来不是很好的棋<br><code>MCTS</code>分为这几个过程</p><h2 id="A-选择"><a href="#A-选择" class="headerlink" title="A 选择"></a>A 选择</h2><p>从当前局面节点(通过N,P,V计算所有节点的价值)选择价值最大的节点, 最为下一个节点</p><h2 id="B-扩展"><a href="#B-扩展" class="headerlink" title="B 扩展"></a>B 扩展</h2><p>若当前局面没有搜索过, 使用神经网络预测当前局面的走子概率</p><h2 id="C-价值回传"><a href="#C-价值回传" class="headerlink" title="C 价值回传"></a>C 价值回传</h2><p>不断进行<code>AB</code>, 直到达到叶子节点, 棋局结束, 把胜负结果回传, 并将节点加入神经网络进行训练</p>]]></content>
     
     <summary type="html">
     
