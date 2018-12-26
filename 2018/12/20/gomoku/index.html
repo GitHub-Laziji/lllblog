@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="AlphaZero的设计十分精妙, 模拟人的思维方式, 并且相比上一代的AlphaGo去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次设计主要分为两部分 神经网络(走子价值网络)神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 判断哪里是好棋哪里是坏棋 输入谷歌的AlphaGo Zero采用的19 * 19 * 17的输入即一个19 * 19代表当前局面的黑棋或白棋">
+<meta name="description" content="AlphaZero的设计十分精妙, 模拟人的思维方式, 并且相比上一代的AlphaGo去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次设计主要分为两部分 神经网络(走子价值网络)神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 直接判断哪里是好棋哪里是坏棋 输入谷歌的AlphaGo Zero采用的19 * 19 * 17的输入即一个19 * 19代表当前局面的黑棋或">
 <meta name="keywords" content="Python,TensorFlow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AlphaZero五子棋的实现">
 <meta property="og:url" content="https://laboo.top/2018/12/20/gomoku/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:description" content="AlphaZero的设计十分精妙, 模拟人的思维方式, 并且相比上一代的AlphaGo去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次设计主要分为两部分 神经网络(走子价值网络)神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 判断哪里是好棋哪里是坏棋 输入谷歌的AlphaGo Zero采用的19 * 19 * 17的输入即一个19 * 19代表当前局面的黑棋或白棋">
+<meta property="og:description" content="AlphaZero的设计十分精妙, 模拟人的思维方式, 并且相比上一代的AlphaGo去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次设计主要分为两部分 神经网络(走子价值网络)神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 直接判断哪里是好棋哪里是坏棋 输入谷歌的AlphaGo Zero采用的19 * 19 * 17的输入即一个19 * 19代表当前局面的黑棋或">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-22T13:11:11.535Z">
+<meta property="og:updated_time" content="2018-12-26T14:52:26.399Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AlphaZero五子棋的实现">
-<meta name="twitter:description" content="AlphaZero的设计十分精妙, 模拟人的思维方式, 并且相比上一代的AlphaGo去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次设计主要分为两部分 神经网络(走子价值网络)神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 判断哪里是好棋哪里是坏棋 输入谷歌的AlphaGo Zero采用的19 * 19 * 17的输入即一个19 * 19代表当前局面的黑棋或白棋">
+<meta name="twitter:description" content="AlphaZero的设计十分精妙, 模拟人的思维方式, 并且相比上一代的AlphaGo去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次设计主要分为两部分 神经网络(走子价值网络)神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 直接判断哪里是好棋哪里是坏棋 输入谷歌的AlphaGo Zero采用的19 * 19 * 17的输入即一个19 * 19代表当前局面的黑棋或">
 
 
 
@@ -360,7 +360,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  692
+                  694
                 </span>
               
 
@@ -398,7 +398,7 @@
 
       
         <p><code>AlphaZero</code>的设计十分精妙, 模拟人的思维方式, 并且相比上一代的<code>AlphaGo</code>去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次<br>设计主要分为两部分</p>
-<h1 id="神经网络-走子价值网络"><a href="#神经网络-走子价值网络" class="headerlink" title="神经网络(走子价值网络)"></a>神经网络(走子价值网络)</h1><p>神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 判断哪里是好棋哪里是坏棋</p>
+<h1 id="神经网络-走子价值网络"><a href="#神经网络-走子价值网络" class="headerlink" title="神经网络(走子价值网络)"></a>神经网络(走子价值网络)</h1><p>神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 直接判断哪里是好棋哪里是坏棋</p>
 <h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>谷歌的<code>AlphaGo Zero</code>采用的<code>19 * 19 * 17</code>的输入<br>即一个<code>19 * 19</code>代表当前局面的黑棋或白棋的位置, <code>0</code>代表没有, <code>1</code>代表有<br>所以一个完整的局面需要<code>19 * 19 * 2</code>来表示, 输入包含<code>8</code>个历史输入, 因为围棋中存在打劫, 当前可选位置与历史有关, 所以历史局面是必须的<br>除此之外还有一个参数就是当前局面是哪一方走子, 用<code>0或1</code>表示, 为了方便, 把<code>0或1</code>扩展到<code>19 * 19</code>的平面, 即全为<code>0或1</code>的平面<br>一共<code>2*8+1</code>, <code>17</code>个平面作为神经网络的输入</p>
 <p>这里以无禁手五子棋为例, 在五子棋中输入可以进行简化, 因为五子棋的下子可以认为只与当前局面有关, 与历史无关<br>可以采用<code>15 * 15 * 3</code>的输入</p>
 <h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>大小为<code>361</code>的<code>pi</code>, 代表每个位置下子的概率<br>以及<code>z</code>当前局面的价值, 在<code>[-1,1]</code>之间</p>
@@ -486,6 +486,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/12/26/s301/" rel="prev" title="网站中的301重定向">
+                网站中的301重定向 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -568,7 +572,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
