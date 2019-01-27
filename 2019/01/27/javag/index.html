@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, XML、Dao、Service 大多是重复的。不止这些有写前端页面也是, 这里分享一个Java编写的代码生成器mybatis-generator 虽然名字叫mybatis 但是不限于应用在mybatis中, 任何与数据库表对于的代码都可以 项目地址https://github.com/GitHub-Laziji/mybatis">
+<meta name="description" content="在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, XML、Dao、Service 大多是重复的 不止这些, 还有些前端页面也是, 这里分享一个Java编写的代码生成器mybatis-generator 虽然名字叫mybatis 但是不限应用于mybatis中, 任何与数据库表对应的代码都可以 项目地址https://github.com/GitHub-Laziji/mybat">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java代码生成器mybatis-generator的使用">
 <meta property="og:url" content="https://laboo.top/2019/01/27/javag/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:description" content="在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, XML、Dao、Service 大多是重复的。不止这些有写前端页面也是, 这里分享一个Java编写的代码生成器mybatis-generator 虽然名字叫mybatis 但是不限于应用在mybatis中, 任何与数据库表对于的代码都可以 项目地址https://github.com/GitHub-Laziji/mybatis">
+<meta property="og:description" content="在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, XML、Dao、Service 大多是重复的 不止这些, 还有些前端页面也是, 这里分享一个Java编写的代码生成器mybatis-generator 虽然名字叫mybatis 但是不限应用于mybatis中, 任何与数据库表对应的代码都可以 项目地址https://github.com/GitHub-Laziji/mybat">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-27T09:42:51.315Z">
+<meta property="og:updated_time" content="2019-01-27T09:52:16.274Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java代码生成器mybatis-generator的使用">
-<meta name="twitter:description" content="在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, XML、Dao、Service 大多是重复的。不止这些有写前端页面也是, 这里分享一个Java编写的代码生成器mybatis-generator 虽然名字叫mybatis 但是不限于应用在mybatis中, 任何与数据库表对于的代码都可以 项目地址https://github.com/GitHub-Laziji/mybatis">
+<meta name="twitter:description" content="在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, XML、Dao、Service 大多是重复的 不止这些, 还有些前端页面也是, 这里分享一个Java编写的代码生成器mybatis-generator 虽然名字叫mybatis 但是不限应用于mybatis中, 任何与数据库表对应的代码都可以 项目地址https://github.com/GitHub-Laziji/mybat">
 
 
 
@@ -360,7 +360,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  568
+                  601
                 </span>
               
 
@@ -397,22 +397,24 @@
       
 
       
-        <p>在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, XML、Dao、Service 大多是重复的。不止这些有写前端页面也是, 这里分享一个Java编写的代码生成器<code>mybatis-generator</code> 虽然名字叫<code>mybatis</code> 但是不限于应用在<code>mybatis</code>中, 任何与数据库表对于的代码都可以</p>
+        <p>在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, <code>XML</code>、<code>Dao</code>、<code>Service</code> 大多是重复的</p>
+<p>不止这些, 还有些前端页面也是, 这里分享一个Java编写的代码生成器<code>mybatis-generator</code> 虽然名字叫<code>mybatis</code> 但是不限应用于<code>mybatis</code>中, 任何与数据库表对应的代码都可以</p>
 <h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p><a href="https://github.com/GitHub-Laziji/mybatis-generator" target="_blank" rel="noopener">https://github.com/GitHub-Laziji/mybatis-generator</a></p>
 <h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>克隆下来后简单几步就可以使用, 里面自带了两个模版在<code>resources</code>下</p>
 <ul>
-<li>mybatis 这个是根据 <a href="https://github.com/GitHub-Laziji/commons-mybatis" target="_blank" rel="noopener">commons-mybatis</a> 架构编写的</li>
-<li>mybatis-default 这个生成的是简单的mybatis类, 不依赖其他包</li>
+<li><code>mybatis</code> 这个是根据 <a href="https://github.com/GitHub-Laziji/commons-mybatis" target="_blank" rel="noopener">commons-mybatis</a> 架构编写的</li>
+<li><code>mybatis-default</code> 这个生成的是简单的<code>mybatis</code>类, 不依赖其他包</li>
 </ul>
 <p>如果模版不合适可以自己模仿其中的模版进行修改</p>
-<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>在<code>resources</code>下创建<code>application-${name}.yml</code>文件, <code>${name}</code>随意, 例如: <code>application-example.yml</code>, 可创建多个</p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>里面已经包含了一个<code>example</code>的配置文件, 直接在这个基础上使用即可</p>
+<p>若要创建更多的配置文件, 在<code>resources</code>下创建<code>application-${name}.yml</code>文件, <code>${name}</code>随意, 例如: <code>application-example.yml</code></p>
 <p>配置文件内容如下, 填入数据库配置, 以及生成代码的包名 </p>
 <p>模版文件映射用于自定义生成文件的包格式以及文件名</p>
 <p>动态属性包含</p>
 <ul>
-<li>{packageFilePath} 包文件路径 例如: <code>com/xxx/xxx</code></li>
-<li>{className} 类名 由表名改为驼峰命名法得来</li>
-<li>{suffix} 类名后缀 DO或VO</li>
+<li><code>{packageFilePath}</code> 包文件路径 例如: <code>com/xxx/xxx</code></li>
+<li><code>{className}</code> 类名 由表名改为驼峰命名法得来</li>
+<li><code>{suffix}</code> 类名后缀 DO或VO</li>
 </ul>
 <p>一般按以下配置即可 </p>
 <p>现在项目中有两套模版<code>template.path</code> 可以选<code>mybatis</code> 或 <code>mybatis-default</code></p>
