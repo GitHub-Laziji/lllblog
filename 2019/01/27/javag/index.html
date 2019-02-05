@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
 <meta property="og:description" content="在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, XML、Dao、Service 大多是重复的 不止这些, 还有些前端页面也是, 这里分享一个Java编写的代码生成器mybatis-generator 虽然名字叫mybatis 但是不限应用于mybatis中, 任何与数据库表对应的代码都可以 项目地址https://github.com/GitHub-Laziji/mybat">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-05T07:35:10.792Z">
+<meta property="og:updated_time" content="2019-02-05T07:40:09.928Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java代码生成器mybatis-generator的使用">
 <meta name="twitter:description" content="在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, XML、Dao、Service 大多是重复的 不止这些, 还有些前端页面也是, 这里分享一个Java编写的代码生成器mybatis-generator 虽然名字叫mybatis 但是不限应用于mybatis中, 任何与数据库表对应的代码都可以 项目地址https://github.com/GitHub-Laziji/mybat">
@@ -360,7 +360,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  620
+                  640
                 </span>
               
 
@@ -419,7 +419,7 @@
 <p><code>generator.template.mapping</code>中可选的动态属性包含:</p>
 <ul>
 <li><code>{packageFilePath}</code> 包文件路径 例如: <code>com/xxx/xxx</code></li>
-<li><code>{className}</code> 类名 由表名改为驼峰命名法得来</li>
+<li><code>{className}</code> 类名 由表名使用驼峰命名法得来(若使用<code>TableItem</code>指定了自定义类名, 则就是指定的类名)</li>
 <li><code>{suffix}</code> 类名后缀 DO或VO</li>
 </ul>
 <p>一般按以下配置即可, 也可以自行扩展<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://xxx.xxx.xxx.xxx:3306/xxxx?characterEncoding=utf-8</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">xxxxxx</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">xxxxxx</span></span><br><span class="line"></span><br><span class="line"><span class="attr">generator:</span></span><br><span class="line"><span class="attr">  package:</span> <span class="string">com.xxx.xxx</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">mybatis</span></span><br><span class="line"><span class="attr">    mapping:</span> <span class="string">|</span></span><br><span class="line"><span class="string">      Model.java.vm: main/java/&#123;packageFilePath&#125;/database/model/&#123;className&#125;.java</span></span><br><span class="line"><span class="string">      Query.java.vm: main/java/&#123;packageFilePath&#125;/database/query/&#123;className&#125;Query.java</span></span><br><span class="line"><span class="string">      Dao.java.vm: main/java/&#123;packageFilePath&#125;/database/dao/&#123;className&#125;.java</span></span><br><span class="line"><span class="string">      Service.java.vm: main/java/&#123;packageFilePath&#125;/database/service/&#123;className&#125;Service.java</span></span><br><span class="line"><span class="string">      Mapper.xml.vm: main/resources/mapper/&#123;className&#125;Mapper.xml</span></span><br></pre></td></tr></table></figure></p>
