@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laboo.top/"/>
-  <updated>2019-04-06T02:41:59.461Z</updated>
+  <updated>2019-04-08T15:19:57.069Z</updated>
   <id>https://laboo.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Node.js虚拟环境</title>
+    <link href="https://laboo.top/2019/04/08/nodevm/"/>
+    <id>https://laboo.top/2019/04/08/nodevm/</id>
+    <published>2019-04-08T14:44:48.000Z</published>
+    <updated>2019-04-08T15:19:57.069Z</updated>
+    
+    <content type="html"><![CDATA[<p>有时候代码中会允许用户提交一小段js代码并返回运行结果, 例如在模版配置中允许用户选择几个内置参数配置一个字符串<br>就像<code>main/java/{packagePath}/database/service/{customClassName}Service.java</code> 允许用户配置自定义文件路径, 其中<code>packagePath</code>和<code>customClassName</code>… 是内置对象</p><p>要实现这个功能</p><ul><li>其中一种方法就是直接字符串替换, 但是有点不严谨, 例如用户正好需要输入字符串<code>&quot;{customClassName}&quot;</code> 那就出现问题了, 就需要再考虑转义的问题</li><li>另一种方法就是使用<code>eval()</code>, 但是直接执行用户提交的脚本是有风险的, 这里就可以用到虚拟环境, Node.js自带的<code>vm</code>包</li></ul><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> vm = <span class="built_in">require</span>(<span class="string">'vm'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    customClassName:<span class="string">"TestClass"</span>,</span><br><span class="line">    packagePath:<span class="string">"com/a/b/c"</span>,</span><br><span class="line">    className:<span class="string">"MainClass"</span>,</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> format = <span class="string">"main/java/$&#123;packagePath&#125;/database/service/$&#123;customClassName&#125;Service.java"</span>;</span><br><span class="line">vm.createContext(data);</span><br><span class="line"><span class="keyword">let</span> value = vm.runInContext(<span class="string">"`"</span> + format + <span class="string">"`"</span>, data);</span><br><span class="line"><span class="built_in">console</span>.log(value);</span><br></pre></td></tr></table></figure><p>使用执行脚本的方式避免了前面转义的问题, 而且极大扩充了自定义性, 用户可以在<code>${customClassName}</code>中调用js原生的字符串操作函数</p><blockquote><p>这里提供了一种虚拟环境的使用场景, 但是即使在虚拟环境下也不建议运行不信任的脚本</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;有时候代码中会允许用户提交一小段js代码并返回运行结果, 例如在模版配置中允许用户选择几个内置参数配置一个字符串&lt;br&gt;就像&lt;code&gt;main/java/{packagePath}/database/service/{customClassName}Service.jav
+      
+    
+    </summary>
+    
+      <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+      <category term="Node.js" scheme="https://laboo.top/tags/Node-js/"/>
+    
+  </entry>
   
   <entry>
     <title>Node.js使用SQLite同步查询</title>
@@ -531,35 +556,6 @@
     
     
       <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kotlin + Node.js 搭建教程</title>
-    <link href="https://laboo.top/2018/10/23/kotlin-nodejs/"/>
-    <id>https://laboo.top/2018/10/23/kotlin-nodejs/</id>
-    <published>2018-10-23T07:04:21.000Z</published>
-    <updated>2018-10-23T08:18:37.765Z</updated>
-    
-    <content type="html"><![CDATA[<p><code>Kotlin</code>是JetBrains推出的一款语言, 相比<code>Java</code>有更简洁的语法, 能编译为<code>Java Class</code>, 也能编译为<code>JavaScript</code><br><code>Node.js</code>则是可以运行在服务端的<code>JavaScript</code>, 这里把二者结合, 搭建一个用<code>Kotlin</code>编写的服务端应用</p><h1 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h1><p>打开Idea 创建一个 Kotlin(JavaScript) 项目<br>编写一个测试文件, 检查是否可以正常编译</p><h2 id="Test-kt"><a href="#Test-kt" class="headerlink" title="Test.kt"></a>Test.kt</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;</span><br><span class="line">    println(<span class="string">"hello kt"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>按<code>Ctrl+F9</code>编译, 如果看到生成了编译文件, 就可以了, 其中<code>{projectName}.js</code>就是编译后的文件, 打开可以看到已经被编译为<code>JavaScript</code>了, 其中也有<code>println(&#39;hello kt&#39;);</code><br>如果没问题的话就可以正式开始接下来的了, 创建<code>App.kt</code></p><h2 id="App-kt"><a href="#App-kt" class="headerlink" title="App.kt"></a>App.kt</h2><p>监听<code>8888</code>端口 对任何请求都返回<code>hello world</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlin.js.json</span><br><span class="line"></span><br><span class="line"><span class="function">external fun <span class="title">require</span><span class="params">(<span class="keyword">module</span>: String)</span>: dynamic</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;</span><br><span class="line">    println(<span class="string">"hello kt"</span>)</span><br><span class="line">    val http = require(<span class="string">"http"</span>)</span><br><span class="line"></span><br><span class="line">    http.createServer &#123; _, response -&gt;</span><br><span class="line">        response.writeHead(<span class="number">200</span>, json(<span class="string">"Content-Type"</span> to <span class="string">"text/plain"</span>))</span><br><span class="line">        response.end(<span class="string">"Hello World"</span>)</span><br><span class="line">    &#125;.listen(<span class="number">8888</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h1 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h1><p>打开终端运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm init</span><br></pre></td></tr></table></figure></p><h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"kt-node"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">"kt-node"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"start"</span>: <span class="string">"node ./out/production/kt-node/kt-node.js"</span>   //这里改成你编译后文件的位置</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"author"</span>: <span class="string">"laziji"</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"express"</span>: <span class="string">"^4.15.4"</span>,</span><br><span class="line">    <span class="attr">"kotlin"</span>: <span class="string">"^1.1.4"</span>,</span><br><span class="line">    <span class="attr">"mongoose"</span>: <span class="string">"^4.11.7"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br><span class="line">$ npm start</span><br></pre></td></tr></table></figure><p>打开<code>localhost:8888</code> 查看效果</p><h1 id="若有报错"><a href="#若有报错" class="headerlink" title="若有报错"></a>若有报错</h1><p>如果运行的时候报错<br>打开<code>project settings -&gt; Kotlin Complier</code><br>将 <code>Module kind</code> 改为 <code>UMD</code> 再尝试编译 运行</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;code&gt;Kotlin&lt;/code&gt;是JetBrains推出的一款语言, 相比&lt;code&gt;Java&lt;/code&gt;有更简洁的语法, 能编译为&lt;code&gt;Java Class&lt;/code&gt;, 也能编译为&lt;code&gt;JavaScript&lt;/code&gt;&lt;br&gt;&lt;code&gt;Node
-      
-    
-    </summary>
-    
-      <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
-    
-    
-      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
-    
-      <category term="Kotlin" scheme="https://laboo.top/tags/Kotlin/"/>
-    
-      <category term="Node.js" scheme="https://laboo.top/tags/Node-js/"/>
     
   </entry>
   
