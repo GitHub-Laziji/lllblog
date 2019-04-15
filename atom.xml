@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laboo.top/"/>
-  <updated>2019-04-08T15:19:57.069Z</updated>
+  <updated>2019-04-15T12:10:37.783Z</updated>
   <id>https://laboo.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Echarts2热力图设置背景图片</title>
+    <link href="https://laboo.top/2019/04/15/ec2/"/>
+    <id>https://laboo.top/2019/04/15/ec2/</id>
+    <published>2019-04-15T11:53:57.000Z</published>
+    <updated>2019-04-15T12:10:37.783Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"main"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/echarts-all.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure><p>这里需要引人<code>echarts-all.js</code>, 这个文件在2.0版本的官网中下载</p><h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> heatData = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; ++i) &#123;</span><br><span class="line">    heatData.push([</span><br><span class="line">        <span class="number">100</span> + <span class="built_in">Math</span>.random() * <span class="number">600</span>,</span><br><span class="line">        <span class="number">150</span> + <span class="built_in">Math</span>.random() * <span class="number">50</span>,</span><br><span class="line">        <span class="built_in">Math</span>.random()</span><br><span class="line">    ]);</span><br><span class="line">&#125;</span><br><span class="line">echarts.init(<span class="built_in">document</span>.getElementById(<span class="string">'main'</span>)).setOption(&#123;</span><br><span class="line">    series: [&#123;</span><br><span class="line">        type: <span class="string">'heatmap'</span>,</span><br><span class="line">        data: heatData,</span><br><span class="line">        opacity: <span class="number">0.6</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>这是最简配置, 其中<code>opacity: 0.6</code>决定热力图的透明度, 设置为半透明后再为<code>Div #main</code>设置背景图片即可</p><h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#main</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">600px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">'/map.jpg'</span>);</span><br><span class="line">    <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">    <span class="attribute">background-position</span>: right top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;HTML&quot;&gt;&lt;a href=&quot;#HTML&quot; class=&quot;headerlink&quot; title=&quot;HTML&quot;&gt;&lt;/a&gt;HTML&lt;/h1&gt;&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre
+      
+    
+    </summary>
+    
+      <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>Node.js虚拟环境</title>
@@ -530,32 +555,6 @@
       <category term="ACM" scheme="https://laboo.top/tags/ACM/"/>
     
       <category term="Python" scheme="https://laboo.top/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JS自动生成QQ、微博等页面分享按钮</title>
-    <link href="https://laboo.top/2018/10/29/share/"/>
-    <id>https://laboo.top/2018/10/29/share/</id>
-    <published>2018-10-29T11:43:54.000Z</published>
-    <updated>2018-10-29T11:58:54.617Z</updated>
-    
-    <content type="html"><![CDATA[<p>生成 微博, QQ, 人人… 的分享按钮</p><h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p><a href="https://github.com/GitHub-Laziji/JS-plugins/tree/master/share" target="_blank" rel="noopener">https://github.com/GitHub-Laziji/JS-plugins/tree/master/share</a><br>自动生成按钮的图标使用<code>Font Awesome</code>, 使用前须引人<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"http://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br></pre></td></tr></table></figure></p><h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><p><img src="https://github.com/GitHub-Laziji/JS-plugins/raw/master/share/screenshot1.png" alt="screenshot"></p><h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="静态引人"><a href="#静态引人" class="headerlink" title="静态引人"></a>静态引人</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"share.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//自动生成</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"bar"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//直接调用</span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"AShare.share.sinaWeibo.event()"</span>&gt;</span>分享到微博<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  AShare.config(&#123;</span></span><br><span class="line"><span class="javascript">    title:<span class="string">"app"</span>,</span></span><br><span class="line"><span class="javascript">    content:<span class="string">"sssshare"</span>,</span></span><br><span class="line"><span class="javascript">    picture:<span class="string">"i.png"</span>,</span></span><br><span class="line"><span class="undefined">    </span></span><br><span class="line"><span class="javascript">    url: <span class="literal">null</span>, <span class="comment">//选填  默认当前页面</span></span></span><br><span class="line"><span class="undefined">  &#125;)</span></span><br><span class="line"><span class="undefined">  </span></span><br><span class="line"><span class="javascript">  <span class="comment">//自动生成全部</span></span></span><br><span class="line"><span class="javascript">  AShare.createBar(<span class="string">"#bar"</span>)</span></span><br><span class="line"><span class="undefined">  </span></span><br><span class="line"><span class="javascript">  <span class="comment">//选择生成</span></span></span><br><span class="line"><span class="javascript">  AShare.createBar(<span class="string">"#bar"</span>, &#123;</span></span><br><span class="line"><span class="javascript">    sinaWeibo:<span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">    qzone:<span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">    renren:<span class="literal">true</span></span></span><br><span class="line"><span class="undefined">  &#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure><h2 id="模块引人"><a href="#模块引人" class="headerlink" title="模块引人"></a>模块引人</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> AShare <span class="keyword">from</span> <span class="string">"share"</span></span><br><span class="line"></span><br><span class="line">AShare.config(&#123;</span><br><span class="line">  title:<span class="string">"app"</span>,</span><br><span class="line">  content:<span class="string">"sssshare"</span>,</span><br><span class="line">  picture:<span class="string">"i.png"</span>,</span><br><span class="line">&#125;).createBar(<span class="string">"#bar"</span>)</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;生成 微博, QQ, 人人… 的分享按钮&lt;/p&gt;
-&lt;h1 id=&quot;项目地址&quot;&gt;&lt;a href=&quot;#项目地址&quot; class=&quot;headerlink&quot; title=&quot;项目地址&quot;&gt;&lt;/a&gt;项目地址&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/GitHub
-      
-    
-    </summary>
-    
-      <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
-    
-    
-      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
     
   </entry>
   
