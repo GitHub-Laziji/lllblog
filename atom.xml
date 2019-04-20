@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laboo.top/"/>
-  <updated>2019-04-15T12:10:37.783Z</updated>
+  <updated>2019-04-20T11:02:45.644Z</updated>
   <id>https://laboo.top/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Angular全局变量使用</title>
+    <link href="https://laboo.top/2019/04/20/ngg/"/>
+    <id>https://laboo.top/2019/04/20/ngg/</id>
+    <published>2019-04-20T10:43:25.000Z</published>
+    <updated>2019-04-20T11:02:45.644Z</updated>
+    
+    <content type="html"><![CDATA[<p>这里介绍一种使用service来实现全局变量的方法</p><p>创建一个<code>SessionService</code></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Injectable(&#123;</span><br><span class="line">  providedIn: <span class="string">'root'</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">SessionService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  private globalContext = &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  getGlobal(key: string, defaultData?: &#123;&#125;) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.globalContext[key]) &#123;</span><br><span class="line">      <span class="keyword">this</span>.globalContext[key] = defaultData || &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.globalContext[key];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>session中有一个全局上下文, 在组件中通过key获取全局域</p><p>组件中使用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  templateUrl: <span class="string">"test.component.html"</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">TestComponent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  private global = &#123;</span><br><span class="line">    user: &#123;&#125;,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(private session: SessionService) &#123;</span><br><span class="line">    <span class="keyword">this</span>.data.global = <span class="keyword">this</span>.session.getGlobal(<span class="string">"TEST"</span>, <span class="keyword">this</span>.data.global);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>只需要在初始化的使用<code>session.getGlobal()</code>, <code>private global</code>里的内容就是全局的了, 多次载入组件内容保持一致</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这里介绍一种使用service来实现全局变量的方法&lt;/p&gt;
+&lt;p&gt;创建一个&lt;code&gt;SessionService&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;
+      
+    
+    </summary>
+    
+      <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
+    
+      <category term="Angular" scheme="https://laboo.top/tags/Angular/"/>
+    
+  </entry>
   
   <entry>
     <title>Echarts2热力图设置背景图片</title>
@@ -528,33 +557,6 @@
       <category term="动态规划" scheme="https://laboo.top/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
       <category term="线段树" scheme="https://laboo.top/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode 42.接雨水</title>
-    <link href="https://laboo.top/2018/10/30/acm-lc-42/"/>
-    <id>https://laboo.top/2018/10/30/acm-lc-42/</id>
-    <published>2018-10-30T15:26:04.000Z</published>
-    <updated>2018-10-30T16:14:57.099Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目地址"><a href="#题目地址" class="headerlink" title="题目地址"></a>题目地址</h1><p><a href="https://leetcode-cn.com/problems/trapping-rain-water/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/trapping-rain-water/</a></p><h1 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h1><p>把柱子按高度分成不同组, 从高到低开始取, 每组取完后计算<code>hi hn(下一组的高度)</code>之间存在多少块水, 数量为<code>(maxi - mini + 1 - (i + 1)) * (hi - hn)</code>, 其中<code>i</code>从<code>0</code>开始, <code>maxi - mini + 1</code>表示宽度, <code>i+1</code>表示柱子的数量<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">trap</span><span class="params">(self, height)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type height: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        </span><br><span class="line">        ihs = [(i,height[i]) <span class="keyword">for</span> i <span class="keyword">in</span> range(len(height))]</span><br><span class="line">        ihs.sort(key = <span class="keyword">lambda</span> x : x[<span class="number">1</span>], reverse = <span class="keyword">True</span>)</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        maxi = <span class="number">-1</span></span><br><span class="line">        mini = <span class="number">-1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(ihs)):</span><br><span class="line">            idx, h = ihs[i]</span><br><span class="line">            <span class="keyword">if</span> maxi == <span class="number">-1</span> <span class="keyword">or</span> idx&gt;maxi:</span><br><span class="line">                maxi = idx</span><br><span class="line">            <span class="keyword">if</span> mini == <span class="number">-1</span> <span class="keyword">or</span> idx&lt;mini:</span><br><span class="line">                mini = idx</span><br><span class="line">            </span><br><span class="line">            dh = <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> i == len(ihs)<span class="number">-1</span>:</span><br><span class="line">                dh = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dh = h - ihs[i+<span class="number">1</span>][<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span> dh:</span><br><span class="line">                ans += (maxi - mini - i) * dh</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(Solution().trap([<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>]))</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;题目地址&quot;&gt;&lt;a href=&quot;#题目地址&quot; class=&quot;headerlink&quot; title=&quot;题目地址&quot;&gt;&lt;/a&gt;题目地址&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/trapping-rain-water/
-      
-    
-    </summary>
-    
-      <category term="ACM" scheme="https://laboo.top/categories/ACM/"/>
-    
-    
-      <category term="ACM" scheme="https://laboo.top/tags/ACM/"/>
-    
-      <category term="Python" scheme="https://laboo.top/tags/Python/"/>
     
   </entry>
   
