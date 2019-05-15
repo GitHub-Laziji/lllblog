@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript,Kotlin,Node.js," />
+  <meta name="keywords" content="Java," />
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="Kotlin是JetBrains推出的一款语言, 相比Java有更简洁的语法, 能编译为Java Class, 也能编译为JavaScriptNode.js则是可以运行在服务端的JavaScript, 这里把二者结合, 搭建一个用Kotlin编写的服务端应用 创建打开Idea 创建一个 Kotlin(JavaScript) 项目编写一个测试文件, 检查是否可以正常编译 Test.kt123fun">
-<meta name="keywords" content="JavaScript,Kotlin,Node.js">
+<meta name="description" content="RPC是一种远程过程调用, 它是一种通过网络从远程计算机程序上请求服务, 而不需要了解底层网络技术的协议  RPC可以把远程服务像本地服务一样调用, 以Java中为例, 客户端与服务端一般共用一个核心包, 核心包中包含了需要调用服务的接口 在服务端实现这些接口, 客户端通过Socket等方式连接服务端, 发生调用的信息(方法名, 参数等) 服务端接收后执行相应动作, 最后通过网络返回计算结果,">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Kotlin + Node.js 搭建教程">
-<meta property="og:url" content="https://laboo.top/2018/10/23/kotlin-nodejs/index.html">
+<meta property="og:title" content="RPC在Java中的实现">
+<meta property="og:url" content="https://laboo.top/2019/05/15/rpc/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:description" content="Kotlin是JetBrains推出的一款语言, 相比Java有更简洁的语法, 能编译为Java Class, 也能编译为JavaScriptNode.js则是可以运行在服务端的JavaScript, 这里把二者结合, 搭建一个用Kotlin编写的服务端应用 创建打开Idea 创建一个 Kotlin(JavaScript) 项目编写一个测试文件, 检查是否可以正常编译 Test.kt123fun">
+<meta property="og:description" content="RPC是一种远程过程调用, 它是一种通过网络从远程计算机程序上请求服务, 而不需要了解底层网络技术的协议  RPC可以把远程服务像本地服务一样调用, 以Java中为例, 客户端与服务端一般共用一个核心包, 核心包中包含了需要调用服务的接口 在服务端实现这些接口, 客户端通过Socket等方式连接服务端, 发生调用的信息(方法名, 参数等) 服务端接收后执行相应动作, 最后通过网络返回计算结果,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-23T08:18:37.765Z">
+<meta property="og:updated_time" content="2019-05-15T15:46:14.395Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kotlin + Node.js 搭建教程">
-<meta name="twitter:description" content="Kotlin是JetBrains推出的一款语言, 相比Java有更简洁的语法, 能编译为Java Class, 也能编译为JavaScriptNode.js则是可以运行在服务端的JavaScript, 这里把二者结合, 搭建一个用Kotlin编写的服务端应用 创建打开Idea 创建一个 Kotlin(JavaScript) 项目编写一个测试文件, 检查是否可以正常编译 Test.kt123fun">
+<meta name="twitter:title" content="RPC在Java中的实现">
+<meta name="twitter:description" content="RPC是一种远程过程调用, 它是一种通过网络从远程计算机程序上请求服务, 而不需要了解底层网络技术的协议  RPC可以把远程服务像本地服务一样调用, 以Java中为例, 客户端与服务端一般共用一个核心包, 核心包中包含了需要调用服务的接口 在服务端实现这些接口, 客户端通过Socket等方式连接服务端, 发生调用的信息(方法名, 参数等) 服务端接收后执行相应动作, 最后通过网络返回计算结果,">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://laboo.top/2018/10/23/kotlin-nodejs/"/>
+  <link rel="canonical" href="https://laboo.top/2019/05/15/rpc/"/>
 
 
 
 
 
-  <title>Kotlin + Node.js 搭建教程 | ☻Blog("Laziji")</title>
+  <title>RPC在Java中的实现 | ☻Blog("Laziji")</title>
   
 
 
@@ -256,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laboo.top/2018/10/23/kotlin-nodejs/">
+    <link itemprop="mainEntityOfPage" href="https://laboo.top/2019/05/15/rpc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Laziji">
@@ -273,7 +273,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Kotlin + Node.js 搭建教程</h2>
+          <h2 class="post-title" itemprop="name headline">RPC在Java中的实现</h2>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-23T15:04:21+08:00">
-                2018-10-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T23:38:34+08:00">
+                2019-05-15
               </time>
             
 
@@ -326,8 +326,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/23/kotlin-nodejs/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/23/kotlin-nodejs/" itemprop="commentCount"></span>
+                <a href="/2019/05/15/rpc/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/15/rpc/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -335,7 +335,7 @@
 
           
           
-             <span id="/2018/10/23/kotlin-nodejs/" class="leancloud_visitors" data-flag-title="Kotlin + Node.js 搭建教程">
+             <span id="/2019/05/15/rpc/" class="leancloud_visitors" data-flag-title="RPC在Java中的实现">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -360,7 +360,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  358
+                  628
                 </span>
               
 
@@ -376,7 +376,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -397,16 +397,28 @@
       
 
       
-        <p><code>Kotlin</code>是JetBrains推出的一款语言, 相比<code>Java</code>有更简洁的语法, 能编译为<code>Java Class</code>, 也能编译为<code>JavaScript</code><br><code>Node.js</code>则是可以运行在服务端的<code>JavaScript</code>, 这里把二者结合, 搭建一个用<code>Kotlin</code>编写的服务端应用</p>
-<h1 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h1><p>打开Idea 创建一个 Kotlin(JavaScript) 项目<br>编写一个测试文件, 检查是否可以正常编译</p>
-<h2 id="Test-kt"><a href="#Test-kt" class="headerlink" title="Test.kt"></a>Test.kt</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;</span><br><span class="line">    println(<span class="string">"hello kt"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>按<code>Ctrl+F9</code>编译, 如果看到生成了编译文件, 就可以了, 其中<code>{projectName}.js</code>就是编译后的文件, 打开可以看到已经被编译为<code>JavaScript</code>了, 其中也有<code>println(&#39;hello kt&#39;);</code><br>如果没问题的话就可以正式开始接下来的了, 创建<code>App.kt</code></p>
-<h2 id="App-kt"><a href="#App-kt" class="headerlink" title="App.kt"></a>App.kt</h2><p>监听<code>8888</code>端口 对任何请求都返回<code>hello world</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlin.js.json</span><br><span class="line"></span><br><span class="line"><span class="function">external fun <span class="title">require</span><span class="params">(<span class="keyword">module</span>: String)</span>: dynamic</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;</span><br><span class="line">    println(<span class="string">"hello kt"</span>)</span><br><span class="line">    val http = require(<span class="string">"http"</span>)</span><br><span class="line"></span><br><span class="line">    http.createServer &#123; _, response -&gt;</span><br><span class="line">        response.writeHead(<span class="number">200</span>, json(<span class="string">"Content-Type"</span> to <span class="string">"text/plain"</span>))</span><br><span class="line">        response.end(<span class="string">"Hello World"</span>)</span><br><span class="line">    &#125;.listen(<span class="number">8888</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h1><p>打开终端运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm init</span><br></pre></td></tr></table></figure></p>
-<h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"kt-node"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">"kt-node"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"start"</span>: <span class="string">"node ./out/production/kt-node/kt-node.js"</span>   //这里改成你编译后文件的位置</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"author"</span>: <span class="string">"laziji"</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"express"</span>: <span class="string">"^4.15.4"</span>,</span><br><span class="line">    <span class="attr">"kotlin"</span>: <span class="string">"^1.1.4"</span>,</span><br><span class="line">    <span class="attr">"mongoose"</span>: <span class="string">"^4.11.7"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br><span class="line">$ npm start</span><br></pre></td></tr></table></figure>
-<p>打开<code>localhost:8888</code> 查看效果</p>
-<h1 id="若有报错"><a href="#若有报错" class="headerlink" title="若有报错"></a>若有报错</h1><p>如果运行的时候报错<br>打开<code>project settings -&gt; Kotlin Complier</code><br>将 <code>Module kind</code> 改为 <code>UMD</code> 再尝试编译 运行</p>
+        <blockquote>
+<p>RPC是一种远程过程调用, 它是一种通过网络从远程计算机程序上请求服务, 而不需要了解底层网络技术的协议</p>
+</blockquote>
+<p>RPC可以把远程服务像本地服务一样调用, 以<code>Java</code>中为例, 客户端与服务端一般共用一个核心包, 核心包中包含了需要调用服务的接口</p>
+<p>在服务端实现这些接口, 客户端通过<code>Socket</code>等方式连接服务端, 发生调用的信息(方法名, 参数等)</p>
+<p>服务端接收后执行相应动作, 最后通过网络返回计算结果, 一次RPC调用就完成了</p>
+<p>下面是<code>Java</code>中的简单实现</p>
+<h1 id="共用接口"><a href="#共用接口" class="headerlink" title="共用接口"></a>共用接口</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TestService</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">print</span><span class="params">(String s)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个简单的打印服务, 不包含实现</p>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><p>在客户端代码中自始至终没有编写服务的实现, 只有一个接口, 但是又可以得到服务的实例, </p>
+<p>要做到这点需要用到<code>Java</code>中的动态代理<code>Proxy.newProxyInstance</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] as)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        TestService service = (TestService) Proxy.newProxyInstance(TestService.class.getClassLoader(), <span class="keyword">new</span> Class&lt;?&gt;[]&#123;TestService.class&#125;, (Object proxy, Method method, Object[] args) -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span>(Socket socket = <span class="keyword">new</span> Socket())&#123;</span><br><span class="line">                socket.connect(<span class="keyword">new</span> InetSocketAddress(<span class="number">12306</span>));</span><br><span class="line">                ObjectOutputStream os = <span class="keyword">new</span> ObjectOutputStream(socket.getOutputStream());</span><br><span class="line">                os.writeUTF(method.getName());</span><br><span class="line">                os.writeObject(method.getParameterTypes());</span><br><span class="line">                os.writeObject(args);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> ObjectInputStream(socket.getInputStream()).readObject();</span><br><span class="line">            &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        System.out.println(service.print(<span class="string">"abc"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过对象流把参数等信息发生给服务端</p>
+<h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><p>一般服务端是预先实例化服务, 以完整类名为<code>Key</code>把服务存进集合供调用, 或者依赖现成的<code>Springboot</code>等框架管理服务, 下面是服务端的实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Producer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  </span>&#123;</span><br><span class="line"></span><br><span class="line">        TestService service = <span class="keyword">new</span> TestServiceImpl();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> (ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket())&#123;</span><br><span class="line">            serverSocket.bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">12306</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span>(Socket accept = serverSocket.accept())&#123;</span><br><span class="line">                ObjectInputStream is = <span class="keyword">new</span> ObjectInputStream(accept.getInputStream());</span><br><span class="line">                String methodName = is.readUTF();</span><br><span class="line">                Class&lt;?&gt;[] parameterTypes = (Class&lt;?&gt;[]) is.readObject();</span><br><span class="line">                Object[] arguments = (Object[]) is.readObject();</span><br><span class="line">                Object result = TestService.class.getMethod(methodName,parameterTypes).invoke(service,arguments);</span><br><span class="line">                <span class="keyword">new</span> ObjectOutputStream(accept.getOutputStream()).writeObject(result);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="服务实例"><a href="#服务实例" class="headerlink" title="服务实例"></a>服务实例</h2><p>服务端编写服务实例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestServiceImpl</span> <span class="keyword">implements</span> <span class="title">TestService</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">print</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"**"</span>+s+<span class="string">"**"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p>至此可以看到客户端调用的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(service.print(<span class="string">"abc"</span>));</span><br></pre></td></tr></table></figure>
+<p>打印出了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**abc**</span><br></pre></td></tr></table></figure>
+<p>就好像调用了本地服务一样</p>
 
       
     </div>
@@ -461,11 +473,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
-          
-            <a href="/tags/Kotlin/" rel="tag"><i class="fa fa-tag"></i> Kotlin</a>
-          
-            <a href="/tags/Node-js/" rel="tag"><i class="fa fa-tag"></i> Node.js</a>
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           
         </div>
       
@@ -478,8 +486,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/22/java-form/" rel="next" title="Java注解表单验证">
-                <i class="fa fa-chevron-left"></i> Java注解表单验证
+              <a href="/2019/05/10/datax/" rel="next" title="Window下DataX写入HDFS严重BUG">
+                <i class="fa fa-chevron-left"></i> Window下DataX写入HDFS严重BUG
               </a>
             
           </div>
@@ -487,10 +495,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/29/share/" rel="prev" title="JS自动生成QQ、微博等页面分享按钮">
-                JS自动生成QQ、微博等页面分享按钮 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -678,7 +682,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建"><span class="nav-number">1.</span> <span class="nav-text">创建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-kt"><span class="nav-number">1.1.</span> <span class="nav-text">Test.kt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App-kt"><span class="nav-number">1.2.</span> <span class="nav-text">App.kt</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NPM"><span class="nav-number">2.</span> <span class="nav-text">NPM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#package-json"><span class="nav-number">2.1.</span> <span class="nav-text">package.json</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#若有报错"><span class="nav-number">3.</span> <span class="nav-text">若有报错</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#共用接口"><span class="nav-number">1.</span> <span class="nav-text">共用接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#客户端"><span class="nav-number">2.</span> <span class="nav-text">客户端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务端"><span class="nav-number">3.</span> <span class="nav-text">服务端</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务实例"><span class="nav-number">3.1.</span> <span class="nav-text">服务实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结果"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li></ol></div>
             
 
           </div>
