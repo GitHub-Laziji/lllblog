@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java," />
+  <meta name="keywords" content="Java,Mybatis," />
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, XML、Dao、Service 大多是重复的 不止这些, 还有些前端页面也是, 这里分享一个Java编写的代码生成器mybatis-generator 虽然名字叫mybatis 但是不限应用于mybatis中, 任何与数据库表对应的代码都可以 项目地址https://github.com/GitHub-Laziji/mybat">
-<meta name="keywords" content="Java">
+<meta name="description" content="MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。  传统Mybatis开发使用XML的方式编写">
+<meta name="keywords" content="Java,Mybatis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java代码生成器mybatis-generator的使用">
-<meta property="og:url" content="https://laboo.top/2019/01/27/javag/index.html">
+<meta property="og:title" content="Mybatis通用Mapper的实现">
+<meta property="og:url" content="https://laboo.top/2019/05/26/mybatis/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:description" content="在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, XML、Dao、Service 大多是重复的 不止这些, 还有些前端页面也是, 这里分享一个Java编写的代码生成器mybatis-generator 虽然名字叫mybatis 但是不限应用于mybatis中, 任何与数据库表对应的代码都可以 项目地址https://github.com/GitHub-Laziji/mybat">
+<meta property="og:description" content="MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。  传统Mybatis开发使用XML的方式编写">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-26T11:25:57.067Z">
+<meta property="og:updated_time" content="2019-05-26T02:48:12.182Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java代码生成器mybatis-generator的使用">
-<meta name="twitter:description" content="在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, XML、Dao、Service 大多是重复的 不止这些, 还有些前端页面也是, 这里分享一个Java编写的代码生成器mybatis-generator 虽然名字叫mybatis 但是不限应用于mybatis中, 任何与数据库表对应的代码都可以 项目地址https://github.com/GitHub-Laziji/mybat">
+<meta name="twitter:title" content="Mybatis通用Mapper的实现">
+<meta name="twitter:description" content="MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。  传统Mybatis开发使用XML的方式编写">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://laboo.top/2019/01/27/javag/"/>
+  <link rel="canonical" href="https://laboo.top/2019/05/26/mybatis/"/>
 
 
 
 
 
-  <title>Java代码生成器mybatis-generator的使用 | ☻Blog("Laziji")</title>
+  <title>Mybatis通用Mapper的实现 | ☻Blog("Laziji")</title>
   
 
 
@@ -256,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laboo.top/2019/01/27/javag/">
+    <link itemprop="mainEntityOfPage" href="https://laboo.top/2019/05/26/mybatis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Laziji">
@@ -273,7 +273,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Java代码生成器mybatis-generator的使用</h2>
+          <h2 class="post-title" itemprop="name headline">Mybatis通用Mapper的实现</h2>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-27T17:27:34+08:00">
-                2019-01-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-26T10:19:29+08:00">
+                2019-05-26
               </time>
             
 
@@ -308,8 +308,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工具使用/" itemprop="url" rel="index">
-                    <span itemprop="name">工具使用</span>
+                  <a href="/categories/技术分享/" itemprop="url" rel="index">
+                    <span itemprop="name">技术分享</span>
                   </a>
                 </span>
 
@@ -326,8 +326,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/01/27/javag/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/27/javag/" itemprop="commentCount"></span>
+                <a href="/2019/05/26/mybatis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/26/mybatis/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -335,7 +335,7 @@
 
           
           
-             <span id="/2019/01/27/javag/" class="leancloud_visitors" data-flag-title="Java代码生成器mybatis-generator的使用">
+             <span id="/2019/05/26/mybatis/" class="leancloud_visitors" data-flag-title="Mybatis通用Mapper的实现">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -360,7 +360,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  642
+                  741
                 </span>
               
 
@@ -376,7 +376,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  3
                 </span>
               
             </div>
@@ -397,41 +397,29 @@
       
 
       
-        <p>在用Java写项目的过程中存在很多重复性的工作, 比如数据库层的编写, <code>XML</code>、<code>Dao</code>、<code>Service</code> 大多是重复的</p>
-<p>不止这些, 还有些前端页面也是, 这里分享一个Java编写的代码生成器<code>mybatis-generator</code> 虽然名字叫<code>mybatis</code> 但是不限应用于<code>mybatis</code>中, 任何与数据库表对应的代码都可以</p>
-<h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p><a href="https://github.com/GitHub-Laziji/mybatis-generator" target="_blank" rel="noopener">https://github.com/GitHub-Laziji/mybatis-generator</a></p>
-<blockquote>
-<p>欢迎贡献各种模版</p>
+        <blockquote>
+<p>MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。</p>
 </blockquote>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>目前项目中包含两个模版在<code>resources</code>下, 如果模版不合适可以自己模仿其中的模版进行修改</p>
+<p>传统<code>Mybatis</code>开发使用XML的方式编写SQL脚本进行数据库操作,<br><code>Mybatis</code>允许使用<code>动态SQL</code>但是即使如此, 依然存在许多重复性工作, 因为每个基本表的增删改查语句模式其实都是相同的</p>
+<p><code>Mybatis</code>也可以使用Dao接口上以注解的形式编写SQL, 但是也是一样, 必须重复编写, 非常不方便</p>
+<p>其实<code>Mybatis</code>已经考虑到了这点, 为我们提供了自定义通用Mapper的实现机制</p>
+<h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p><a href="https://github.com/GitHub-Laziji/commons-mybatis" target="_blank" rel="noopener">https://github.com/GitHub-Laziji/commons-mybatis</a></p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>实现方法分为两步</p>
+<h2 id="声明引用的方法"><a href="#声明引用的方法" class="headerlink" title="声明引用的方法"></a>声明引用的方法</h2><p>在Dao接口的方法上以注解的形式声明, 使用哪个类的哪个方法, 如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DODao</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">DO</span>&gt; <span class="keyword">extends</span> <span class="title">Dao</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SelectProvider</span>(type = SqlProvider.class, method = <span class="string">"selectById"</span>)</span><br><span class="line">    <span class="function">T <span class="title">selectById</span><span class="params">(Long id)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@InsertProvider</span>(type = SqlProvider.class, method = <span class="string">"insert"</span>)</span><br><span class="line">    <span class="meta">@Options</span>(useGeneratedKeys = <span class="keyword">true</span>, keyColumn = <span class="string">"id"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">insert</span><span class="params">(T bean)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@UpdateProvider</span>(type = SqlProvider.class, method = <span class="string">"update"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">update</span><span class="params">(T bean)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@DeleteProvider</span>(type = SqlProvider.class, method = <span class="string">"delete"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">delete</span><span class="params">(Long id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="方法实现"><a href="#方法实现" class="headerlink" title="方法实现"></a>方法实现</h2><p>在实现方法中可以接收Dao接口中传来的参数, 最后返回一个SQL字符串, 这个SQL可以是动态的, 例如可以使用<code>id=#{id}</code>这样的语法</p>
+<p><code>T selectById(Long id)</code>实现如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">selectById</span><span class="params">(ProviderContext context)</span> </span>&#123;</span><br><span class="line">    Class clazz = getEntityClass(context);</span><br><span class="line">    <span class="keyword">assert</span> clazz != <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SQL()</span><br><span class="line">            .SELECT(getColumns(clazz))</span><br><span class="line">            .FROM(getTableName(clazz))</span><br><span class="line">            .WHERE(<span class="string">"`id`=#&#123;id&#125;"</span>)</span><br><span class="line">            .toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以通过<code>context</code>获取Dao的泛型类, 也就是实体类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Class <span class="title">getEntityClass</span><span class="params">(ProviderContext context)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (Type type : context.getMapperType().getGenericInterfaces()) &#123;</span><br><span class="line">        ResolvableType resolvableType = ResolvableType.forType(type);</span><br><span class="line">        <span class="keyword">if</span> (resolvableType.getRawClass() == Dao.class</span><br><span class="line">                || resolvableType.getRawClass() == DODao.class</span><br><span class="line">                || resolvableType.getRawClass() == VODao.class) &#123;</span><br><span class="line">            <span class="keyword">return</span> resolvableType.getGeneric(<span class="number">0</span>).getRawClass();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过反射我们可以拿到对应的字段名, 类名, 字段名获取如下, <code>Ignore</code> 是自定义注解, 用于忽略一些字段<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String[] getVariables(Class clazz, String[] prefixes) &#123;</span><br><span class="line">    List&lt;String&gt; variables = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Method method : clazz.getMethods()) &#123;</span><br><span class="line">        Ignore annotation = method.getAnnotation(Ignore.class);</span><br><span class="line">        <span class="keyword">if</span> (annotation != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String name = method.getName();</span><br><span class="line">        <span class="keyword">for</span> (String prefix : prefixes) &#123;</span><br><span class="line">            <span class="keyword">int</span> length = prefix.length();</span><br><span class="line">            <span class="keyword">if</span> (name.length() &gt; length &amp;&amp; name.startsWith(prefix)</span><br><span class="line">                    &amp;&amp; name.charAt(length) &gt;= <span class="string">'A'</span> &amp;&amp; name.charAt(length) &lt;= <span class="string">'Z'</span>) &#123;</span><br><span class="line">                String variableName = (<span class="keyword">char</span>) (name.charAt(length) - <span class="string">'A'</span> + <span class="string">'a'</span>) + name.substring(length + <span class="number">1</span>);</span><br><span class="line">                variables.add(variableName);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> variables.toArray(<span class="keyword">new</span> String[]&#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> String[] getReadVariables(Class clazz) &#123;</span><br><span class="line">    <span class="keyword">return</span> getVariables(clazz, <span class="keyword">new</span> String[]&#123;<span class="string">"is"</span>, <span class="string">"get"</span>&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>使用通用<code>Mapper</code>无需编写任何SQL 只需创建空Dao 继承通用的<code>Dao&lt;T&gt;</code>即可</p>
 <ul>
-<li><code>mybatis2</code> 是根据 <a href="https://github.com/GitHub-Laziji/commons-mybatis" target="_blank" rel="noopener">commons-mybatis</a> 通用<code>Mapper</code>编写的, 依赖<code>commons-mybatis 2.0</code></li>
-<li><code>mybatis-default</code> 这个生成的是简单的<code>mybatis</code>实体类、Dao接口以及XML, 不依赖其他包</li>
+<li><p>具体实现请看项目<a href="https://github.com/GitHub-Laziji/commons-mybatis" target="_blank" rel="noopener">commons-mybatis</a></p>
+</li>
+<li><p>具体使用请看<code>README</code></p>
+</li>
+<li><p>还可以更近一步使用代码生成器生成Bean, Dao, Service, 把工作简化到极致<a href="https://laboo.top/2019/01/27/javag/">Java代码生成器mybatis-generator的使用</a></p>
+</li>
 </ul>
-<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>在<code>resources</code>下创建<code>application-${name}.yml</code>文件, <code>${name}</code>随意, 例如: <code>application-example.yml</code>, 可创建多个</p>
-<p>配置文件属性:</p>
-<ul>
-<li><code>spring.datasource</code> 填入自己的项目数据库相关配置</li>
-<li><code>generator.package</code> 项目包名</li>
-<li><code>generator.template.mapping</code> 用于自定义生成文件的包格式以及文件名</li>
-<li><code>generator.template.path</code> 表示模版文件的路径目前可以选<code>mybatis</code> 或 <code>mybatis-default</code></li>
-</ul>
-<p><code>generator.template.mapping</code>中可选的动态属性包含:</p>
-<ul>
-<li><code>{packagePath}</code> 包文件路径 例如: <code>com/xxx/xxx</code></li>
-<li><code>{className}</code> 类名 由表名使用驼峰命名法得来</li>
-<li><code>{customClassName}</code> 自定义类名 (若未指定自定义类名, 则就是类名)</li>
-<li><code>{suffix}</code> 类名后缀 DO或VO (根据是否为视图)</li>
-</ul>
-<p>一般按以下配置即可, 也可以自行扩展<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://xxx.xxx.xxx.xxx:3306/xxxx?characterEncoding=utf-8</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">xxxxxx</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">xxxxxx</span></span><br><span class="line"></span><br><span class="line"><span class="attr">generator:</span></span><br><span class="line"><span class="attr">  package:</span> <span class="string">com.xxx.xxx</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">mybatis2</span></span><br><span class="line"><span class="attr">    mapping:</span> <span class="string">|</span></span><br><span class="line"><span class="string">      Model.java.vm: main/java/&#123;packagePath&#125;/database/model/&#123;customClassName&#125;.java</span></span><br><span class="line"><span class="string">      Query.java.vm: main/java/&#123;packagePath&#125;/database/query/&#123;customClassName&#125;Query.java</span></span><br><span class="line"><span class="string">      Dao.java.vm: main/java/&#123;packagePath&#125;/database/dao/&#123;customClassName&#125;Dao.java</span></span><br><span class="line"><span class="string">      Service.java.vm: main/java/&#123;packagePath&#125;/database/service/&#123;customClassName&#125;Service.java</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="生成代码"><a href="#生成代码" class="headerlink" title="生成代码"></a>生成代码</h2><p>在test文件下创建测试类</p>
-<ul>
-<li><code>@ActiveProfiles(&quot;example&quot;)</code>中填入刚才配置文件名的<code>name</code></li>
-<li><code>tableNames</code>需要生成的表, 可以多个</li>
-<li><code>zipPath</code> 代码导出路径</li>
-</ul>
-<p>调用<code>generatorService.generateZip</code>传入参数可以是表名数组<code>String[]</code>或者<code>TableItem[]</code></p>
-<p>运行测试方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> pg.laziji.generator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.ActiveProfiles;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"><span class="keyword">import</span> pg.laziji.generator.mybatis.GeneratorService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ActiveProfiles</span>(<span class="string">"example"</span>)</span><br><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExampleTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> GeneratorService generatorService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        String zipPath = <span class="string">"/home/code.zip"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//        String[] tableNames = new String[]&#123;"table1","table2"&#125;;</span></span><br><span class="line"><span class="comment">//        generatorService.generateZip(tableNames,zipPath);</span></span><br><span class="line"></span><br><span class="line">        TableItem[] tableItems = <span class="keyword">new</span> TableItem[]&#123;</span><br><span class="line">                <span class="keyword">new</span> TableItem(<span class="string">"table1"</span>, <span class="string">"TableA"</span>),</span><br><span class="line">                <span class="keyword">new</span> TableItem(<span class="string">"table2"</span>, <span class="string">"TableB"</span>)</span><br><span class="line">        &#125;;</span><br><span class="line">        generatorService.generateZip(tableItems,zipPath);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -488,6 +476,8 @@
           
             <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           
+            <a href="/tags/Mybatis/" rel="tag"><i class="fa fa-tag"></i> Mybatis</a>
+          
         </div>
       
 
@@ -499,8 +489,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/19/xxljob/" rel="next" title="XXL-JOB通用执行器的编写">
-                <i class="fa fa-chevron-left"></i> XXL-JOB通用执行器的编写
+              <a href="/2019/05/15/rpc/" rel="next" title="RPC在Java中的实现">
+                <i class="fa fa-chevron-left"></i> RPC在Java中的实现
               </a>
             
           </div>
@@ -508,10 +498,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/06/nodedb/" rel="prev" title="Node.js使用SQLite同步查询">
-                Node.js使用SQLite同步查询 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -699,7 +685,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#项目地址"><span class="nav-number">1.</span> <span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件"><span class="nav-number">2.1.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成代码"><span class="nav-number">2.2.</span> <span class="nav-text">生成代码</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#项目地址"><span class="nav-number">1.</span> <span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明引用的方法"><span class="nav-number">2.1.</span> <span class="nav-text">声明引用的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法实现"><span class="nav-number">2.2.</span> <span class="nav-text">方法实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
