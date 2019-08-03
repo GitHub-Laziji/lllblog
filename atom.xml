@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laboo.top/"/>
-  <updated>2019-07-29T13:25:12.949Z</updated>
+  <updated>2019-08-03T05:24:03.122Z</updated>
   <id>https://laboo.top/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在GitLab私服中使用Pages功能</title>
+    <link href="https://laboo.top/2019/08/03/gitpages/"/>
+    <id>https://laboo.top/2019/08/03/gitpages/</id>
+    <published>2019-08-03T05:01:16.000Z</published>
+    <updated>2019-08-03T05:24:03.122Z</updated>
+    
+    <content type="html"><![CDATA[<p>当本地搭建<code>gitlab</code>服务器的时候经常使用的是直接ip访问, 没有域名, 所以无法访问到类似<code>*.gitlab.io</code>的Pages</p><p>这里提供一个取巧的解决办法, 因为<code>gitlab</code>仓库下的文件都可以通过<code>/raw</code>访问原始文本文件, 响应返回类型是文本</p><p>所以只需要通过<code>Nginx</code>把后缀为<code>html</code>的文件返回类型改为<code>text/html</code>, 图片类型的改为<code>image/png</code>即可直接访问到网页了</p><p><code>gitlab</code>方面无需配置, <code>Nginx</code>加入如下配置</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen <span class="number">8080</span>;</span><br><span class="line">  server_name gitlab;</span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http:<span class="comment">//127.0.0.1/;</span></span><br><span class="line">    add_header content-type <span class="string">"text/html; charset=utf-8"</span>;</span><br><span class="line">    <span class="keyword">if</span> ($request_uri ~* <span class="string">"/[^/]+/[^/]+/raw/[^/]+/.+\.svg"</span>) &#123;  </span><br><span class="line">      add_header content-type <span class="string">'image/svg+xml'</span>;  </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ($request_uri ~* <span class="string">"/[^/]+/[^/]+/raw/[^/]+/.+\.png"</span>) &#123;  </span><br><span class="line">      add_header content-type <span class="string">'image/png'</span>;  </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ($request_uri ~* <span class="string">"/[^/]+/[^/]+/raw/[^/]+/.+\.(jpeg|jpg|icon)"</span>) &#123;  </span><br><span class="line">      add_header content-type <span class="string">'image/jpeg'</span>;  </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>配置之后例如用户<code>LLL</code>有个仓库<code>blog</code>的主分支<code>master</code>上存放着类似<code>hexo</code>搭建的博客文件,<br>只需要访问<code>http://127.0.0.1:8080/LLL/blog/raw/master/index.html</code>即可进入博客了</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;当本地搭建&lt;code&gt;gitlab&lt;/code&gt;服务器的时候经常使用的是直接ip访问, 没有域名, 所以无法访问到类似&lt;code&gt;*.gitlab.io&lt;/code&gt;的Pages&lt;/p&gt;
+&lt;p&gt;这里提供一个取巧的解决办法, 因为&lt;code&gt;gitlab&lt;/code&gt;仓库下的
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Python与Java程序RSA,AES加密相互通信</title>
@@ -528,31 +550,6 @@
     
     
       <category term="Google" scheme="https://laboo.top/tags/Google/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>新浪博客写文章可以手动输入Html??</title>
-    <link href="https://laboo.top/2018/11/12/zt/"/>
-    <id>https://laboo.top/2018/11/12/zt/</id>
-    <published>2018-11-12T14:12:48.000Z</published>
-    <updated>2018-11-12T14:31:46.357Z</updated>
-    
-    <content type="html"><![CDATA[<p>以前从没在新浪发过文章, 今天在逛的时候进去看了一下, 不仅长得丑而且不能用<code>Markdown</code>语法, 挺落后的, 写起来非常的不舒服<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(〒︿〒)</span><br></pre></td></tr></table></figure></p><p>当我要写点什么的时候, 赫然发现下面有个按钮<strong>显示Html</strong>, 点击之后就是文章的<code>Html</code>代码, 可以完全自由的编辑<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Σ(*ﾟдﾟﾉ)ﾉ</span><br></pre></td></tr></table></figure></p><p>我都差点新浪怀疑有xss漏洞了, 毕竟看那十年前的界面, 有点漏洞也不奇怪</p><p>尝试了一下, 新浪还是做了一点过滤的, 但是操作空间还是特别大, 因为里面可以自己添加元素<br><code>&lt;input&gt;</code> , <code>&lt;button&gt;</code> , <code>&lt;img&gt;</code> …. 都是可以的<br>而且<strong>可以自己添加样式</strong>, 这就有的玩了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ლ(╹◡╹ლ)</span><br></pre></td></tr></table></figure></p><p>这意味着可以自己写一个<code>div</code>宽高占满整个屏幕, 填上背景, 浮动在<code>body</code>之上, 盖住博客原来的页面<br>然后这个<code>div</code>之中自己怎么操作都可以, 就像一个自定义的网页<br>尝试了一下, 这个操作是可行的, 但是唯一的不足是新浪过滤了 <code>z-index</code> 样式, 所以不能添加这个, 所以有些原来页面加了<code>z-index</code>的元素会覆盖不住</p><p>暂时没找到解决的办法, 不过已经非常自定义了</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;以前从没在新浪发过文章, 今天在逛的时候进去看了一下, 不仅长得丑而且不能用&lt;code&gt;Markdown&lt;/code&gt;语法, 挺落后的, 写起来非常的不舒服&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;g
-      
-    
-    </summary>
-    
-      <category term="杂谈" scheme="https://laboo.top/categories/%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="杂谈" scheme="https://laboo.top/tags/%E6%9D%82%E8%B0%88/"/>
     
   </entry>
   
