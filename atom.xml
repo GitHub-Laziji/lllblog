@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laboo.top/"/>
-  <updated>2019-08-03T05:24:03.122Z</updated>
+  <updated>2019-11-25T13:21:33.248Z</updated>
   <id>https://laboo.top/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>js中yield实现同步原理</title>
+    <link href="https://laboo.top/2019/11/25/jsyield/"/>
+    <id>https://laboo.top/2019/11/25/jsyield/</id>
+    <published>2019-11-25T13:02:28.000Z</published>
+    <updated>2019-11-25T13:21:33.248Z</updated>
+    
+    <content type="html"><![CDATA[<p>在js中需要将异步方法同步的时候, 经常使用的是<code>sync</code>和<code>await</code>, 或者用<code>Promise</code></p><p>偶然在dvajs中看到其使用<code>yield</code>迭代器实现了同步的效果, 例如</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">Promise</span>.resolve(<span class="number">1</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(a); <span class="comment">// Promise</span></span><br><span class="line">  <span class="keyword">var</span> ra = <span class="keyword">yield</span> a;</span><br><span class="line">  <span class="built_in">console</span>.log(ra); <span class="comment">// 1</span></span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">Promise</span>.resolve(<span class="number">2</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(b); <span class="comment">// Promise</span></span><br><span class="line">  <span class="keyword">var</span> rb = <span class="keyword">yield</span> b;</span><br><span class="line">  <span class="built_in">console</span>.log(rb); <span class="comment">// 2</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">"success"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>当然直接运行不能得到预期的效果, 还缺少对其的一层封装<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> it = f();</span><br><span class="line">it.next();</span><br><span class="line">it.next();</span><br><span class="line">it.next();</span><br></pre></td></tr></table></figure></p><p>传统的迭代器, 是这样使用的</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">r</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">    <span class="keyword">yield</span> i;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> it = r();</span><br><span class="line"><span class="built_in">console</span>.log(it.next().value); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(it.next().value); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(it.next().value); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure><p>如下封装<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sync</span>(<span class="params">g</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> ctx = <span class="keyword">this</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    g = g.apply(ctx);</span><br><span class="line">    next();</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">next</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> result = g.next(res);</span><br><span class="line">      <span class="keyword">if</span> (result.done)&#123;</span><br><span class="line">        <span class="keyword">return</span> resolve(result.value);</span><br><span class="line">      &#125;</span><br><span class="line">      result.value.then(next, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sync(<span class="function"><span class="keyword">function</span>*(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">Promise</span>.resolve(<span class="number">1</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(a); <span class="comment">// Promise</span></span><br><span class="line">  <span class="keyword">var</span> ra = <span class="keyword">yield</span> a;</span><br><span class="line">  <span class="built_in">console</span>.log(ra); <span class="comment">// 1</span></span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">Promise</span>.resolve(<span class="number">2</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(b); <span class="comment">// Promise</span></span><br><span class="line">  <span class="keyword">var</span> rb = <span class="keyword">yield</span> b;</span><br><span class="line">  <span class="built_in">console</span>.log(rb); <span class="comment">// 2</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">"success"</span>;</span><br><span class="line">&#125;).then(<span class="function"><span class="params">v</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(v) <span class="comment">// success</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在js中需要将异步方法同步的时候, 经常使用的是&lt;code&gt;sync&lt;/code&gt;和&lt;code&gt;await&lt;/code&gt;, 或者用&lt;code&gt;Promise&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;偶然在dvajs中看到其使用&lt;code&gt;yield&lt;/code&gt;迭代器实现了同步的效果,
+      
+    
+    </summary>
+    
+      <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>在GitLab私服中使用Pages功能</title>
@@ -525,31 +551,6 @@
       <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
     
       <category term="TensorFlow" scheme="https://laboo.top/tags/TensorFlow/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Google AdSense的使用</title>
-    <link href="https://laboo.top/2018/11/15/ggad/"/>
-    <id>https://laboo.top/2018/11/15/ggad/</id>
-    <published>2018-11-15T06:39:52.000Z</published>
-    <updated>2018-11-15T07:35:30.589Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>谷歌的广告插入方式分为传统的<code>广告单元</code>和新出的<code>自动广告</code>, 相比于百度联盟, 谷歌广告的使用说甩前者几条街也不过分, 下面介绍这两种插入方式的使用</p><h1 id="自动广告"><a href="#自动广告" class="headerlink" title="自动广告"></a>自动广告</h1><p>顾名思义就是全权交给谷歌, 所有的事情都帮你处理好。<br>点击Google AdSense控制台的<code>自动广告</code>, 它会让你把一段代码插入网页。<br>这段代码最好插入所有网页的公共部分, 比如公共<code>&lt;head&gt;</code>中, 后面需在哪些网页中显示广告都可以在控制台在进行控制。<br>插入完成后, 等待几十分钟, 就可以在网站上看到广告了, 广告的位置是通过算法智能判断自动插入的, 所以称之为<code>自动广告</code>,</p><p>之后就可以点击<code>新的网址群组</code>按钮进行详细设置, 群组种类可以如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">网域，例如 example.com</span><br><span class="line">子网域，例如 forums.example.com</span><br><span class="line">版块，例如 example.com/directory/</span><br><span class="line">网页，例如 example.com/directory/page.html</span><br></pre></td></tr></table></figure></p><p>如果设置了<code>example.com/directory/</code>, 前缀是该url的所有网站都会应用这个群组的设置, 除非匹配到更详细的群组。</p><p><code>自动广告</code>虽然很省心, 但是太不可控了, 有写页面并不能很好的判断插入位置, 并且使用过后发现在移动端显示广告后出现了按钮无法点击的问题, 暂未解决。</p><h1 id="广告单元"><a href="#广告单元" class="headerlink" title="广告单元"></a>广告单元</h1><p>广告单元就是传统的创建一块广告, 把代码粘进需要显示的地方<br>广告单元分为<code>文字广告</code>, <code>信息流广告</code>和<code>文章内嵌广告</code>,<br>这几种感觉比较好的就是<code>信息流广告</code>, 比较美观, 也比较通用, 不管是文章, 还是主页, 在尾部插入一条, 都不会显得违和。<br>这种类型的广告的大部分样式参数都可以自行选择, 并且宽度是自适应的, 只需创建后把代码插入网页, 之后需要修改只需修改控制台中的样式即可, 修改后会有半小时左右的延迟才会生效。</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总的来说<code>自动广告</code>不适合太复杂的页面, 可以在一些博客文章之类的简单页面尝试一下, 主要方式还是使用<code>广告单元</code>进行显示。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;谷歌的广告插入方式分为传统的&lt;code&gt;广告单元&lt;/code&gt;和新出的&lt;code&gt;自动广告&lt;/code&gt;, 相比于百度联盟, 谷歌广告的使用
-      
-    
-    </summary>
-    
-      <category term="工具使用" scheme="https://laboo.top/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
-    
-    
-      <category term="Google" scheme="https://laboo.top/tags/Google/"/>
     
   </entry>
   
