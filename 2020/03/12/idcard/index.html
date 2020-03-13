@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="身份证最后一位为校验位, 值为身份证前十七位 加权求和 然后对11取模 进行映射 权值为 [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2] 映射为 [&amp;quot;1&amp;quot;, &amp;quot;0&amp;quot;, &amp;quot;X&amp;quot;, &amp;quot;9&amp;quot;, &amp;quot;8&amp;quot;, &amp;quot;7&amp;quot;, &amp;quot;">
+<meta name="description" content="身份证前六位为区号, 中间八位为出生日期, 再后三位为顺序码, 偶数分配给女性, 奇数给男性, 最后一位为校验位, 值为身份证前十七位 加权求和 然后对11取模 进行映射 权值为 [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2] 映射为 [&amp;quot;1&amp;quot;, &amp;quot;0&amp;quot;, &amp;quot;X&amp;quot;, &amp;quot;">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="身份证简单校验">
 <meta property="og:url" content="https://laboo.top/2020/03/12/idcard/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:description" content="身份证最后一位为校验位, 值为身份证前十七位 加权求和 然后对11取模 进行映射 权值为 [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2] 映射为 [&amp;quot;1&amp;quot;, &amp;quot;0&amp;quot;, &amp;quot;X&amp;quot;, &amp;quot;9&amp;quot;, &amp;quot;8&amp;quot;, &amp;quot;7&amp;quot;, &amp;quot;">
+<meta property="og:description" content="身份证前六位为区号, 中间八位为出生日期, 再后三位为顺序码, 偶数分配给女性, 奇数给男性, 最后一位为校验位, 值为身份证前十七位 加权求和 然后对11取模 进行映射 权值为 [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2] 映射为 [&amp;quot;1&amp;quot;, &amp;quot;0&amp;quot;, &amp;quot;X&amp;quot;, &amp;quot;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-12T09:51:08.414Z">
+<meta property="og:updated_time" content="2020-03-13T15:13:49.884Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="身份证简单校验">
-<meta name="twitter:description" content="身份证最后一位为校验位, 值为身份证前十七位 加权求和 然后对11取模 进行映射 权值为 [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2] 映射为 [&amp;quot;1&amp;quot;, &amp;quot;0&amp;quot;, &amp;quot;X&amp;quot;, &amp;quot;9&amp;quot;, &amp;quot;8&amp;quot;, &amp;quot;7&amp;quot;, &amp;quot;">
+<meta name="twitter:description" content="身份证前六位为区号, 中间八位为出生日期, 再后三位为顺序码, 偶数分配给女性, 奇数给男性, 最后一位为校验位, 值为身份证前十七位 加权求和 然后对11取模 进行映射 权值为 [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2] 映射为 [&amp;quot;1&amp;quot;, &amp;quot;0&amp;quot;, &amp;quot;X&amp;quot;, &amp;quot;">
 
 
 
@@ -360,7 +360,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  186
+                  221
                 </span>
               
 
@@ -397,7 +397,7 @@
       
 
       
-        <p>身份证最后一位为校验位, 值为身份证前十七位 加权求和 然后对11取模 进行映射</p>
+        <p>身份证前六位为区号, 中间八位为出生日期, 再后三位为顺序码, 偶数分配给女性, 奇数给男性, 最后一位为校验位, 值为身份证前十七位 加权求和 然后对11取模 进行映射</p>
 <p>权值为 <code>[7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]</code></p>
 <p>映射为 <code>[&quot;1&quot;, &quot;0&quot;, &quot;X&quot;, &quot;9&quot;, &quot;8&quot;, &quot;7&quot;, &quot;6&quot;, &quot;5&quot;, &quot;4&quot;, &quot;3&quot;, &quot;2&quot;]</code></p>
 <h1 id="示例代码-JS"><a href="#示例代码-JS" class="headerlink" title="示例代码(JS)"></a>示例代码(JS)</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">verify</span>(<span class="params">idCardNumber</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> REG = <span class="regexp">/\d&#123;17&#125;[\dX]/</span>;</span><br><span class="line">  <span class="keyword">const</span> W = [<span class="number">7</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">4</span>, <span class="number">2</span>];</span><br><span class="line">  <span class="keyword">const</span> V = [<span class="string">"1"</span>, <span class="string">"0"</span>, <span class="string">"X"</span>, <span class="string">"9"</span>, <span class="string">"8"</span>, <span class="string">"7"</span>, <span class="string">"6"</span>, <span class="string">"5"</span>, <span class="string">"4"</span>, <span class="string">"3"</span>, <span class="string">"2"</span>];</span><br><span class="line">  <span class="keyword">const</span> C0 = <span class="string">"0"</span>.charCodeAt(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!REG.test(idCardNumber)) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; idCardNumber.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">    sum += ((idCardNumber.charCodeAt(i) - C0) * W[i]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> v = V[sum % <span class="number">11</span>];</span><br><span class="line">  <span class="keyword">return</span> idCardNumber.charAt(idCardNumber.length - <span class="number">1</span>) == v;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
