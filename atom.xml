@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laboo.top/"/>
-  <updated>2021-03-09T13:14:21.221Z</updated>
+  <updated>2021-03-12T09:54:30.587Z</updated>
   <id>https://laboo.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>WindowsTerminal美化</title>
+    <link href="https://laboo.top/2021/03/12/wt/"/>
+    <id>https://laboo.top/2021/03/12/wt/</id>
+    <published>2021-03-12T09:52:32.000Z</published>
+    <updated>2021-03-12T09:54:30.587Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><a href="https://github.com/microsoft/terminal/releases" target="_blank" rel="noopener">https://github.com/microsoft/terminal/releases</a></p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PowerShell -Command "<span class="built_in">Set</span>-ExecutionPolicy RemoteSigned -scope Process; iwr -useb https://raw.githubusercontent.com/gerardog/gsudo/master/installgsudo.ps1 | iex"</span><br></pre></td></tr></table></figure><h1 id="sudo管理员权限"><a href="#sudo管理员权限" class="headerlink" title="sudo管理员权限"></a>sudo管理员权限</h1><p>settings.json <code>profiles.list</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;guid&quot;: &quot;&#123;41dd7a51-f0e1-4420-a2ec-1a7130b7e950&#125;&quot;,</span><br><span class="line">    &quot;name&quot;: &quot;Windows PowerShell Elevated&quot;,</span><br><span class="line">    &quot;commandline&quot;: &quot;gsudo.exe powershell.exe&quot;,</span><br><span class="line">    &quot;hidden&quot;: false,</span><br><span class="line">    &quot;colorScheme&quot;: &quot;Solarized Dark&quot;,</span><br><span class="line">    &quot;fontFace&quot;: &quot;Fira Code&quot;,</span><br><span class="line">    &quot;icon&quot;: &quot;C:\\shell\\icon.png&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>setting.json <code>profile.default</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&quot;defaults&quot;: &#123;</span><br><span class="line">    &quot;startingDirectory&quot;: &quot;.&quot;,</span><br><span class="line">    &quot;useAcrylic&quot;: true,</span><br><span class="line">    &quot;acrylicOpacity&quot;: 0.6,</span><br><span class="line">    &quot;colorScheme&quot;: &quot;Dracula2&quot;,</span><br><span class="line">    &quot;fontSize&quot;: 11,</span><br><span class="line">    &quot;backgroundImage&quot;: &quot;C:\\shell\\bg1.jpg&quot;,</span><br><span class="line">    &quot;backgroundImageOpacity&quot;: 0.2,</span><br><span class="line">    &quot;backgroundImageStrechMode&quot;: &quot;fill&quot;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p><p>##加入右键菜单<br><a href="https://raw.githubusercontent.com/microsoft/terminal/main/res/terminal.ico" target="_blank" rel="noopener">https://raw.githubusercontent.com/microsoft/terminal/main/res/terminal.ico</a></p><p>wt.reg<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\Directory\Background\shell\wt]</span><br><span class="line">@=&quot;Windows Terminal here&quot;</span><br><span class="line">&quot;Icon&quot;=&quot;C:\\shell\\terminal.ico&quot;</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\Directory\Background\shell\wt\command]</span><br><span class="line">@=&quot;C:\\Users\\laziji\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe&quot;</span><br></pre></td></tr></table></figure></p><p>settings.json <code>profiles.default</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;startingDirectory&quot;: &quot;.&quot;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/microsoft/terminal/releases&quot; target=&quot;_blan
+      
+    
+    </summary>
+    
+      <category term="工具使用" scheme="https://laboo.top/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="shell" scheme="https://laboo.top/tags/shell/"/>
+    
+  </entry>
   
   <entry>
     <title>JS生成验证码图片</title>
@@ -517,31 +542,6 @@
       <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
     
       <category term="Angular" scheme="https://laboo.top/tags/Angular/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Echarts2热力图设置背景图片</title>
-    <link href="https://laboo.top/2019/04/15/ec2/"/>
-    <id>https://laboo.top/2019/04/15/ec2/</id>
-    <published>2019-04-15T11:53:57.000Z</published>
-    <updated>2019-04-15T12:10:37.783Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"main"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/echarts-all.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure><p>这里需要引人<code>echarts-all.js</code>, 这个文件在2.0版本的官网中下载</p><h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> heatData = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; ++i) &#123;</span><br><span class="line">    heatData.push([</span><br><span class="line">        <span class="number">100</span> + <span class="built_in">Math</span>.random() * <span class="number">600</span>,</span><br><span class="line">        <span class="number">150</span> + <span class="built_in">Math</span>.random() * <span class="number">50</span>,</span><br><span class="line">        <span class="built_in">Math</span>.random()</span><br><span class="line">    ]);</span><br><span class="line">&#125;</span><br><span class="line">echarts.init(<span class="built_in">document</span>.getElementById(<span class="string">'main'</span>)).setOption(&#123;</span><br><span class="line">    series: [&#123;</span><br><span class="line">        type: <span class="string">'heatmap'</span>,</span><br><span class="line">        data: heatData,</span><br><span class="line">        opacity: <span class="number">0.6</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>这是最简配置, 其中<code>opacity: 0.6</code>决定热力图的透明度, 设置为半透明后再为<code>Div #main</code>设置背景图片即可</p><h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#main</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">600px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">'/map.jpg'</span>);</span><br><span class="line">    <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">    <span class="attribute">background-position</span>: right top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;HTML&quot;&gt;&lt;a href=&quot;#HTML&quot; class=&quot;headerlink&quot; title=&quot;HTML&quot;&gt;&lt;/a&gt;HTML&lt;/h1&gt;&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre
-      
-    
-    </summary>
-    
-      <category term="技术分享" scheme="https://laboo.top/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
-    
-    
-      <category term="JavaScript" scheme="https://laboo.top/tags/JavaScript/"/>
     
   </entry>
   
