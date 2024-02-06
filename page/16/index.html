@@ -160,7 +160,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/17/mk/">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/12/02/tfjs-face/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -178,7 +178,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/17/mk/" class="post-title-link" itemprop="url">在Markdown中绘制流程图、时序图</a>
+          <a href="/2018/12/02/tfjs-face/" class="post-title-link" itemprop="url">机器学习人脸性别识别</a>
         </h2>
 
         <div class="post-meta-container">
@@ -189,102 +189,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-10-17 19:53:06" itemprop="dateCreated datePublished" datetime="2018-10-17T19:53:06+08:00">2018-10-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-12-15 23:10:05" itemprop="dateModified" datetime="2021-12-15T23:10:05+08:00">2021-12-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">工具使用</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Gravizo"><a href="#Gravizo" class="headerlink" title="Gravizo"></a>Gravizo</h1><p>介绍一个在markdown中插入流程图、各种图的方法<br><a href="http://g.gravizo.com/">http://g.gravizo.com</a><br>打开上面这个网站, 这个网站提供动态生成各种图的http接口<br>像这样使用, 接口根据传入的参数返回图</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#x27;https://g.gravizo.com/svg?</span></span></span><br><span class="line"><span class="string"><span class="tag"> digraph G &#123;</span></span></span><br><span class="line"><span class="string"><span class="tag">   main -&gt; parse -&gt; execute;</span></span></span><br><span class="line"><span class="string"><span class="tag">   main -&gt; init;</span></span></span><br><span class="line"><span class="string"><span class="tag">   main -&gt; cleanup;</span></span></span><br><span class="line"><span class="string"><span class="tag">   execute -&gt; make_string;</span></span></span><br><span class="line"><span class="string"><span class="tag">   execute -&gt; printf</span></span></span><br><span class="line"><span class="string"><span class="tag">   init -&gt; make_string;</span></span></span><br><span class="line"><span class="string"><span class="tag">   main -&gt; printf;</span></span></span><br><span class="line"><span class="string"><span class="tag">   execute -&gt; compare;</span></span></span><br><span class="line"><span class="string"><span class="tag"> &#125;</span></span></span><br><span class="line"><span class="string"><span class="tag">&#x27;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>官网中介绍<code>Markdown</code>中是这样使用的</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">![Alt text](https://g.gravizo.com/svg?</span><br><span class="line">    digraph G &#123;</span><br><span class="line">        main -&gt; parse -&gt; execute;</span><br><span class="line">        main -&gt; init;</span><br><span class="line">        main -&gt; cleanup;</span><br><span class="line">        execute -&gt; make_string;</span><br><span class="line">        execute -&gt; printf</span><br><span class="line">        init -&gt; make_string;</span><br><span class="line">        main -&gt; printf;</span><br><span class="line">        execute -&gt; compare;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>不过在Hexo直接这样写是不行的, 需要进行编码, 找到官网靠近底部的<code>Test/Encoder</code>, 这里提供一个简单的编码器, 输入你想生成的图 如:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">digraph G &#123;</span><br><span class="line">    main -&gt; parse -&gt; execute;</span><br><span class="line">    main -&gt; init;</span><br><span class="line">    main -&gt; cleanup;</span><br><span class="line">    execute -&gt; make_string;</span><br><span class="line">    execute -&gt; printf</span><br><span class="line">    init -&gt; make_string;</span><br><span class="line">    main -&gt; printf;</span><br><span class="line">    execute -&gt; compare;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>点击编码, 把右边的链接复制过来, 放在<code>Markdown</code>的图片标签里就可以了</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![digraph](https://g.gravizo.com/svg?digraph%20G%20%7B%0A%20%20%20main%20-%3E%20parse%20-%3E%20execute%3B%0A%20%20%20main%20-%3E%20init%3B%0A%20%20%20main%20-%3E%20cleanup%3B%0A%20%20%20execute%20-%3E%20make_string%3B%0A%20%20%20execute%20-%3E%20printf%0A%20%20%20init%20-%3E%20make_string%3B%0A%20%20%20main%20-%3E%20printf%3B%0A%20%20%20execute%20-%3E%20compare%3B%0A%20%7D)</span><br></pre></td></tr></table></figure>
-<p>效果如下<br><img src="https://g.gravizo.com/svg?digraph%20G%20%7B%0A%20%20%20main%20-%3E%20parse%20-%3E%20execute;%0A%20%20%20main%20-%3E%20init;%0A%20%20%20main%20-%3E%20cleanup;%0A%20%20%20execute%20-%3E%20make_string;%0A%20%20%20execute%20-%3E%20printf%0A%20%20%20init%20-%3E%20make_string;%0A%20%20%20main%20-%3E%20printf;%0A%20%20%20execute%20-%3E%20compare;%0A%20%7D" alt="digraph"></p>
-<p>由于只是图片的链接, 所以在任何支持<code>Markdown</code>或者<code>Html</code>的地方都能用, 非常方便</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/17/java-db/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="☻Blog("Laziji")">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ☻Blog("Laziji")">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/17/java-db/" class="post-title-link" itemprop="url">使用视图代替Mybatis中的多表查询的设计</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-10-17 18:02:37" itemprop="dateCreated datePublished" datetime="2018-10-17T18:02:37+08:00">2018-10-17</time>
+      <time title="创建时间：2018-12-02 12:04:47" itemprop="dateCreated datePublished" datetime="2018-12-02T12:04:47+08:00">2018-12-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -313,26 +218,29 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>使用Mybatis开发项目时, 若是简单的单表查询, 完全可以全部使用<code>代码生成工具</code>自动生成, 但是如果有需要多表联合查询的时候就无能为力了, 不得不手动编写<code>Entity</code>、<code>Dao</code>以及<code>Service</code> 显得很不统一<br>但是如果使用视图的话, 就又能利用<code>代码生成工具</code>的便利自动生成<code>Entity</code>、<code>Dao</code>以及<code>Service</code>, 而且可以在Java代码中完全隐藏掉<code>数据库层</code>专注于应用的开发</p>
-<h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><p><a href="https://github.com/GitHub-Laziji/commons-mybatis">commons-mybatis</a></p>
-<h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><h3 id="DO-java"><a href="#DO-java" class="headerlink" title="DO.java"></a>DO.java</h3><p>这里的数据库表设计是遵循<a href="https://github.com/alibaba/p3c/blob/master/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C%EF%BC%88%E8%AF%A6%E5%B0%BD%E7%89%88%EF%BC%89.pdf">阿里巴巴Java编码规范</a><br>每个表固定三个字段<code>id</code>, <code>gmt_create</code>, <code>gmt_modified</code><br>实体类继承<code>BaseDO</code> 默认拥有三个属性<code>id</code>, <code>gmtCreate</code>, <code>gmtModified</code>以及重写的<code>toString()</code></p>
-<h3 id="VO-java"><a href="#VO-java" class="headerlink" title="VO.java"></a>VO.java</h3><p>视图名以<code>_view</code>为后缀<br>视图类继承<code>BaseVO</code> 由于视图的字段不一定, 所以<code>BaseVO</code>中只重写了<code>toString()</code></p>
-<h2 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h2><h3 id="DODao-java"><a href="#DODao-java" class="headerlink" title="DODao.java"></a>DODao.java</h3><p>常用的增删改查方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">T <span class="title function_">selectById</span><span class="params">(Long id)</span>;</span><br><span class="line">List&lt;T&gt; <span class="title function_">select</span><span class="params">(T bean)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">selectCount</span><span class="params">(T bean)</span>;</span><br><span class="line">List&lt;T&gt; <span class="title function_">select</span><span class="params">(Query&lt;T&gt; query)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">selectCount</span><span class="params">(Query&lt;T&gt; query)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">insert</span><span class="params">(T bean)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">update</span><span class="params">(T bean)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">delete</span><span class="params">(Long id)</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="VODao-java"><a href="#VODao-java" class="headerlink" title="VODao.java"></a>VODao.java</h3><p>由于视图不能删增删改, 所以只有<code>select</code> </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;T&gt; <span class="title function_">select</span><span class="params">(T bean)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">selectCount</span><span class="params">(T bean)</span>;</span><br><span class="line">List&lt;T&gt; <span class="title function_">select</span><span class="params">(Query&lt;T&gt; query)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">selectCount</span><span class="params">(Query&lt;T&gt; query)</span>;</span><br></pre></td></tr></table></figure>
+          <p>在传统编程中, 图像识别一直是一个难点, 虽然人能轻松做到, 但是用逻辑来描述这个过程, 并转换成程序是很难的。机器学习的出现让图像识别技术有了突破性的进展, 卷积神经网络的出现, 又使图像识别更上了一次层次。</p>
+<blockquote>
+<p>卷积神经网络由一个或多个卷积层和顶端的全连通层组成, 这一结构使得卷积神经网络能够利用输入数据的二维结构。与其他深度学习结构相比，卷积神经网络在图像和语音识别方面能够给出更好的结果。</p>
+</blockquote>
+<p>这里我们使用卷积神经网络对人脸进行性别识别, 项目中使用了<code>TensorFlow</code>机器学习库。</p>
+<h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p><a href="https://github.com/GitHub-Laziji/face-gender-classification">face-gender-classification</a></p>
+<h1 id="数据收集与处理"><a href="#数据收集与处理" class="headerlink" title="数据收集与处理"></a>数据收集与处理</h1><p>机器学习的基础就是大量的数据。我以前从网上爬了一万张证件照, 现在正好用上, 作为训练数据。<br>简便的也可以从谷歌直接搜搜索 <code>男(女)性证件照</code>也可以得到并且有标签的数据。<br>由于我收集的照片没有标签, 于是我花了一点时间从其中人工选出男女照片各200张并打上标记。</p>
+<p>为了使识别更加准确, 项目中利用<code>openCV</code>裁剪出人脸部分的图像, 并缩放至<code>28*28</code>大小。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">recognizer = cv2.CascadeClassifier(<span class="string">&quot;model/haarcascade_frontalface_default.xml&quot;</span>)</span><br><span class="line">crop(img_path):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        img = cv2.imread(img_path)</span><br><span class="line">        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line">        faces = recognizer.detectMultiScale(gray)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(faces):</span><br><span class="line">            x, y, w, h = faces[<span class="number">0</span>]</span><br><span class="line">            c_img = img[y:y + h, x:x + w]</span><br><span class="line">            <span class="keyword">return</span> cv2.resize(c_img, (<span class="number">28</span>, <span class="number">28</span>), interpolation=cv2.INTER_AREA)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<p>对所有的数据都进行这样处理, 结果如下:<br><img src="https://github.com/GitHub-Laziji/face-gender-classification/raw/master/screenshots/1.png" alt="1"><br>最后我们还需要清理异常的数据, 过一遍训练集, 把其中没有定位到人脸的图片去除掉。</p>
+<h1 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h1><p>读取训练数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">read_img</span>(<span class="params">files</span>):</span><br><span class="line">    arr = []</span><br><span class="line">    <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">        img = Image.<span class="built_in">open</span>(<span class="string">&quot;%s&quot;</span> % file)</span><br><span class="line">        pix = img.load()</span><br><span class="line">        view = np.zeros((IMAGE_H, IMAGE_W, <span class="number">1</span>), dtype=np.<span class="built_in">float</span>)</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(IMAGE_H):</span><br><span class="line">            <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(IMAGE_W):</span><br><span class="line">                r, g, b = pix[y, x]</span><br><span class="line">                view[x, y, <span class="number">0</span>] = (r + g + b) // <span class="number">3</span></span><br><span class="line">        arr.append(view)</span><br><span class="line">    <span class="keyword">return</span> np.array(arr)</span><br></pre></td></tr></table></figure>
+<p>这里对训练图像灰度化, 并且将训练数据中的一小部分作为验证集。</p>
+<p>开始创建模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">model = keras.Sequential([</span><br><span class="line">    keras.layers.Conv2D(<span class="number">32</span>, (<span class="number">3</span>, <span class="number">3</span>), input_shape=(IMAGE_W, IMAGE_H, <span class="number">1</span>), strides=(<span class="number">1</span>, <span class="number">1</span>), activation=<span class="string">&#x27;relu&#x27;</span>),</span><br><span class="line">    keras.layers.MaxPool2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>)),</span><br><span class="line">    keras.layers.Conv2D(<span class="number">64</span>, (<span class="number">3</span>, <span class="number">3</span>), strides=(<span class="number">1</span>, <span class="number">1</span>), activation=<span class="string">&#x27;relu&#x27;</span>),</span><br><span class="line">    keras.layers.MaxPool2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>)),</span><br><span class="line">    keras.layers.Flatten(),</span><br><span class="line">    keras.layers.Dense(<span class="number">128</span>, activation=tf.nn.relu),</span><br><span class="line">    keras.layers.Dropout(<span class="number">0.2</span>),</span><br><span class="line">    keras.layers.Dense(<span class="number">2</span>, activation=tf.nn.softmax)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<p>选择适当的优化器和损失函数编译模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model.<span class="built_in">compile</span>(optimizer=tf.train.AdamOptimizer(learning_rate=<span class="number">0.001</span>),</span><br><span class="line">              loss=<span class="string">&#x27;categorical_crossentropy&#x27;</span>,</span><br><span class="line">              metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<p>开始训练模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">model.fit(x=train_x,</span><br><span class="line">          y=train_y,</span><br><span class="line">          batch_size=<span class="number">32</span>,</span><br><span class="line">          epochs=<span class="number">30</span>,</span><br><span class="line">          verbose=<span class="number">1</span>,</span><br><span class="line">          callbacks=my_callbacks,</span><br><span class="line">          validation_split=<span class="number">0.05</span>,</span><br><span class="line">          shuffle=<span class="literal">True</span></span><br><span class="line">          )</span><br></pre></td></tr></table></figure>
+<h1 id="测试模型"><a href="#测试模型" class="headerlink" title="测试模型"></a>测试模型</h1><p>这里使用matplotlib来显示测试图片及结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">predictions = model.predict(test_x)</span><br><span class="line"></span><br><span class="line">class_names = [<span class="string">&quot;Female&quot;</span>, <span class="string">&quot;Male&quot;</span>]</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>, <span class="number">6</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">min</span>(<span class="number">9</span>, <span class="built_in">len</span>(test_y))):</span><br><span class="line">    result = predictions[i]</span><br><span class="line">    max_label = <span class="built_in">int</span>(np.argmax(result))</span><br><span class="line">    correct_label = <span class="built_in">int</span>(np.argmax(test_y[i]))</span><br><span class="line"></span><br><span class="line">    plt.subplot(<span class="number">3</span>, <span class="number">6</span>, <span class="number">2</span> * i + <span class="number">1</span>)</span><br><span class="line">    plt.grid(<span class="literal">False</span>)</span><br><span class="line">    plt.xticks([])</span><br><span class="line">    plt.yticks([])</span><br><span class="line">    img = test_x.reshape(test_x.shape[<span class="number">0</span>], IMAGE_W, IMAGE_H)[i]</span><br><span class="line">    plt.imshow(img, cmap=<span class="string">&quot;gray&quot;</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&quot;&#123;&#125; - prob:&#123;:2.0f&#125;%&quot;</span>.<span class="built_in">format</span>(class_names[max_label], <span class="number">100</span> * np.<span class="built_in">max</span>(result)))</span><br><span class="line"></span><br><span class="line">    plt.subplot(<span class="number">3</span>, <span class="number">6</span>, <span class="number">2</span> * i + <span class="number">2</span>)</span><br><span class="line">    plt.grid(<span class="literal">False</span>)</span><br><span class="line">    plt.yticks([])</span><br><span class="line">    plt.ylim([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">    bar = plt.bar(<span class="built_in">range</span>(<span class="number">2</span>), result)</span><br><span class="line">    bar[max_label].set_color(<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">    bar[correct_label].set_color(<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/GitHub-Laziji/face-gender-classification/raw/master/screenshots/2.png" alt="2"><br>脸部头像右侧的两列分别代表<code>女性概率</code>和<code>男性概率</code>。<br>这里我们看到全都对了, 正确率非常高。<br>模型并不复杂, 大部分工作都在收集数据和调整训练参数上, 这也体现出了卷积神经网络对图像强大的处理能力。</p>
 
-<h2 id="Service-以及-Controller-见源码"><a href="#Service-以及-Controller-见源码" class="headerlink" title="Service 以及 Controller 见源码"></a>Service 以及 Controller 见源码</h2><p>…</p>
-<h1 id="Mybatis-Generator"><a href="#Mybatis-Generator" class="headerlink" title="Mybatis Generator"></a>Mybatis Generator</h1><p>代码生成器使用<code>velocity</code>模版</p>
-<p>获取表信息</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> information_schema.tables </span><br><span class="line"><span class="keyword">where</span> table_schema <span class="operator">=</span> (<span class="keyword">select</span> database()) <span class="keyword">and</span> table_name <span class="operator">=</span> ?</span><br></pre></td></tr></table></figure>
-
-<p>获取列信息</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> information_schema.columns </span><br><span class="line"><span class="keyword">where</span> table_name <span class="operator">=</span> ?</span><br><span class="line"><span class="keyword">and</span> table_schema <span class="operator">=</span> (<span class="keyword">select</span> database()) <span class="keyword">order</span> <span class="keyword">by</span> ordinal_position</span><br></pre></td></tr></table></figure>
-
-<p>动态获取表信息注入模版, 自动生成<code>DO</code>, <code>VO</code></p>
-<h2 id="Dao-java-vm"><a href="#Dao-java-vm" class="headerlink" title="Dao.java.vm"></a>Dao.java.vm</h2><p>例如</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package $&#123;package&#125;.database.dao;</span><br><span class="line"></span><br><span class="line">import $&#123;package&#125;.database.model.$&#123;className&#125;$&#123;suffix&#125;;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.annotations.Mapper;</span><br><span class="line">import org.laziji.commons.mybatis.dao.$&#123;suffix&#125;Dao;</span><br><span class="line"></span><br><span class="line">@Mapper</span><br><span class="line">public interface $&#123;className&#125;Dao extends $&#123;suffix&#125;Dao&lt;$&#123;className&#125;$&#123;suffix&#125;&gt; &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -358,7 +266,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/16/java-class/">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/11/26/a-db/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -376,7 +284,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/16/java-class/" class="post-title-link" itemprop="url">Java中静态成员变量的内部调用</a>
+          <a href="/2018/11/26/a-db/" class="post-title-link" itemprop="url">Java实现Mybatis代码生成器</a>
         </h2>
 
         <div class="post-meta-container">
@@ -387,7 +295,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-10-16 13:43:15" itemprop="dateCreated datePublished" datetime="2018-10-16T13:43:15+08:00">2018-10-16</time>
+      <time title="创建时间：2018-11-26 17:01:27" itemprop="dateCreated datePublished" datetime="2018-11-26T17:01:27+08:00">2018-11-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -416,19 +324,76 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="前一个成员变量调用其后的成员变量"><a href="#前一个成员变量调用其后的成员变量" class="headerlink" title="前一个成员变量调用其后的成员变量"></a>前一个成员变量调用其后的成员变量</h1><p>例如:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">A</span> <span class="operator">=</span> B;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">B</span> <span class="operator">=</span> <span class="string">&quot;String B&quot;</span>;</span><br></pre></td></tr></table></figure>
-<p>这种显然是不行的, 编译都通不过, 而下面一种就有点不一样了</p>
-<h1 id="前成员变量在静态方法中调用其后的成员变量"><a href="#前成员变量在静态方法中调用其后的成员变量" class="headerlink" title="前成员变量在静态方法中调用其后的成员变量"></a>前成员变量在静态方法中调用其后的成员变量</h1><p>例如:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">A</span> <span class="operator">=</span> getB();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">B</span> <span class="operator">=</span> <span class="string">&quot;String B&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title function_">getB</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> B;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此时编译正常但是, 打印一下A看看:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Test.A); <span class="comment">// null</span></span><br><span class="line">System.out.println(Test.B); <span class="comment">// &quot;String B&quot;</span></span><br><span class="line">System.out.println(Test.getB()); <span class="comment">// &quot;String B&quot;</span></span><br></pre></td></tr></table></figure>
-<p>发现A是<code>null</code>, 因为此时B还未初始化, 但是当把B的类型改为<code>String</code>时</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">A</span> <span class="operator">=</span> getB();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">B</span> <span class="operator">=</span> <span class="string">&quot;String B&quot;</span>; <span class="comment">// B 的类型改为 String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title function_">getB</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> B;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此时A的值就不是<code>null</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Test.A); <span class="comment">// &quot;String B&quot;</span></span><br></pre></td></tr></table></figure>
-<p>这是因为Java的静态成员变量加载时<code>类型为基本类型和String, 并且赋值为常量表达式的成员变量</code>的加载顺序优与其他<br>常量表达式指能立即得出的运算 包括<code>普通运算以及字符串运算</code></p>
-<p>当静态方法太复杂的时候就可能会碰到这种问题, 而且难找到原因所在</p>
+          <p>本文介绍如何用Java编写高度自定义的代码生成器</p>
+<blockquote>
+<p>MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生信息。</p>
+</blockquote>
+<p>上面这一段话来自<code>Mybatis官网</code>的介绍, 初用Mybatis时感觉这个框架相比于JDBC优雅多了, 用起来也如官网说的非常简单。但是用了一段时间之后, 弊端就慢慢凸显出来了</p>
+<p>使用Mybatis时不得不为每个表创建一个<code>Entity.java</code>、<code>Mapper.xml(Mapper可以融合入Dao中)</code>、<code>Dao.java</code>,<code>Service.java</code> 层次很清晰, 但是太多重复性的工作了, 费时间且易于出错</p>
+<p>并且当数据库发生一点改动的时候… 苦不堪言</p>
+<p>后来出现了自动生成代码的插件, 但是总是不尽人意, 不能随心所欲地控制, 毕竟每个人的需求都不一样</p>
+<p>本文就来介绍如何简单的编写一个自己的代码生成器</p>
+<h1 id="项目源码"><a href="#项目源码" class="headerlink" title="项目源码"></a>项目源码</h1><p><a href="https://github.com/GitHub-Laziji/mybatis-generator">mybatis-generator</a></p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>实现的思路很简单, 首先查询数据库的表结构, 得到<code>列名, 列类型...</code>等信息</p>
+<p>创建文件模版, 将这些信息插入模版中, 最后打包模版进压缩包导出</p>
+<p>代码实现 一共五个Java类</p>
+<ul>
+<li>TableDO</li>
+<li>ColumnDO</li>
+<li>GeneratorMapper</li>
+<li>GeneratorUtils</li>
+<li>GeneratorService</li>
+</ul>
+<p>首先来看两个实体类</p>
+<h2 id="TableDO-和-ColumnDO"><a href="#TableDO-和-ColumnDO" class="headerlink" title="TableDO 和 ColumnDO"></a>TableDO 和 ColumnDO</h2><p>TableDO 存放表名, 对于的类名, 以及列信息</p>
+<p>完整类代码 <a href="https://github.com/GitHub-Laziji/mybatis-generator/blob/master/src/main/java/pg/laziji/generator/mybatis/TableDO.java">TableDO.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TableDO</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String tableName;</span><br><span class="line">    <span class="keyword">private</span> List&lt;ColumnDO&gt; columns;</span><br><span class="line">    <span class="keyword">private</span> String className;</span><br><span class="line">    <span class="keyword">private</span> String suffix;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// get()... set()...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ColumnDO 存放列名, 数据库字段类型, 以及对应Java中的属性名和类型</p>
+<p>完整类代码 <a href="https://github.com/GitHub-Laziji/mybatis-generator/blob/master/src/main/java/pg/laziji/generator/mybatis/ColumnDO.java">ColumnDO.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ColumnDO</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String columnName;</span><br><span class="line">    <span class="keyword">private</span> String dataType;</span><br><span class="line">    <span class="keyword">private</span> String attrName;</span><br><span class="line">    <span class="keyword">private</span> String attrLowerName;</span><br><span class="line">    <span class="keyword">private</span> String attrType;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// get()... set()...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="GeneratorMapper"><a href="#GeneratorMapper" class="headerlink" title="GeneratorMapper"></a>GeneratorMapper</h2><p>在GeneratorMapper 中, 我们通过表名查询表字段的信息</p>
+<p>完整类代码 <a href="https://github.com/GitHub-Laziji/mybatis-generator/blob/master/src/main/java/pg/laziji/generator/mybatis/GeneratorMapper.java">GeneratorMapper.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">GeneratorMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select(&quot;select column_name columnName, data_type dataType from information_schema.columns where table_name = #&#123;tableName&#125; and table_schema = (select database()) order by ordinal_position&quot;)</span></span><br><span class="line">    List&lt;ColumnDO&gt; <span class="title function_">listColumns</span><span class="params">(String tableName)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="GeneratorUtils"><a href="#GeneratorUtils" class="headerlink" title="GeneratorUtils"></a>GeneratorUtils</h2><p>在GeneratorUtils 中进行类信息与模版之间的转换</p>
+<p>完整类代码 <a href="https://github.com/GitHub-Laziji/mybatis-generator/blob/master/src/main/java/pg/laziji/generator/mybatis/GeneratorUtils.java">GeneratorUtils.java</a></p>
+<p>将表信息放入<code>Velocity</code>模版的上下文中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">map.put(<span class="string">&quot;tableName&quot;</span>, table.getTableName());</span><br><span class="line">map.put(<span class="string">&quot;className&quot;</span>, table.getClassName());</span><br><span class="line">map.put(<span class="string">&quot;pathName&quot;</span>, getPackageName().substring(getPackageName().lastIndexOf(<span class="string">&quot;.&quot;</span>) + <span class="number">1</span>));</span><br><span class="line">map.put(<span class="string">&quot;columns&quot;</span>, table.getColumns());</span><br><span class="line">map.put(<span class="string">&quot;package&quot;</span>, getPackageName());</span><br><span class="line">map.put(<span class="string">&quot;suffix&quot;</span>, table.getSuffix());</span><br><span class="line"></span><br><span class="line"><span class="type">Properties</span> <span class="variable">prop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">prop.put(<span class="string">&quot;file.resource.loader.class&quot;</span>, <span class="string">&quot;org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader&quot;</span>);</span><br><span class="line">Velocity.init(prop);</span><br><span class="line"><span class="type">VelocityContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">VelocityContext</span>(map);</span><br></pre></td></tr></table></figure>
+
+<p>添加模版</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; templates = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">templates.add(<span class="string">&quot;mybatis/Model.java.vm&quot;</span>);</span><br><span class="line">templates.add(<span class="string">&quot;mybatis/Query.java.vm&quot;</span>);</span><br><span class="line">templates.add(<span class="string">&quot;mybatis/Dao.java.vm&quot;</span>);</span><br><span class="line">templates.add(<span class="string">&quot;mybatis/Mapper.xml.vm&quot;</span>);</span><br><span class="line">templates.add(<span class="string">&quot;mybatis/Service.java.vm&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>编译模版</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">StringWriter</span> <span class="variable">sw</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringWriter</span>();</span><br><span class="line"><span class="type">Template</span> <span class="variable">tpl</span> <span class="operator">=</span> Velocity.getTemplate(template, <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">tpl.merge(context, sw);</span><br></pre></td></tr></table></figure>
+
+<p>Utils类完成了生成代码的主要工作, 但是代码也是比较简单的</p>
+<h2 id="GeneratorService"><a href="#GeneratorService" class="headerlink" title="GeneratorService"></a>GeneratorService</h2><p>在Service 中注入Mapper 查询列信息, 并用Utils生成代码, 然后导出压缩包</p>
+<p>完整类代码 <a href="https://github.com/GitHub-Laziji/mybatis-generator/blob/master/src/main/java/pg/laziji/generator/mybatis/GeneratorService.java">GeneratorService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GeneratorService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> GeneratorMapper generatorMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> Environment environment;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">generateZip</span><span class="params">(String[] tableNames, String zipPath)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">ByteArrayOutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">        <span class="type">ZipOutputStream</span> <span class="variable">zip</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZipOutputStream</span>(outputStream);</span><br><span class="line">        <span class="keyword">for</span> (String tableName : tableNames) &#123;</span><br><span class="line">            <span class="type">TableDO</span> <span class="variable">table</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TableDO</span>();</span><br><span class="line">            table.setTableName(tableName);</span><br><span class="line">            table.setColumns(generatorMapper.listColumns(tableName));</span><br><span class="line">            GeneratorUtils.generatorCode(table, zip,getConfig());</span><br><span class="line">        &#125;</span><br><span class="line">        IOUtils.closeQuietly(zip);</span><br><span class="line">        <span class="type">FileOutputStream</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(zipPath);</span><br><span class="line">        file.write(outputStream.toByteArray());</span><br><span class="line">        file.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// getConfig ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="VM模版"><a href="#VM模版" class="headerlink" title="VM模版"></a>VM模版</h1><p>自己写代码生成器的好处就是, 可以根据需求定制自己的模版, 下面是我的几个模版可以供参考</p>
+<ul>
+<li>Mapper.xml.vm</li>
+<li>Dao.java.vm</li>
+<li>Service.java.vm</li>
+<li>Model.java.vm</li>
+<li>Query.java.vm</li>
+</ul>
+<p>生成的代码是在<a href="https://github.com/GitHub-Laziji/commons-mybatis">commons-mybatis</a>架构下使用的</p>
+<h2 id="Dao-java-vm"><a href="#Dao-java-vm" class="headerlink" title="Dao.java.vm"></a>Dao.java.vm</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> $&#123;<span class="keyword">package</span>&#125;.database.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> $&#123;<span class="keyword">package</span>&#125;.database.model.$&#123;className&#125;$&#123;suffix&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.laziji.commons.mybatis.dao.$&#123;suffix&#125;Dao;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">$</span>&#123;className&#125;Dao <span class="keyword">extends</span> <span class="title class_">$</span>&#123;suffix&#125;Dao&lt;$&#123;className&#125;$&#123;suffix&#125;&gt; &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="…"><a href="#…" class="headerlink" title="…"></a>…</h2><p><a href="https://github.com/GitHub-Laziji/mybatis-generator/tree/master/src/main/resources/mybatis">其余模版</a></p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>在<code>resources</code>下创建<code>application-$&#123;name&#125;.yml</code>文件, <code>$&#123;name&#125;</code>随意, 例如: <code>application-example.yml</code>, 可创建多个</p>
+<p>配置文件内容如下, 填入数据库配置, 以及生成代码的包名, 源文件路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  datasource:</span><br><span class="line">    url: jdbc:mysql://xxx.xxx.xxx.xxx:3306/xxxx?characterEncoding=utf-8</span><br><span class="line">    username: xxxxxx</span><br><span class="line">    password: xxxxxx</span><br><span class="line"></span><br><span class="line">generator:</span><br><span class="line">  package: com.xxx.xxx</span><br><span class="line">  resources: mapper</span><br></pre></td></tr></table></figure>
+
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>在test文件下创建测试类</p>
+<ul>
+<li><code>@ActiveProfiles(&quot;example&quot;)</code>中填入刚才配置文件名的<code>name</code></li>
+<li><code>tableNames</code>需要生成的表, 可以多个</li>
+<li><code>zipPath</code> 代码导出路径<br>运行测试方法即可<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> pg.laziji.generator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.ActiveProfiles;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"><span class="keyword">import</span> pg.laziji.generator.mybatis.GeneratorService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ActiveProfiles(&quot;example&quot;)</span></span><br><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExampleTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> GeneratorService generatorService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        String[] tableNames = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;example_table1&quot;</span>, <span class="string">&quot;example_table2&quot;</span>&#125;;</span><br><span class="line">        <span class="type">String</span> <span class="variable">zipPath</span> <span class="operator">=</span> <span class="string">&quot;/home/code.zip&quot;</span>;</span><br><span class="line">        generatorService.generateZip(tableNames,zipPath);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
@@ -448,7 +413,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/17/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/17/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

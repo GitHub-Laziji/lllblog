@@ -160,7 +160,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/11/04/tfjs-1/">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2019/01/19/xxljob/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -178,7 +178,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/11/04/tfjs-1/" class="post-title-link" itemprop="url">TensorFlow.js (一)</a>
+          <a href="/2019/01/19/xxljob/" class="post-title-link" itemprop="url">XXL-JOB通用执行器的编写</a>
         </h2>
 
         <div class="post-meta-container">
@@ -189,7 +189,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-11-04 21:04:04" itemprop="dateCreated datePublished" datetime="2018-11-04T21:04:04+08:00">2018-11-04</time>
+      <time title="创建时间：2019-01-19 17:42:32" itemprop="dateCreated datePublished" datetime="2019-01-19T17:42:32+08:00">2019-01-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -218,30 +218,23 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p>谷歌的<code>TensorFlow.js</code>示例代码中的<code>polynomial-regression-core</code>拟合曲线<br><a href="https://github.com/tensorflow/tfjs-examples/tree/master/polynomial-regression-core">https://github.com/tensorflow/tfjs-examples/tree/master/polynomial-regression-core</a></p>
-<h1 id="代码理解"><a href="#代码理解" class="headerlink" title="代码理解"></a>代码理解</h1><p>主要代码在<code>index.js</code>中, 代码做的事情是随机生成一条<code>y = a x 3 + b x 2 + c x + d</code>的<code>曲线A</code>, 然后在这条曲线上下随机生成一些点做为数据集。<br>通过这些数据集我们要找到合适<code>a, b, c, d</code>。正常情况下我们找到的<code>a, b, c, d</code>生成的曲线和<code>曲线A</code>会基本重合。<br>数据集生成在<code>data.js</code>中, 以下是对<code>index.js</code>代码的理解</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> tf <span class="keyword">from</span> <span class="string">&#x27;@tensorflow/tfjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; generateData &#125; <span class="keyword">from</span> <span class="string">&#x27;./data&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; plotData, plotDataAndPredictions, renderCoefficients &#125; <span class="keyword">from</span> <span class="string">&#x27;./ui&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<p>生成随机的<code>a, b, c, d</code>作为初始值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = tf.<span class="title function_">variable</span>(tf.<span class="title function_">scalar</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()));</span><br><span class="line"><span class="keyword">const</span> b = tf.<span class="title function_">variable</span>(tf.<span class="title function_">scalar</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()));</span><br><span class="line"><span class="keyword">const</span> c = tf.<span class="title function_">variable</span>(tf.<span class="title function_">scalar</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()));</span><br><span class="line"><span class="keyword">const</span> d = tf.<span class="title function_">variable</span>(tf.<span class="title function_">scalar</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()));</span><br></pre></td></tr></table></figure>
-<p><code>迭代次数</code>, 可以自行调整, 调高可以提供准确性, 花费时间更长</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numIterations = <span class="number">300</span>;</span><br></pre></td></tr></table></figure>
-<p><code>学习率</code>, 相当于每次迭代调整的步伐, 步伐小,则需要迭代更多轮, 但并不是越大越好, 太大可能一步跨过最佳的值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> learningRate = <span class="number">0.5</span>;</span><br></pre></td></tr></table></figure>
-<p><code>SGD优化器</code>在下面迭代的时候用到</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> optimizer = tf.<span class="property">train</span>.<span class="title function_">sgd</span>(learningRate);</span><br></pre></td></tr></table></figure>
+          <p><code>xxl-job</code>提供的<code>JobHandler</code>例子中, 执行器都是与web应用整合在一起, 其实执行器完全可以分离出来单独启动, 更容易了解执行器的原理</p>
+<h1 id="执行器的核心代码"><a href="#执行器的核心代码" class="headerlink" title="执行器的核心代码"></a>执行器的核心代码</h1><p>首先进行<code>JobHandler</code>的注册</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XxlJobExecutor.registJobHandler(<span class="string">&quot;demoJobHandler&quot;</span>, <span class="keyword">new</span> <span class="title class_">DemoJobHandler</span>());</span><br></pre></td></tr></table></figure>
 
-<p>构建模型, <code>tf.tidy</code>可以在方法执行之后自动清理其中的张量, 释放内存, 但是不会清除<code>函数的返回值</code><br>这里构建了一个<code>y = a * x ^ 3 + b * x ^ 2 + c * x + d</code>的模型, 这里的<code>x</code>指的不是单个<code>x</code>, 而是<code>x的矩阵</code>, 进行矩阵运算, 得到<code>y</code>的矩阵</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">predict</span>(<span class="params">x</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> tf.<span class="title function_">tidy</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a.<span class="title function_">mul</span>(x.<span class="title function_">pow</span>(tf.<span class="title function_">scalar</span>(<span class="number">3</span>, <span class="string">&#x27;int32&#x27;</span>)))</span><br><span class="line">      .<span class="title function_">add</span>(b.<span class="title function_">mul</span>(x.<span class="title function_">square</span>()))</span><br><span class="line">      .<span class="title function_">add</span>(c.<span class="title function_">mul</span>(x))</span><br><span class="line">      .<span class="title function_">add</span>(d);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>随后即可启动执行器, 这里为了简单, 配置写死了, 后面可以引入配置文件更加灵活</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">XxlJobExecutor</span> <span class="variable">xxlJobExecutor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">XxlJobExecutor</span>();</span><br><span class="line">xxlJobExecutor.setAdminAddresses(<span class="string">&quot;http://127.0.0.1:8080/xxl-job-admin&quot;</span>);</span><br><span class="line">xxlJobExecutor.setAppName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">xxlJobExecutor.setIp(<span class="string">&quot;&quot;</span>);</span><br><span class="line">xxlJobExecutor.setPort(<span class="number">9997</span>);</span><br><span class="line">xxlJobExecutor.setAccessToken(<span class="string">&quot;t&quot;</span>);</span><br><span class="line">xxlJobExecutor.setLogPath(<span class="string">&quot;/data/applogs/xxl-job/jobhandler&quot;</span>);</span><br><span class="line">xxlJobExecutor.setLogRetentionDays(-<span class="number">1</span>);</span><br><span class="line">xxlJobExecutor.start();</span><br></pre></td></tr></table></figure>
 
-<p>定义损失函数, 返回的值是结果与预期值的<code>方差</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">loss</span>(<span class="params">prediction, labels</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> error = prediction.<span class="title function_">sub</span>(labels).<span class="title function_">square</span>().<span class="title function_">mean</span>();</span><br><span class="line">  <span class="keyword">return</span> error;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于<code>xxlJobExecutor.start()</code>是新开一个线程来开启执行器, 所以若是普通Java应用启动则需加上这个, 防止主进程结束, 导致程序关闭, Web应用则不需要了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>循环训练模型, <code>numIterations</code>是开头定义的迭代次数, <code>optimizer</code>是<code>SGD优化器</code>, 这里<code>async</code>z指明<code>train</code>是异步函数, 每次迭代通过<code>await tf.nextFrame();</code>等待一次计算的结束再进行下一次计算, 对于<code>a, b, c, d</code>值的修改更新, 都由优化器负责</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">train</span>(<span class="params">xs, ys, numIterations</span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> iter = <span class="number">0</span>; iter &lt; numIterations; iter++) &#123;</span><br><span class="line">    optimizer.<span class="title function_">minimize</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> pred = <span class="title function_">predict</span>(xs);</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">loss</span>(pred, ys);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">await</span> tf.<span class="title function_">nextFrame</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Maven依赖"><a href="#Maven依赖" class="headerlink" title="Maven依赖"></a>Maven依赖</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.xuxueli<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>xxl-job-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-simple<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.21<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>之后的代码是生成训练数据, 运行项目, 我们可以看到三幅图, 第二副图的曲线是初始状态随机的<code>a, b, c, d</code>所生成的曲线, 第三幅图是训练之后的, 结果与<code>曲线A</code>相差无几</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br><span class="line">$ npm run watch</span><br></pre></td></tr></table></figure>
-
+<p>再配置<code>logback.xml</code>即可</p>
+<p>首先启动调度中心也就是<code>xxl-job-admin</code>项目, 再启动项目, 就可以在<code>http://127.0.0.1:8080/xxl-job-admin</code>中看到执行器了</p>
+<h1 id="JobHandler"><a href="#JobHandler" class="headerlink" title="JobHandler"></a>JobHandler</h1><p><code>JobHandler</code>只需继承<code>IJobHandler</code>中<code>execute</code>中实现自己的逻辑即可,<code>@JobHandler(value=&quot;demoJobHandler&quot;)</code>注解只是为了方便通过扫描自动注册, 如果是像上面那样简单的实现, 其实不需要这个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class DemoJobHandler extends IJobHandler &#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public ReturnT&lt;String&gt; execute(String param) throws Exception &#123;</span><br><span class="line">		XxlJobLogger.log(&quot;Hello World&quot;);</span><br><span class="line">		return SUCCESS;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此, 完整的<code>xxl-job</code>执行器就完成了</p>
 
       
     </div>
@@ -268,7 +261,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/11/02/acm-lc-45/">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2019/01/12/kafka/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -286,7 +279,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/11/02/acm-lc-45/" class="post-title-link" itemprop="url">LeetCode 45.跳跃游戏 II (DP+线段树)</a>
+          <a href="/2019/01/12/kafka/" class="post-title-link" itemprop="url">Kafka获取Topic中两端的偏移</a>
         </h2>
 
         <div class="post-meta-container">
@@ -297,7 +290,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-11-02 01:12:11" itemprop="dateCreated datePublished" datetime="2018-11-02T01:12:11+08:00">2018-11-02</time>
+      <time title="创建时间：2019-01-12 19:12:24" itemprop="dateCreated datePublished" datetime="2019-01-12T19:12:24+08:00">2019-01-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -312,7 +305,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ACM/" itemprop="url" rel="index"><span itemprop="name">ACM</span></a>
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">技术分享</span></a>
         </span>
     </span>
 
@@ -326,95 +319,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="题目地址"><a href="#题目地址" class="headerlink" title="题目地址"></a>题目地址</h1><p><a href="https://leetcode-cn.com/problems/jump-game-ii/">https://leetcode-cn.com/problems/jump-game-ii/</a></p>
-<h1 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h1><p>题目咋一看可以用动态规划来做, 第<code>i</code>个位置到终点的位置<code>f(i) = min(f(i+1),f(i+2)...f(k)) + 1</code> 其中<code>f(n-1) = 0</code>, <code>i 从 n-2 -&gt; 0</code>。这样的时间复杂度<code>O(N^2)</code>, 数据量一大就不行了, 例如: <code>[9999,9999,....9999]</code>十万个<code>9999</code><br>不过只要稍微优化一下就能达到很好的效果, 上面的解法很多时间是花在求<code>[i,k]</code>区间内的最小值, 这里我们可以利用线段树高效求解, 线段树每次插入, 查询花费<code>O(logN)</code>, 优化后时间复杂度为<code>O(NlogN)</code> 可以轻松应对大型测试用例了</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">jump</span>(<span class="params">self, nums</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        n = <span class="built_in">len</span>(nums)</span><br><span class="line">        self.init(n)</span><br><span class="line">        self.update(n-<span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n-<span class="number">2</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            a = i + <span class="number">1</span></span><br><span class="line">            b = i + nums[i] + <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> b &gt; n:</span><br><span class="line">                b = n</span><br><span class="line">            p = self.query(a, b, <span class="number">0</span>, <span class="number">0</span>, self.n) + <span class="number">1</span></span><br><span class="line">            self.update(i, p)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self.query(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, self.n)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">init</span>(<span class="params">self, n</span>):</span><br><span class="line">        self.INT_MAX = n</span><br><span class="line">        self.n = <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> self.n &lt; n:</span><br><span class="line">            self.n *= <span class="number">2</span></span><br><span class="line"></span><br><span class="line">        self.dat = [self.INT_MAX <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span> * self.n - <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">update</span>(<span class="params">self, k, a</span>):</span><br><span class="line">        k += self.n - <span class="number">1</span></span><br><span class="line">        self.dat[k] = a</span><br><span class="line">        <span class="keyword">while</span> k &gt; <span class="number">0</span>:</span><br><span class="line">            k = (k - <span class="number">1</span>) // <span class="number">2</span></span><br><span class="line">            self.dat[k] = <span class="built_in">min</span>(self.dat[k * <span class="number">2</span> + <span class="number">1</span>],self.dat[k * <span class="number">2</span> + <span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">query</span>(<span class="params">self, a, b, k, l, r</span>):</span><br><span class="line">        <span class="keyword">if</span> r &lt;= a <span class="keyword">or</span> b &lt;= l:</span><br><span class="line">            <span class="keyword">return</span> self.INT_MAX</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> a &lt;= l <span class="keyword">and</span> r &lt;= b:</span><br><span class="line">            <span class="keyword">return</span> self.dat[k]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            vl = self.query(a, b, k * <span class="number">2</span> + <span class="number">1</span>, l, (l + r) // <span class="number">2</span>)</span><br><span class="line">            vr = self.query(a, b, k * <span class="number">2</span> + <span class="number">2</span>, (l + r) // <span class="number">2</span>, r)</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">min</span>(vl, vr)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(Solution().jump([<span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">4</span>]))</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/30/acm-lc-42/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="☻Blog("Laziji")">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ☻Blog("Laziji")">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/30/acm-lc-42/" class="post-title-link" itemprop="url">LeetCode 42.接雨水</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-10-30 23:26:04" itemprop="dateCreated datePublished" datetime="2018-10-30T23:26:04+08:00">2018-10-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-12-15 23:10:05" itemprop="dateModified" datetime="2021-12-15T23:10:05+08:00">2021-12-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ACM/" itemprop="url" rel="index"><span itemprop="name">ACM</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="题目地址"><a href="#题目地址" class="headerlink" title="题目地址"></a>题目地址</h1><p><a href="https://leetcode-cn.com/problems/trapping-rain-water/">https://leetcode-cn.com/problems/trapping-rain-water/</a></p>
-<h1 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h1><p>把柱子按高度分成不同组, 从高到低开始取, 每组取完后计算<code>hi hn(下一组的高度)</code>之间存在多少块水, 数量为<code>(maxi - mini + 1 - (i + 1)) * (hi - hn)</code>, 其中<code>i</code>从<code>0</code>开始, <code>maxi - mini + 1</code>表示宽度, <code>i+1</code>表示柱子的数量</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">trap</span>(<span class="params">self, height</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type height: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        ihs = [(i,height[i]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(height))]</span><br><span class="line">        ihs.sort(key = <span class="keyword">lambda</span> x : x[<span class="number">1</span>], reverse = <span class="literal">True</span>)</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        maxi = -<span class="number">1</span></span><br><span class="line">        mini = -<span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(ihs)):</span><br><span class="line">            idx, h = ihs[i]</span><br><span class="line">            <span class="keyword">if</span> maxi == -<span class="number">1</span> <span class="keyword">or</span> idx&gt;maxi:</span><br><span class="line">                maxi = idx</span><br><span class="line">            <span class="keyword">if</span> mini == -<span class="number">1</span> <span class="keyword">or</span> idx&lt;mini:</span><br><span class="line">                mini = idx</span><br><span class="line">            </span><br><span class="line">            dh = <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> i == <span class="built_in">len</span>(ihs)-<span class="number">1</span>:</span><br><span class="line">                dh = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dh = h - ihs[i+<span class="number">1</span>][<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span> dh:</span><br><span class="line">                ans += (maxi - mini - i) * dh</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(Solution().trap([<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+          <p>监控Topic的情况时需要查看Topic队列的收尾的偏移情况, API中没有提供直接的方法, 不过可以按以下方法间接获取</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>在Java中查看consumer在Topic的偏移情况可以用<code>consumer.position(topicPartition)</code>, 所以可以创建一个consumer, 通过<code>seekToBeginning()</code>和<code>seekToEnd()</code>把偏移定位到首尾后再获取当前偏移</p>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">printOffset</span><span class="params">(KafkaConsumer consumer, TopicPartition topicPartition)</span>&#123;</span><br><span class="line">    List&lt;TopicPartition&gt; topicPartitions = Collections.singletonList(topicPartition);</span><br><span class="line">    consumer.seekToBeginning(topicPartitions);</span><br><span class="line">    System.out.println(<span class="string">&quot;BeginningOffset: &quot;</span> + consumer.position(topicPartition));</span><br><span class="line">    consumer.seekToEnd(topicPartitions);</span><br><span class="line">    System.out.println(<span class="string">&quot;EndOffset: &quot;</span> + consumer.position(topicPartition));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -433,7 +340,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/13/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/15/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/13/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/15/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

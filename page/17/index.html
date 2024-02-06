@@ -160,7 +160,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/15/http/">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/11/24/xds/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -178,7 +178,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/15/http/" class="post-title-link" itemprop="url">前后端分离项目的跨域及保持Session会话</a>
+          <a href="/2018/11/24/xds/" class="post-title-link" itemprop="url">快速区间查询算法 - 线段树</a>
         </h2>
 
         <div class="post-meta-container">
@@ -189,7 +189,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-10-15 00:24:51" itemprop="dateCreated datePublished" datetime="2018-10-15T00:24:51+08:00">2018-10-15</time>
+      <time title="创建时间：2018-11-24 11:48:36" itemprop="dateCreated datePublished" datetime="2018-11-24T11:48:36+08:00">2018-11-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -218,21 +218,34 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>当Web项目前后端分离开发的时候, 由于域名不一致, 会出现无法请求和无法维持会话的情况</p>
-<h1 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h1><p>在前端Ajax请求后台的时候, 打开控制台可以看到, 每一次请求之前都会有一次<code>OPTIONS</code>类型的请求<br><code>OPTIONS</code>称为预检请求, 通过这个请求, 浏览器会告知服务器,接下来的请求的情况</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Request-Method: POST </span><br><span class="line">Access-Control-Request-Headers: X-PINGOTHER, Content-Type</span><br></pre></td></tr></table></figure>
-<p>得到服务器的回应后浏览器便知道这次请求是否被允许</p>
-<h1 id="OPTIONS的处理"><a href="#OPTIONS的处理" class="headerlink" title="OPTIONS的处理"></a>OPTIONS的处理</h1><p>后台可以在拦截器或过滤器中处理这个请求, 这里以Springboot后台的拦截器为例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object o)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">method</span> <span class="operator">=</span> request.getMethod().toLowerCase();</span><br><span class="line">    response.setHeader(<span class="string">&quot;Access-Control-Allow-Origin&quot;</span>, <span class="string">&quot;*&quot;</span>);</span><br><span class="line">    response.setHeader(<span class="string">&quot;Access-Control-Allow-Methods&quot;</span>, <span class="string">&quot;GET, POST, OPTIONS, PUT, PATCH, DELETE&quot;</span>);</span><br><span class="line">    response.setHeader(<span class="string">&quot;Access-Control-Allow-Headers&quot;</span>, <span class="string">&quot;X-Requested-With,content-type&quot;</span>);</span><br><span class="line">    response.setHeader(<span class="string">&quot;Access-Control-Allow-Credentials&quot;</span>, <span class="string">&quot;true&quot;</span>);</span><br><span class="line">    response.setHeader(<span class="string">&quot;Access-Control-Expose-Headers&quot;</span>, <span class="string">&quot;TK&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (method.equals(<span class="string">&quot;options&quot;</span>))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>Access-Control-Allow-Origin</code> 代表允许请求源, 设置为<code>*</code>或设置为前端的域名即可解决跨域无法请求的问题例如<code>http://domain</code><br><code>Access-Control-Allow-Methods</code> 表示允许的请求方式</p>
-<p>以下两个特别说明<br><code>Access-Control-Allow-Headers</code> 代表允许<code>浏览器</code>可以向 <code>服务器</code>发送哪些请求头<br><code>Access-Control-Expose-Headers</code> 代表允许<code>浏览器</code>可以读取哪些<code>服务器</code>发送的请求头<br>均限制在客户端上</p>
-<h1 id="利用Token保持会话"><a href="#利用Token保持会话" class="headerlink" title="利用Token保持会话"></a>利用Token保持会话</h1><p>传统开发前后端能维持会话, 是因为当服务器调用了<code>HttpSession</code>时, 会将<code>SessionId</code>放在请求头的<code>set-cookie</code>中, 浏览器读取到了这个信息, 就把<code>SessionId</code>保存在本地, 待下次请求时以<code>Cookie</code>的形式带给服务器, 服务器根据收到的<code>SessionId</code>找到<code>Session</code> 以继续会话</p>
-<p>现在由于前后端分离后使用<code>Cookie</code>的种种不便, 可以换另一种方式来进行<code>SessionId</code>的传输, 就是把<code>SessionId</code>放在请求头中带给浏览器</p>
-<p>接上一段代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object o)</span> &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="type">HttpSession</span> <span class="variable">session</span> <span class="operator">=</span> request.getSession();</span><br><span class="line">    response.setHeader(<span class="string">&quot;TK&quot;</span>,session.getId());</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>由于设置了<code>response.setHeader(&quot;Access-Control-Expose-Headers&quot;, &quot;TK&quot;);</code><br>表示客户端可以读取header中的<code>TK</code>字段, 客户端就可以读取放在<code>TK</code>中的<code>SessionId</code>保存到本地, 存储方式可以是<code>Cookie</code>或者是<code>LocalStorage</code>都可以<br>当需要请求时用<code>http://service;jsessionid=$&#123;token&#125;</code>的形式传给服务器, 这个与传统Web中<code>Cookie:JSESSIONID=sessionid</code>的形式效果是一致的<br>如此就达到了保持会话的目的了</p>
-<h1 id="为什么能维持会话"><a href="#为什么能维持会话" class="headerlink" title="为什么能维持会话"></a>为什么能维持会话</h1><p>服务器根据<code>sessionid</code>保持会话这件事是容器完成的, 根据的就是请求中所传来的URL后的<code>;jsessionid=</code> 或者 cookie中的<code>JSESSIONID=</code>,<br>容器根据<code>sessionid</code>自动找到内存中的Session。<br>这也是选择<code>;jsessionid=</code>方式的原因。这会让你没有感觉像在做前后端分离的开发, 就像传统的JSP开发一样, 前后端融合在一起。</p>
-<p>当然你也可以用其他方式手动操作, 比如直接传参 <code>http://service?JID=$&#123;token&#125;</code>, 在请求头中带过去之类的, 然后手动取得ID再去找对应的Session, 不过这就有点多此一举了</p>
+          <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>线段树算法是一种快速查询一段区间内的信息的算法, 由于其实现简单, 所以广泛应用于程序设计竞赛中。<br>线段树是一棵完美二叉树, 即所有的叶子节点的深度均相同, 并且所有的非叶子节点都有两个子节点。每个节点维护一个区间, 这个区间为父节点二分后的子区间, 根节点维护整个区间, 叶子节点维护单个元素, 当元素个数为<code>n</code>时, 对区间的操作都可以在<code>O(log n)</code>的时间内完成, 因为此时树的深度为<code>log2 n + 1</code>, 每次操作只需从叶子节点开始, 往上更新至根节点, 每层只需更新相关的一个区间即可, 操作次数<code>log2 n + 1</code>, 即在<code>O(log n)</code>的时间内可完成。</p>
+<h1 id="可实现的功能"><a href="#可实现的功能" class="headerlink" title="可实现的功能"></a>可实现的功能</h1><p>线段树可以提供不同的功能, 例如最常见的求区间内的最大最小值和求区间内的和, 还有其他类似的功能, 实现思路基本相同</p>
+<h2 id="求区间最小值-最小值"><a href="#求区间最小值-最小值" class="headerlink" title="求区间最小值(最小值)"></a>求区间最小值(最小值)</h2><p>给定任意数列<code>[a0, a1,...,an-1]</code>, 在<code>O(log n)</code>的时间内完成下列的两种操作</p>
+<ul>
+<li><code>query(s, t)</code> 求 <code>[as,as+1,...,at-1]</code> 内的最小值(最小值)</li>
+<li><code>update(i, x)</code> 把 <code>ai</code> 的值改为 <code>x</code></li>
+</ul>
+<h2 id="求区间的和"><a href="#求区间的和" class="headerlink" title="求区间的和"></a>求区间的和</h2><p>给定初始值全为<code>0</code>的数列<code>[a0, a1,...,an-1]</code>, 在<code>O(log n)</code>的时间内完成下列的两种操作</p>
+<ul>
+<li><code>query(s, t)</code> 求 <code>[as,as+1,...,at-1]</code> 内的和</li>
+<li><code>add(i, x)</code> 执行 <code>ai += x</code></li>
+</ul>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>这里我们以<code>求区间最小值</code>内的最小值为例, 用<code>Python</code>来实现原始的一棵线段树</p>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>这里创建一个数组<code>dat[]</code>并赋予初始最大值, 为了让其成为一棵完美的二叉树, 便于计算, 我们把<code>n</code>扩大到<code>2的幂</code>, 由于我们在数组中填充了<code>int32</code>的最大整数<code>2147483647</code>, 所以多余出来的的元素总是最大值, 不会影响原来区间的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">init</span>(<span class="params">self, n</span>):</span><br><span class="line">    self.INT_MAX = <span class="number">2147483647</span></span><br><span class="line">    self.n = <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">while</span> self.n &lt; n:</span><br><span class="line">        self.n *= <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    self.dat = [self.INT_MAX <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span> * self.n - <span class="number">1</span>)]</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新元素"><a href="#更新元素" class="headerlink" title="更新元素"></a>更新元素</h2><p>我们把一棵完美二叉树压成一个数组, 下标为<code>i</code>的子节点为<code>i*2+1 和 i*2+2</code>, <code>a0</code>为根节点, 每次更新时, 首先更新叶子节点, 之后一层层往上更新, 节点<code>a[k] = min(a[k * 2 + 1],a[k * 2 + 2])</code>, 操作在<code>O(log n)</code>的时间内完成</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">update</span>(<span class="params">self, k, a</span>):</span><br><span class="line">    k += self.n - <span class="number">1</span></span><br><span class="line">    self.dat[k] = a</span><br><span class="line">    <span class="keyword">while</span> k &gt; <span class="number">0</span>:</span><br><span class="line">        k = (k - <span class="number">1</span>) // <span class="number">2</span></span><br><span class="line">        self.dat[k] = <span class="built_in">min</span>(self.dat[k * <span class="number">2</span> + <span class="number">1</span>],self.dat[k * <span class="number">2</span> + <span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询元素"><a href="#查询元素" class="headerlink" title="查询元素"></a>查询元素</h2><p><code>query</code>的功能为查询<code>[a, b)</code>区间内的最小值, 参数<code>k, l, r</code>是辅助参数</p>
+<ul>
+<li>k 当前计算的节点</li>
+<li>l, r 当前节点区间的范围</li>
+</ul>
+<p>当<code>[a,b)</code>, 不在<code>k</code>节点管理的区间<code>[l, r)</code>内时, 直接返回<code>INT_MAX</code><br>当<code>[a,b)</code>, 重合于<code>k</code>节点管理的区间<code>[l, r)</code>时, 直接返回<code>k</code>节点的值<br>否则, 递归<code>k</code>的两个子节点, 返回其中的最小值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">query</span>(<span class="params">self, a, b, k, l, r</span>):</span><br><span class="line">    <span class="keyword">if</span> r &lt;= a <span class="keyword">or</span> b &lt;= l:</span><br><span class="line">        <span class="keyword">return</span> self.INT_MAX</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> a &lt;= l <span class="keyword">and</span> r &lt;= b:</span><br><span class="line">        <span class="keyword">return</span> self.dat[k]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        vl = self.query(a, b, k * <span class="number">2</span> + <span class="number">1</span>, l, (l + r) // <span class="number">2</span>)</span><br><span class="line">        vr = self.query(a, b, k * <span class="number">2</span> + <span class="number">2</span>, (l + r) // <span class="number">2</span>, r)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">min</span>(vl, vr)</span><br></pre></td></tr></table></figure>
+
+<h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>至此我们就简单地实现了一棵线段树, 这只是线段树的其中一种形式, 线段树还有其他的变体。线段树的使用实例可以看我的另一篇文章<a href="https://laboo.top/2018/11/02/acm-lc-45/#more">https://laboo.top/2018/11/02/acm-lc-45/#more</a></p>
 
       
     </div>
@@ -259,7 +272,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/13/javascript-db/">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/11/21/tfjs-dr/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -277,7 +290,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/13/javascript-db/" class="post-title-link" itemprop="url">JavaScript实现类似Java的泛型</a>
+          <a href="/2018/11/21/tfjs-dr/" class="post-title-link" itemprop="url">TensorFlow.js 卷积神经网络手写数字识别</a>
         </h2>
 
         <div class="post-meta-container">
@@ -288,7 +301,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-10-13 02:04:07" itemprop="dateCreated datePublished" datetime="2018-10-13T02:04:07+08:00">2018-10-13</time>
+      <time title="创建时间：2018-11-21 16:51:21" itemprop="dateCreated datePublished" datetime="2018-11-21T16:51:21+08:00">2018-11-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -317,112 +330,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>现在有个需求, 后端对于每一张数据库的表都暴露三个主要API<code>namespace/list</code>、<code>namespace/save</code>、<code>namespace/update</code> 以及其他扩展接口。<br>现在需要用JavaScript编写一种较通用可扩展的代码。</p>
-<p>当然在JavaScript中实现这个需求方法很多, 这里讲述的是如何在<code>ECMAScript 6</code>中用类似Java中的泛型, 继承来解决</p>
-<p>最后使用如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">AppApi</span> <span class="keyword">from</span> <span class="string">&quot;./AppApi&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">AppApi</span>.<span class="title function_">list</span>()</span><br></pre></td></tr></table></figure>
+          <h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><p><a href="https://github.com/GitHub-Laziji/digit-recognizer">digit-recognizer</a></p>
+<h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><p><a href="https://github-laziji.github.io/digit-recognizer/">https://github-laziji.github.io/digit-recognizer/</a><br>演示开始时需要加载大概<code>100M</code>的训练数据, 稍等片刻</p>
+<p>调整训练集的大小, 观察测试结果的准确性</p>
+<h1 id="数据来源"><a href="#数据来源" class="headerlink" title="数据来源"></a>数据来源</h1><p>数据来源与 <a href="https://www.kaggle.com/">https://www.kaggle.com</a> 中的一道题目 <code>digit-recognizer</code><br>题目给出<code>42000</code>条训练数据(包含图片和标签)以及<code>28000</code>条测试数据(只包含图片)<br>要求给这些测试数据打上标签<code>[0-9]</code>描述该图像显示的是哪个数字, 要尽可能的准确</p>
+<p>网站中还有许多其他的机器学习的题目以及数据, 是个很好的练手的地方</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p><code>TensorFlow</code>是一个开源的机器学习库, 利用这个库我们可以快速地构建机器学习项目<br>这里我们使用<code>TensorFlow.js</code>来实现识别手写数字</p>
+<h2 id="创建模型"><a href="#创建模型" class="headerlink" title="创建模型"></a>创建模型</h2><p>卷积神经网络的第一层有两种作用, 它既是输入层也是执行层, 接收<code>IMAGE_H * IMAGE_W</code>大小的黑白像素<br>最后一层是输出层, 有10个输出单元, 代表着<code>0-9</code>这十个值的概率分布, 例如 Label&#x3D;2 , 输出为<code>[0.02,0.01,0.9,...,0.01]</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createConvModel</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> model = tf.<span class="title function_">sequential</span>();</span><br><span class="line"></span><br><span class="line">  model.<span class="title function_">add</span>(tf.<span class="property">layers</span>.<span class="title function_">conv2d</span>(&#123;</span><br><span class="line">    <span class="attr">inputShape</span>: [<span class="variable constant_">IMAGE_H</span>, <span class="variable constant_">IMAGE_W</span>, <span class="number">1</span>],</span><br><span class="line">    <span class="attr">kernelSize</span>: <span class="number">3</span>,</span><br><span class="line">    <span class="attr">filters</span>: <span class="number">16</span>,</span><br><span class="line">    <span class="attr">activation</span>: <span class="string">&#x27;relu&#x27;</span></span><br><span class="line">  &#125;));</span><br><span class="line"></span><br><span class="line">  model.<span class="title function_">add</span>(tf.<span class="property">layers</span>.<span class="title function_">maxPooling2d</span>(&#123; <span class="attr">poolSize</span>: <span class="number">2</span>, <span class="attr">strides</span>: <span class="number">2</span> &#125;));</span><br><span class="line">  model.<span class="title function_">add</span>(tf.<span class="property">layers</span>.<span class="title function_">conv2d</span>(&#123; <span class="attr">kernelSize</span>: <span class="number">3</span>, <span class="attr">filters</span>: <span class="number">32</span>, <span class="attr">activation</span>: <span class="string">&#x27;relu&#x27;</span> &#125;));</span><br><span class="line">  model.<span class="title function_">add</span>(tf.<span class="property">layers</span>.<span class="title function_">maxPooling2d</span>(&#123; <span class="attr">poolSize</span>: <span class="number">2</span>, <span class="attr">strides</span>: <span class="number">2</span> &#125;));</span><br><span class="line">  model.<span class="title function_">add</span>(tf.<span class="property">layers</span>.<span class="title function_">conv2d</span>(&#123; <span class="attr">kernelSize</span>: <span class="number">3</span>, <span class="attr">filters</span>: <span class="number">32</span>, <span class="attr">activation</span>: <span class="string">&#x27;relu&#x27;</span> &#125;));</span><br><span class="line">  model.<span class="title function_">add</span>(tf.<span class="property">layers</span>.<span class="title function_">flatten</span>(&#123;&#125;));</span><br><span class="line"></span><br><span class="line">  model.<span class="title function_">add</span>(tf.<span class="property">layers</span>.<span class="title function_">dense</span>(&#123; <span class="attr">units</span>: <span class="number">64</span>, <span class="attr">activation</span>: <span class="string">&#x27;relu&#x27;</span> &#125;));</span><br><span class="line">  model.<span class="title function_">add</span>(tf.<span class="property">layers</span>.<span class="title function_">dense</span>(&#123; <span class="attr">units</span>: <span class="number">10</span>, <span class="attr">activation</span>: <span class="string">&#x27;softmax&#x27;</span> &#125;));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> model;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="AppApi-js"><a href="#AppApi-js" class="headerlink" title="AppApi.js"></a>AppApi.js</h1><p>Api类如下 十分的OO</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">BaseApi</span> <span class="keyword">from</span> <span class="string">&quot;./BaseDBApi&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">AppApi</span> <span class="keyword">extends</span> <span class="title class_ inherited__">BaseApi</span>(<span class="string">&quot;/app&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">//...extension method</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="BaseApi-js"><a href="#BaseApi-js" class="headerlink" title="BaseApi.js"></a>BaseApi.js</h1><p>由于JS动态的特性, 可以比Java更加灵活 动态构造类, static 标注的方法可以直接通过类名, 子类继承后 也可以通过子类的类名调用</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> request <span class="keyword">from</span> <span class="string">&quot;@/common/request&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">builder</span>(<span class="params">baseUrl</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">class</span> <span class="title class_">BaseApi</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">list</span>(<span class="params">form</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">request</span>(&#123;</span><br><span class="line">        <span class="attr">url</span>: <span class="string">`<span class="subst">$&#123;baseUrl&#125;</span>/list`</span>,</span><br><span class="line">        <span class="attr">data</span>: form</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">save</span>(<span class="params">form</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">request</span>(&#123;</span><br><span class="line">        <span class="attr">url</span>: <span class="string">`<span class="subst">$&#123;baseUrl&#125;</span>/save`</span>,</span><br><span class="line">        <span class="attr">data</span>: form</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">update</span>(<span class="params">form</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">request</span>(&#123;</span><br><span class="line">        <span class="attr">url</span>: <span class="string">`<span class="subst">$&#123;baseUrl&#125;</span>/update`</span>,</span><br><span class="line">        <span class="attr">data</span>: form</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h2><p>我们选择适当的优化器和损失函数, 来编译模型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">train</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">  ui.<span class="title function_">trainLog</span>(<span class="string">&#x27;Create model...&#x27;</span>);</span><br><span class="line">  model = <span class="title function_">createConvModel</span>();</span><br><span class="line">  </span><br><span class="line">  ui.<span class="title function_">trainLog</span>(<span class="string">&#x27;Compile model...&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> optimizer = <span class="string">&#x27;rmsprop&#x27;</span>;</span><br><span class="line">  model.<span class="title function_">compile</span>(&#123;</span><br><span class="line">    optimizer,</span><br><span class="line">    <span class="attr">loss</span>: <span class="string">&#x27;categoricalCrossentropy&#x27;</span>,</span><br><span class="line">    <span class="attr">metrics</span>: [<span class="string">&#x27;accuracy&#x27;</span>],</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> trainData = <span class="title class_">Data</span>.<span class="title function_">getTrainData</span>(ui.<span class="title function_">getTrainNum</span>());</span><br><span class="line">  </span><br><span class="line">  ui.<span class="title function_">trainLog</span>(<span class="string">&#x27;Training model...&#x27;</span>);</span><br><span class="line">  <span class="keyword">await</span> model.<span class="title function_">fit</span>(trainData.<span class="property">xs</span>, trainData.<span class="property">labels</span>, &#123;&#125;);</span><br><span class="line"></span><br><span class="line">  ui.<span class="title function_">trainLog</span>(<span class="string">&#x27;Completed!&#x27;</span>);</span><br><span class="line">  ui.<span class="title function_">trainCompleted</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/13/java-db/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="☻Blog("Laziji")">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ☻Blog("Laziji")">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/13/java-db/" class="post-title-link" itemprop="url">Springboot Mybatis 实现通用Dao、Service、Controller (二)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-10-13 00:57:06" itemprop="dateCreated datePublished" datetime="2018-10-13T00:57:06+08:00">2018-10-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-12-15 23:10:05" itemprop="dateModified" datetime="2021-12-15T23:10:05+08:00">2021-12-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">技术分享</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>接上一篇, 上一篇文章写了Dao、Service、Controller的实现, 这篇讲述其中用到的Query<D>以及Page<D></p>
-<p>还是以app表为例, 表结构如下</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">`id` <span class="type">bigint</span>(<span class="number">20</span>)</span><br><span class="line">`gmt_create` datetime</span><br><span class="line">`gmt_modified` datetime</span><br><span class="line">`name` <span class="type">varchar</span>(<span class="number">32</span>)</span><br></pre></td></tr></table></figure>
-
-<h1 id="Query-查询类"><a href="#Query-查询类" class="headerlink" title="Query 查询类"></a>Query 查询类</h1><p>Query是select查询信息 如limit, page, order by的封装</p>
-<h2 id="AppQuery-java"><a href="#AppQuery-java" class="headerlink" title="AppQuery.java"></a>AppQuery.java</h2><p>省略其中get, set方法, Query的属性是DO的扩展,如其中<code>nameLike</code>为name字段的模糊查询, <code>toBean()</code>实现Query转换为DO</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AppQuery</span> <span class="keyword">extends</span> <span class="title class_">BaseQuery</span>&lt;AppDO&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> Date gmtCreate;</span><br><span class="line">    <span class="keyword">private</span> Date gmtModified;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String nameLike;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...get()</span></span><br><span class="line">    <span class="comment">// ...set()</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ClassifyDO <span class="title function_">toBean</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> JSON.parseObject(JSON.toJSONString(<span class="built_in">this</span>),ClassifyDO.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="BaseQuery-java"><a href="#BaseQuery-java" class="headerlink" title="BaseQuery.java"></a>BaseQuery.java</h2><p>BaseQuery中包含公共的查询属性, 例如分页, 排序, 省略其他默认的get, set</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">BaseQuery</span>&lt;D&gt; <span class="keyword">implements</span> <span class="title class_">Query</span>&lt;D&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">Integer</span> <span class="variable">limit</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Integer</span> <span class="variable">page</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Integer</span> <span class="variable">offset</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> String sort;</span><br><span class="line">    <span class="keyword">private</span> String order;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setLimit</span><span class="params">(Integer limit)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.limit = limit &gt; <span class="number">0</span> ? limit : <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">this</span>.offset = <span class="built_in">this</span>.page * <span class="built_in">this</span>.limit;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPage</span><span class="params">(<span class="type">int</span> page)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.page = page &gt;= <span class="number">0</span> ? page : <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">this</span>.offset = <span class="built_in">this</span>.page * <span class="built_in">this</span>.limit;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...get()</span></span><br><span class="line">    <span class="comment">// ...set()</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> JSON.toJSONString(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Query-java"><a href="#Query-java" class="headerlink" title="Query.java"></a>Query.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Query</span>&lt;D&gt; &#123;</span><br><span class="line"></span><br><span class="line">    D <span class="title function_">toBean</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Page-分页查询结果类"><a href="#Page-分页查询结果类" class="headerlink" title="Page 分页查询结果类"></a>Page 分页查询结果类</h1><p>由于前端分页显示时常常同时需要每页数据以及总条目数, 所以对分页查询结果简单封装</p>
-<h2 id="Page-java"><a href="#Page-java" class="headerlink" title="Page.java"></a>Page.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Page</span>&lt;D&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;D&gt; list;</span><br><span class="line">    <span class="keyword">private</span> Integer total;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...get()</span></span><br><span class="line">    <span class="comment">// ...set()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>这里测试一组测试数据, 返回对应的标签, 即十个输出单元中概率最高的下标</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">testOne</span>(<span class="params">xs</span>)&#123;</span><br><span class="line">  <span class="keyword">if</span>(!model)&#123;</span><br><span class="line">    ui.<span class="title function_">viewLog</span>(<span class="string">&#x27;Need to train the model first&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  ui.<span class="title function_">viewLog</span>(<span class="string">&#x27;Testing...&#x27;</span>);</span><br><span class="line">  <span class="keyword">let</span> output = model.<span class="title function_">predict</span>(xs);</span><br><span class="line">  ui.<span class="title function_">viewLog</span>(<span class="string">&#x27;Completed!&#x27;</span>);</span><br><span class="line">  output.<span class="title function_">print</span>();</span><br><span class="line">  <span class="keyword">const</span> axis = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">const</span> predictions = output.<span class="title function_">argMax</span>(axis).<span class="title function_">dataSync</span>();</span><br><span class="line">  <span class="keyword">return</span> predictions[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -441,7 +362,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/18/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/18/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

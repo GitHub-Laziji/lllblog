@@ -160,7 +160,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/29/share/">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/12/26/s301/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -178,7 +178,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/29/share/" class="post-title-link" itemprop="url">JS自动生成QQ、微博等页面分享按钮</a>
+          <a href="/2018/12/26/s301/" class="post-title-link" itemprop="url">网站中的301重定向</a>
         </h2>
 
         <div class="post-meta-container">
@@ -189,7 +189,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-10-29 19:43:54" itemprop="dateCreated datePublished" datetime="2018-10-29T19:43:54+08:00">2018-10-29</time>
+      <time title="创建时间：2018-12-26 22:53:43" itemprop="dateCreated datePublished" datetime="2018-12-26T22:53:43+08:00">2018-12-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -218,13 +218,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>生成 微博, QQ, 人人… 的分享按钮</p>
-<h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p><a href="https://github.com/GitHub-Laziji/JS-plugins/tree/master/share">https://github.com/GitHub-Laziji/JS-plugins/tree/master/share</a><br>自动生成按钮的图标使用<code>Font Awesome</code>, 使用前须引人</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;http://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><p><img src="https://github.com/GitHub-Laziji/JS-plugins/raw/master/share/screenshot1.png" alt="screenshot"></p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="静态引人"><a href="#静态引人" class="headerlink" title="静态引人"></a>静态引人</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;share.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//自动生成</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;bar&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//直接调用</span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;AShare.share.sinaWeibo.event()&quot;</span>&gt;</span>分享到微博<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="title class_">AShare</span>.<span class="title function_">config</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">title</span>:<span class="string">&quot;app&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">content</span>:<span class="string">&quot;sssshare&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">picture</span>:<span class="string">&quot;i.png&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript">    <span class="attr">url</span>: <span class="literal">null</span>, <span class="comment">//选填  默认当前页面</span></span></span><br><span class="line"><span class="language-javascript">  &#125;)</span></span><br><span class="line"><span class="language-javascript">  </span></span><br><span class="line"><span class="language-javascript">  <span class="comment">//自动生成全部</span></span></span><br><span class="line"><span class="language-javascript">  <span class="title class_">AShare</span>.<span class="title function_">createBar</span>(<span class="string">&quot;#bar&quot;</span>)</span></span><br><span class="line"><span class="language-javascript">  </span></span><br><span class="line"><span class="language-javascript">  <span class="comment">//选择生成</span></span></span><br><span class="line"><span class="language-javascript">  <span class="title class_">AShare</span>.<span class="title function_">createBar</span>(<span class="string">&quot;#bar&quot;</span>, &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">sinaWeibo</span>:<span class="literal">true</span>,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">qzone</span>:<span class="literal">true</span>,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">renren</span>:<span class="literal">true</span></span></span><br><span class="line"><span class="language-javascript">  &#125;)</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="模块引人"><a href="#模块引人" class="headerlink" title="模块引人"></a>模块引人</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">AShare</span> <span class="keyword">from</span> <span class="string">&quot;share&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">AShare</span>.<span class="title function_">config</span>(&#123;</span><br><span class="line">  <span class="attr">title</span>:<span class="string">&quot;app&quot;</span>,</span><br><span class="line">  <span class="attr">content</span>:<span class="string">&quot;sssshare&quot;</span>,</span><br><span class="line">  <span class="attr">picture</span>:<span class="string">&quot;i.png&quot;</span>,</span><br><span class="line">&#125;).<span class="title function_">createBar</span>(<span class="string">&quot;#bar&quot;</span>)</span><br></pre></td></tr></table></figure>
+          <h1 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h1><p>重定向的分为两种<code>301</code>和<code>302</code>, 这两种使用起来感觉差不多, 但是对搜索引擎来说是有区别的</p>
+<ul>
+<li><code>301</code> 表示永久重定向, 搜索引擎收到<code>301</code>响应时会把旧的地址的权值传给新的, 所以当网站更改域名或者网站内部资源url改变时应该使用<code>301</code>重定向</li>
+<li><code>302</code> 表示临时重定向, 顾名思义就是告诉搜索引擎, 这个新地址只是临时用一用</li>
+</ul>
+<h1 id="权值分散"><a href="#权值分散" class="headerlink" title="权值分散"></a>权值分散</h1><p>当一个网站有多个域名的时候, 据个人经验, 应当把所以域名都重定向到一个主域名上, 例如<code>abc.com</code>、<code>www.abc.com</code>、<code>home.abc.com</code>, 这三个都指向一个网站, 会造成权值的分散</p>
+<p>更坏的情况是别人把他的域名定到你的网站上, 让你的网站来养着他的域名, 等时机成熟, 别人把域名一收, 你的网站就突然流失了一大部分流量</p>
+<p>所以最好就是在代码中(或者在容器中)对域名进行重定向, 检测请求中的域名, 若不是主域名如<code>www.abc.com</code>就全部<code>301</code>重定向过来</p>
+<h1 id="springboot中的实现"><a href="#springboot中的实现" class="headerlink" title="springboot中的实现"></a>springboot中的实现</h1><p>完整代码<br><a href="https://github.com/GitHub-Laziji/commons-security/blob/master/src/main/java/org/laziji/commons/security/interceptor/HostInterceptor.java">HostInterceptor.java</a></p>
+<p>编写一个通用的拦截器, 首先检测请求方式, 只对<code>get</code>请求进行重定向, 因为<code>get</code>请求来自浏览器, 会自动对<code>301</code>重定向进行页面跟随。 之后检查域名若不在白名单中则进行重定向</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HostInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String redirectHost;</span><br><span class="line">    <span class="keyword">private</span> Integer redirectPort;</span><br><span class="line">    <span class="keyword">private</span> Set&lt;String&gt; hostWhitelistSet = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object o)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (redirectHost == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!<span class="string">&quot;get&quot;</span>.equals(request.getMethod().toLowerCase())) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">host</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;host&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (hostWhitelistSet.contains(host)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">url</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">if</span> (request.isSecure()) &#123;</span><br><span class="line">            url.append(<span class="string">&quot;https://&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            url.append(<span class="string">&quot;http://&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        url.append(redirectHost);</span><br><span class="line">        <span class="keyword">if</span> (redirectPort != <span class="literal">null</span> &amp;&amp; redirectPort != <span class="number">80</span>) &#123;</span><br><span class="line">            url.append(<span class="string">&#x27;:&#x27;</span>).append(redirectPort);</span><br><span class="line">        &#125;</span><br><span class="line">        url.append(request.getRequestURI());</span><br><span class="line">        <span class="type">String</span> <span class="variable">queryString</span> <span class="operator">=</span> request.getQueryString();</span><br><span class="line">        <span class="keyword">if</span> (queryString != <span class="literal">null</span>) &#123;</span><br><span class="line">            url.append(<span class="string">&#x27;?&#x27;</span>).append(queryString);</span><br><span class="line">        &#125;</span><br><span class="line">        response.setHeader(<span class="string">&quot;location&quot;</span>, url.toString());</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addHostWhitelist</span><span class="params">(String host)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (host == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        hostWhitelistSet.add(host);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getRedirectHost</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> redirectHost;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setRedirectHost</span><span class="params">(String redirectHost)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (redirectHost == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.redirectHost = redirectHost;</span><br><span class="line">        hostWhitelistSet.add(redirectHost);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Integer <span class="title function_">getRedirectPort</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> redirectPort;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setRedirectPort</span><span class="params">(Integer redirectPort)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (redirectPort == <span class="literal">null</span> || redirectPort &lt; <span class="number">1</span> || redirectPort &gt; <span class="number">65535</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.redirectPort = redirectPort;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>使用如下, 在启动类中配置拦截器, 我们可以在白名单中配置主域名(主域名自动加入白名单)和<code>localhost</code>(用于本地开发)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HostInterceptor</span> <span class="variable">hostInterceptor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HostInterceptor</span>();</span><br><span class="line">hostInterceptor.setRedirectHost(<span class="string">&quot;www.abc.com&quot;</span>);</span><br><span class="line">hostInterceptor.addHostWhitelist(<span class="string">&quot;localhost&quot;</span>);</span><br><span class="line">registry.addInterceptor(hostInterceptor).addPathPatterns(<span class="string">&quot;/**&quot;</span>);</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -250,7 +257,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/23/kotlin-nodejs/">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/12/20/gomoku/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -268,7 +275,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/23/kotlin-nodejs/" class="post-title-link" itemprop="url">Kotlin + Node.js 搭建教程</a>
+          <a href="/2018/12/20/gomoku/" class="post-title-link" itemprop="url">AlphaZero五子棋的实现</a>
         </h2>
 
         <div class="post-meta-container">
@@ -279,7 +286,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-10-23 15:04:21" itemprop="dateCreated datePublished" datetime="2018-10-23T15:04:21+08:00">2018-10-23</time>
+      <time title="创建时间：2018-12-20 19:14:03" itemprop="dateCreated datePublished" datetime="2018-12-20T19:14:03+08:00">2018-12-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -308,112 +315,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><code>Kotlin</code>是JetBrains推出的一款语言, 相比<code>Java</code>有更简洁的语法, 能编译为<code>Java Class</code>, 也能编译为<code>JavaScript</code><br><code>Node.js</code>则是可以运行在服务端的<code>JavaScript</code>, 这里把二者结合, 搭建一个用<code>Kotlin</code>编写的服务端应用</p>
-<h1 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h1><p>打开Idea 创建一个 Kotlin(JavaScript) 项目<br>编写一个测试文件, 检查是否可以正常编译</p>
-<h2 id="Test-kt"><a href="#Test-kt" class="headerlink" title="Test.kt"></a>Test.kt</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="title function_">main</span><span class="params">(args: Array&lt;String&gt;)</span> &#123;</span><br><span class="line">    println(<span class="string">&quot;hello kt&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>按<code>Ctrl+F9</code>编译, 如果看到生成了编译文件, 就可以了, 其中<code>&#123;projectName&#125;.js</code>就是编译后的文件, 打开可以看到已经被编译为<code>JavaScript</code>了, 其中也有<code>println(&#39;hello kt&#39;);</code><br>如果没问题的话就可以正式开始接下来的了, 创建<code>App.kt</code></p>
-<h2 id="App-kt"><a href="#App-kt" class="headerlink" title="App.kt"></a>App.kt</h2><p>监听<code>8888</code>端口 对任何请求都返回<code>hello world</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlin.js.json</span><br><span class="line"></span><br><span class="line">external fun <span class="title function_">require</span><span class="params">(<span class="keyword">module</span>: String)</span>: dynamic</span><br><span class="line"></span><br><span class="line">fun <span class="title function_">main</span><span class="params">(args: Array&lt;String&gt;)</span> &#123;</span><br><span class="line">    println(<span class="string">&quot;hello kt&quot;</span>)</span><br><span class="line">    <span class="type">val</span> <span class="variable">http</span> <span class="operator">=</span> require(<span class="string">&quot;http&quot;</span>)</span><br><span class="line"></span><br><span class="line">    http.createServer &#123; _, response -&gt;</span><br><span class="line">        response.writeHead(<span class="number">200</span>, json(<span class="string">&quot;Content-Type&quot;</span> to <span class="string">&quot;text/plain&quot;</span>))</span><br><span class="line">        response.end(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">    &#125;.listen(<span class="number">8888</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h1><p>打开终端运行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm init</span><br></pre></td></tr></table></figure>
-<h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;kt-node&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;kt-node&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node ./out/production/kt-node/kt-node.js&quot;</span>   <span class="comment">//这里改成你编译后文件的位置</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;laziji&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;express&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.15.4&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;kotlin&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^1.1.4&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;mongoose&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.11.7&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br><span class="line">$ npm start</span><br></pre></td></tr></table></figure>
-
-<p>打开<code>localhost:8888</code> 查看效果</p>
-<h1 id="若有报错"><a href="#若有报错" class="headerlink" title="若有报错"></a>若有报错</h1><p>如果运行的时候报错<br>打开<code>project settings -&gt; Kotlin Complier</code><br>将 <code>Module kind</code> 改为 <code>UMD</code> 再尝试编译 运行</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/22/java-form/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="☻Blog("Laziji")">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ☻Blog("Laziji")">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/22/java-form/" class="post-title-link" itemprop="url">Java注解表单验证</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-10-22 12:38:31" itemprop="dateCreated datePublished" datetime="2018-10-22T12:38:31+08:00">2018-10-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-12-15 23:10:05" itemprop="dateModified" datetime="2021-12-15T23:10:05+08:00">2021-12-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">技术分享</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>使用<code>javax.validation</code>注解, 实现表单验证</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">index</span><span class="params">(LoginForm form)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!form.verification()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// TODO ...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;index&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="LoginForm-java"><a href="#LoginForm-java" class="headerlink" title="LoginForm.java"></a>LoginForm.java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.validation.constraints.NotNull;</span><br><span class="line"><span class="keyword">import</span> javax.validation.constraints.Pattern;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoginForm</span> <span class="keyword">extends</span> <span class="title class_">BaseForm</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="meta">@Pattern(regexp = &quot;[A-Za-z0-9]&#123;1,32&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="meta">@Pattern(regexp = &quot;[A-Za-z0-9]&#123;32&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getUsername</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUsername</span><span class="params">(String username)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.username = username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getPassword</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPassword</span><span class="params">(String password)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.password = password;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="BaseForm-java"><a href="#BaseForm-java" class="headerlink" title="BaseForm.java"></a>BaseForm.java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.hibernate.validator.HibernateValidator;</span><br><span class="line"><span class="keyword">import</span> javax.validation.Validation;</span><br><span class="line"><span class="keyword">import</span> javax.validation.Validator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">BaseForm</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">Validator</span> <span class="variable">validator</span> <span class="operator">=</span> Validation</span><br><span class="line">            .byProvider(HibernateValidator.class).configure()</span><br><span class="line">            .failFast(<span class="literal">true</span>).buildValidatorFactory().getValidator();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">verification</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> validator.validate(<span class="built_in">this</span>).size() == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="主要的几个注解"><a href="#主要的几个注解" class="headerlink" title="主要的几个注解"></a>主要的几个注解</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@DecimalMax</span></span><br><span class="line"><span class="meta">@DecimalMin</span></span><br><span class="line"><span class="meta">@Digits</span></span><br><span class="line"><span class="meta">@Future</span></span><br><span class="line"><span class="meta">@Max</span></span><br><span class="line"><span class="meta">@Min</span></span><br><span class="line"><span class="meta">@NotNull</span></span><br><span class="line"><span class="meta">@Past</span></span><br><span class="line"><span class="meta">@Pattern</span></span><br><span class="line"><span class="meta">@Size</span></span><br></pre></td></tr></table></figure>
+          <p><code>AlphaZero</code>的设计十分精妙, 模拟人的思维方式, 并且相比上一代的<code>AlphaGo</code>去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次<br>设计主要分为两部分</p>
+<h1 id="神经网络-走子价值网络"><a href="#神经网络-走子价值网络" class="headerlink" title="神经网络(走子价值网络)"></a>神经网络(走子价值网络)</h1><p>神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 直接判断哪里是好棋哪里是坏棋</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>谷歌的<code>AlphaGo Zero</code>采用的<code>19 * 19 * 17</code>的输入<br>即一个<code>19 * 19</code>代表当前局面的黑棋或白棋的位置, <code>0</code>代表没有, <code>1</code>代表有<br>所以一个完整的局面需要<code>19 * 19 * 2</code>来表示, 输入包含<code>8</code>个历史输入, 因为围棋中存在打劫, 当前可选位置与历史有关, 所以历史局面是必须的<br>除此之外还有一个参数就是当前局面是哪一方走子, 用<code>0或1</code>表示, 为了方便, 把<code>0或1</code>扩展到<code>19 * 19</code>的平面, 即全为<code>0或1</code>的平面<br>一共<code>2*8+1</code>, <code>17</code>个平面作为神经网络的输入</p>
+<p>这里以无禁手五子棋为例, 在五子棋中输入可以进行简化, 因为五子棋的下子可以认为只与当前局面有关, 与历史无关<br>可以采用<code>15 * 15 * 3</code>的输入</p>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>大小为<code>361</code>的<code>pi</code>, 代表每个位置下子的概率<br>以及<code>z</code>当前局面的价值, 在<code>[-1,1]</code>之间</p>
+<h2 id="中间层"><a href="#中间层" class="headerlink" title="中间层"></a>中间层</h2><p>中间层包括一个卷积块, 之后连接一个残差网络, 然后残差网络的输出作为策略头(走子概率), 和价值头(胜率)的输入, 两个头都是一个卷积层跟上一个全连接层<br><code>AlphaZero</code>中使用了多层残差网络来获得更强的学习能力, 但是在普通PC上自我对弈时过于缓慢, 可以尝试减少层数, 或者去掉残差网络<br>可以先实现, 之后再优化的时候适当加入</p>
+<h1 id="MCTS-蒙特卡洛树搜索"><a href="#MCTS-蒙特卡洛树搜索" class="headerlink" title="MCTS(蒙特卡洛树搜索)"></a>MCTS(蒙特卡洛树搜索)</h1><p><code>MCTS</code>相当于人在下棋过程中的推演过程, 利用MCTS改善每个局面的走子概率, 就像人可以通过推演发现一些在当前局面看起来不是很好的棋<br><code>MCTS</code>分为这几个过程</p>
+<h2 id="A-选择"><a href="#A-选择" class="headerlink" title="A 选择"></a>A 选择</h2><p>从当前局面节点(通过N,P,V计算所有节点的价值)选择价值最大的节点, 最为下一个节点</p>
+<h2 id="B-扩展"><a href="#B-扩展" class="headerlink" title="B 扩展"></a>B 扩展</h2><p>若当前局面没有搜索过, 使用神经网络预测当前局面的走子概率</p>
+<h2 id="C-价值回传"><a href="#C-价值回传" class="headerlink" title="C 价值回传"></a>C 价值回传</h2><p>不断进行<code>AB</code>, 直到达到叶子节点, 棋局结束, 把胜负结果回传, 并将节点加入神经网络进行训练</p>
 
       
     </div>
@@ -433,7 +344,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/16/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/16/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

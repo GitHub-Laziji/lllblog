@@ -160,7 +160,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2019/01/12/kafka/">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2019/05/26/mybatis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -178,7 +178,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/01/12/kafka/" class="post-title-link" itemprop="url">Kafka获取Topic中两端的偏移</a>
+          <a href="/2019/05/26/mybatis/" class="post-title-link" itemprop="url">Mybatis通用Mapper的实现</a>
         </h2>
 
         <div class="post-meta-container">
@@ -189,7 +189,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-01-12 19:12:24" itemprop="dateCreated datePublished" datetime="2019-01-12T19:12:24+08:00">2019-01-12</time>
+      <time title="创建时间：2019-05-26 10:19:29" itemprop="dateCreated datePublished" datetime="2019-05-26T10:19:29+08:00">2019-05-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -218,106 +218,37 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>监控Topic的情况时需要查看Topic队列的收尾的偏移情况, API中没有提供直接的方法, 不过可以按以下方法间接获取</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>在Java中查看consumer在Topic的偏移情况可以用<code>consumer.position(topicPartition)</code>, 所以可以创建一个consumer, 通过<code>seekToBeginning()</code>和<code>seekToEnd()</code>把偏移定位到首尾后再获取当前偏移</p>
-<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">printOffset</span><span class="params">(KafkaConsumer consumer, TopicPartition topicPartition)</span>&#123;</span><br><span class="line">    List&lt;TopicPartition&gt; topicPartitions = Collections.singletonList(topicPartition);</span><br><span class="line">    consumer.seekToBeginning(topicPartitions);</span><br><span class="line">    System.out.println(<span class="string">&quot;BeginningOffset: &quot;</span> + consumer.position(topicPartition));</span><br><span class="line">    consumer.seekToEnd(topicPartitions);</span><br><span class="line">    System.out.println(<span class="string">&quot;EndOffset: &quot;</span> + consumer.position(topicPartition));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
+          <blockquote>
+<p>MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。</p>
+</blockquote>
+<p>传统<code>Mybatis</code>开发使用XML的方式编写SQL脚本进行数据库操作,<br><code>Mybatis</code>允许使用<code>动态SQL</code>但是即使如此, 依然存在许多重复性工作, 因为每个基本表的增删改查语句模式其实都是相同的</p>
+<p><code>Mybatis</code>也可以使用Dao接口上以注解的形式编写SQL, 但是也是一样, 必须重复编写, 非常不方便</p>
+<p>其实<code>Mybatis</code>已经考虑到了这点, 为我们提供了自定义通用Mapper的实现机制</p>
+<h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p><a href="https://github.com/GitHub-Laziji/commons-mybatis">https://github.com/GitHub-Laziji/commons-mybatis</a></p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>实现方法分为两步</p>
+<h2 id="声明引用的方法"><a href="#声明引用的方法" class="headerlink" title="声明引用的方法"></a>声明引用的方法</h2><p>在Dao接口的方法上以注解的形式声明, 使用哪个类的哪个方法, 如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">DODao</span>&lt;T <span class="keyword">extends</span> <span class="title class_">DO</span>&gt; <span class="keyword">extends</span> <span class="title class_">Dao</span>&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SelectProvider(type = SqlProvider.class, method = &quot;selectById&quot;)</span></span><br><span class="line">    T <span class="title function_">selectById</span><span class="params">(Long id)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@InsertProvider(type = SqlProvider.class, method = &quot;insert&quot;)</span></span><br><span class="line">    <span class="meta">@Options(useGeneratedKeys = true, keyColumn = &quot;id&quot;)</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">insert</span><span class="params">(T bean)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@UpdateProvider(type = SqlProvider.class, method = &quot;update&quot;)</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">update</span><span class="params">(T bean)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@DeleteProvider(type = SqlProvider.class, method = &quot;delete&quot;)</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">delete</span><span class="params">(Long id)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-    
-    
-    
+<h2 id="方法实现"><a href="#方法实现" class="headerlink" title="方法实现"></a>方法实现</h2><p>在实现方法中可以接收Dao接口中传来的参数, 最后返回一个SQL字符串, 这个SQL可以是动态的, 例如可以使用<code>id=#&#123;id&#125;</code>这样的语法</p>
+<p><code>T selectById(Long id)</code>实现如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">selectById</span><span class="params">(ProviderContext context)</span> &#123;</span><br><span class="line">    <span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> getEntityClass(context);</span><br><span class="line">    <span class="keyword">assert</span> clazz != <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SQL</span>()</span><br><span class="line">            .SELECT(getColumns(clazz))</span><br><span class="line">            .FROM(getTableName(clazz))</span><br><span class="line">            .WHERE(<span class="string">&quot;`id`=#&#123;id&#125;&quot;</span>)</span><br><span class="line">            .toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
+<p>我们可以通过<code>context</code>获取Dao的泛型类, 也就是实体类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Class <span class="title function_">getEntityClass</span><span class="params">(ProviderContext context)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (Type type : context.getMapperType().getGenericInterfaces()) &#123;</span><br><span class="line">        <span class="type">ResolvableType</span> <span class="variable">resolvableType</span> <span class="operator">=</span> ResolvableType.forType(type);</span><br><span class="line">        <span class="keyword">if</span> (resolvableType.getRawClass() == Dao.class</span><br><span class="line">                || resolvableType.getRawClass() == DODao.class</span><br><span class="line">                || resolvableType.getRawClass() == VODao.class) &#123;</span><br><span class="line">            <span class="keyword">return</span> resolvableType.getGeneric(<span class="number">0</span>).getRawClass();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<p>通过反射我们可以拿到对应的字段名, 类名, 字段名获取如下, <code>Ignore</code> 是自定义注解, 用于忽略一些字段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String[] getVariables(Class clazz, String[] prefixes) &#123;</span><br><span class="line">    List&lt;String&gt; variables = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Method method : clazz.getMethods()) &#123;</span><br><span class="line">        <span class="type">Ignore</span> <span class="variable">annotation</span> <span class="operator">=</span> method.getAnnotation(Ignore.class);</span><br><span class="line">        <span class="keyword">if</span> (annotation != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> method.getName();</span><br><span class="line">        <span class="keyword">for</span> (String prefix : prefixes) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> prefix.length();</span><br><span class="line">            <span class="keyword">if</span> (name.length() &gt; length &amp;&amp; name.startsWith(prefix)</span><br><span class="line">                    &amp;&amp; name.charAt(length) &gt;= <span class="string">&#x27;A&#x27;</span> &amp;&amp; name.charAt(length) &lt;= <span class="string">&#x27;Z&#x27;</span>) &#123;</span><br><span class="line">                <span class="type">String</span> <span class="variable">variableName</span> <span class="operator">=</span> (<span class="type">char</span>) (name.charAt(length) - <span class="string">&#x27;A&#x27;</span> + <span class="string">&#x27;a&#x27;</span>) + name.substring(length + <span class="number">1</span>);</span><br><span class="line">                variables.add(variableName);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> variables.toArray(<span class="keyword">new</span> <span class="title class_">String</span>[]&#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> String[] getReadVariables(Class clazz) &#123;</span><br><span class="line">    <span class="keyword">return</span> getVariables(clazz, <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;is&quot;</span>, <span class="string">&quot;get&quot;</span>&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/12/26/s301/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="☻Blog("Laziji")">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ☻Blog("Laziji")">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/12/26/s301/" class="post-title-link" itemprop="url">网站中的301重定向</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-12-26 22:53:43" itemprop="dateCreated datePublished" datetime="2018-12-26T22:53:43+08:00">2018-12-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-12-15 23:10:05" itemprop="dateModified" datetime="2021-12-15T23:10:05+08:00">2021-12-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">技术分享</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h1><p>重定向的分为两种<code>301</code>和<code>302</code>, 这两种使用起来感觉差不多, 但是对搜索引擎来说是有区别的</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>使用通用<code>Mapper</code>无需编写任何SQL 只需创建空Dao 继承通用的<code>Dao&lt;T&gt;</code>即可</p>
 <ul>
-<li><code>301</code> 表示永久重定向, 搜索引擎收到<code>301</code>响应时会把旧的地址的权值传给新的, 所以当网站更改域名或者网站内部资源url改变时应该使用<code>301</code>重定向</li>
-<li><code>302</code> 表示临时重定向, 顾名思义就是告诉搜索引擎, 这个新地址只是临时用一用</li>
+<li><p>具体实现请看项目<a href="https://github.com/GitHub-Laziji/commons-mybatis">commons-mybatis</a></p>
+</li>
+<li><p>具体使用请看<code>README</code></p>
+</li>
+<li><p>还可以更近一步使用代码生成器生成Bean, Dao, Service, 把工作简化到极致<a href="https://laboo.top/2019/01/27/javag/">Java代码生成器mybatis-generator的使用</a></p>
+</li>
 </ul>
-<h1 id="权值分散"><a href="#权值分散" class="headerlink" title="权值分散"></a>权值分散</h1><p>当一个网站有多个域名的时候, 据个人经验, 应当把所以域名都重定向到一个主域名上, 例如<code>abc.com</code>、<code>www.abc.com</code>、<code>home.abc.com</code>, 这三个都指向一个网站, 会造成权值的分散</p>
-<p>更坏的情况是别人把他的域名定到你的网站上, 让你的网站来养着他的域名, 等时机成熟, 别人把域名一收, 你的网站就突然流失了一大部分流量</p>
-<p>所以最好就是在代码中(或者在容器中)对域名进行重定向, 检测请求中的域名, 若不是主域名如<code>www.abc.com</code>就全部<code>301</code>重定向过来</p>
-<h1 id="springboot中的实现"><a href="#springboot中的实现" class="headerlink" title="springboot中的实现"></a>springboot中的实现</h1><p>完整代码<br><a href="https://github.com/GitHub-Laziji/commons-security/blob/master/src/main/java/org/laziji/commons/security/interceptor/HostInterceptor.java">HostInterceptor.java</a></p>
-<p>编写一个通用的拦截器, 首先检测请求方式, 只对<code>get</code>请求进行重定向, 因为<code>get</code>请求来自浏览器, 会自动对<code>301</code>重定向进行页面跟随。 之后检查域名若不在白名单中则进行重定向</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HostInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String redirectHost;</span><br><span class="line">    <span class="keyword">private</span> Integer redirectPort;</span><br><span class="line">    <span class="keyword">private</span> Set&lt;String&gt; hostWhitelistSet = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object o)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (redirectHost == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!<span class="string">&quot;get&quot;</span>.equals(request.getMethod().toLowerCase())) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">host</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;host&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (hostWhitelistSet.contains(host)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">url</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">if</span> (request.isSecure()) &#123;</span><br><span class="line">            url.append(<span class="string">&quot;https://&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            url.append(<span class="string">&quot;http://&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        url.append(redirectHost);</span><br><span class="line">        <span class="keyword">if</span> (redirectPort != <span class="literal">null</span> &amp;&amp; redirectPort != <span class="number">80</span>) &#123;</span><br><span class="line">            url.append(<span class="string">&#x27;:&#x27;</span>).append(redirectPort);</span><br><span class="line">        &#125;</span><br><span class="line">        url.append(request.getRequestURI());</span><br><span class="line">        <span class="type">String</span> <span class="variable">queryString</span> <span class="operator">=</span> request.getQueryString();</span><br><span class="line">        <span class="keyword">if</span> (queryString != <span class="literal">null</span>) &#123;</span><br><span class="line">            url.append(<span class="string">&#x27;?&#x27;</span>).append(queryString);</span><br><span class="line">        &#125;</span><br><span class="line">        response.setHeader(<span class="string">&quot;location&quot;</span>, url.toString());</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addHostWhitelist</span><span class="params">(String host)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (host == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        hostWhitelistSet.add(host);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getRedirectHost</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> redirectHost;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setRedirectHost</span><span class="params">(String redirectHost)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (redirectHost == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.redirectHost = redirectHost;</span><br><span class="line">        hostWhitelistSet.add(redirectHost);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Integer <span class="title function_">getRedirectPort</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> redirectPort;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setRedirectPort</span><span class="params">(Integer redirectPort)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (redirectPort == <span class="literal">null</span> || redirectPort &lt; <span class="number">1</span> || redirectPort &gt; <span class="number">65535</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.redirectPort = redirectPort;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>使用如下, 在启动类中配置拦截器, 我们可以在白名单中配置主域名(主域名自动加入白名单)和<code>localhost</code>(用于本地开发)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HostInterceptor</span> <span class="variable">hostInterceptor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HostInterceptor</span>();</span><br><span class="line">hostInterceptor.setRedirectHost(<span class="string">&quot;www.abc.com&quot;</span>);</span><br><span class="line">hostInterceptor.addHostWhitelist(<span class="string">&quot;localhost&quot;</span>);</span><br><span class="line">registry.addInterceptor(hostInterceptor).addPathPatterns(<span class="string">&quot;/**&quot;</span>);</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -343,7 +274,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/12/20/gomoku/">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2019/05/15/rpc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -361,7 +292,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/12/20/gomoku/" class="post-title-link" itemprop="url">AlphaZero五子棋的实现</a>
+          <a href="/2019/05/15/rpc/" class="post-title-link" itemprop="url">RPC在Java中的实现</a>
         </h2>
 
         <div class="post-meta-container">
@@ -372,7 +303,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-12-20 19:14:03" itemprop="dateCreated datePublished" datetime="2018-12-20T19:14:03+08:00">2018-12-20</time>
+      <time title="创建时间：2019-05-15 23:38:34" itemprop="dateCreated datePublished" datetime="2019-05-15T23:38:34+08:00">2019-05-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -401,16 +332,40 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><code>AlphaZero</code>的设计十分精妙, 模拟人的思维方式, 并且相比上一代的<code>AlphaGo</code>去除了人类棋谱的训练, 不仅更加精简, 而且棋力更上了一个层次<br>设计主要分为两部分</p>
-<h1 id="神经网络-走子价值网络"><a href="#神经网络-走子价值网络" class="headerlink" title="神经网络(走子价值网络)"></a>神经网络(走子价值网络)</h1><p>神经网络在其中的作用相当于人的棋感, 根据当前局面, 不进行推演, 直接判断哪里是好棋哪里是坏棋</p>
-<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>谷歌的<code>AlphaGo Zero</code>采用的<code>19 * 19 * 17</code>的输入<br>即一个<code>19 * 19</code>代表当前局面的黑棋或白棋的位置, <code>0</code>代表没有, <code>1</code>代表有<br>所以一个完整的局面需要<code>19 * 19 * 2</code>来表示, 输入包含<code>8</code>个历史输入, 因为围棋中存在打劫, 当前可选位置与历史有关, 所以历史局面是必须的<br>除此之外还有一个参数就是当前局面是哪一方走子, 用<code>0或1</code>表示, 为了方便, 把<code>0或1</code>扩展到<code>19 * 19</code>的平面, 即全为<code>0或1</code>的平面<br>一共<code>2*8+1</code>, <code>17</code>个平面作为神经网络的输入</p>
-<p>这里以无禁手五子棋为例, 在五子棋中输入可以进行简化, 因为五子棋的下子可以认为只与当前局面有关, 与历史无关<br>可以采用<code>15 * 15 * 3</code>的输入</p>
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>大小为<code>361</code>的<code>pi</code>, 代表每个位置下子的概率<br>以及<code>z</code>当前局面的价值, 在<code>[-1,1]</code>之间</p>
-<h2 id="中间层"><a href="#中间层" class="headerlink" title="中间层"></a>中间层</h2><p>中间层包括一个卷积块, 之后连接一个残差网络, 然后残差网络的输出作为策略头(走子概率), 和价值头(胜率)的输入, 两个头都是一个卷积层跟上一个全连接层<br><code>AlphaZero</code>中使用了多层残差网络来获得更强的学习能力, 但是在普通PC上自我对弈时过于缓慢, 可以尝试减少层数, 或者去掉残差网络<br>可以先实现, 之后再优化的时候适当加入</p>
-<h1 id="MCTS-蒙特卡洛树搜索"><a href="#MCTS-蒙特卡洛树搜索" class="headerlink" title="MCTS(蒙特卡洛树搜索)"></a>MCTS(蒙特卡洛树搜索)</h1><p><code>MCTS</code>相当于人在下棋过程中的推演过程, 利用MCTS改善每个局面的走子概率, 就像人可以通过推演发现一些在当前局面看起来不是很好的棋<br><code>MCTS</code>分为这几个过程</p>
-<h2 id="A-选择"><a href="#A-选择" class="headerlink" title="A 选择"></a>A 选择</h2><p>从当前局面节点(通过N,P,V计算所有节点的价值)选择价值最大的节点, 最为下一个节点</p>
-<h2 id="B-扩展"><a href="#B-扩展" class="headerlink" title="B 扩展"></a>B 扩展</h2><p>若当前局面没有搜索过, 使用神经网络预测当前局面的走子概率</p>
-<h2 id="C-价值回传"><a href="#C-价值回传" class="headerlink" title="C 价值回传"></a>C 价值回传</h2><p>不断进行<code>AB</code>, 直到达到叶子节点, 棋局结束, 把胜负结果回传, 并将节点加入神经网络进行训练</p>
+          <blockquote>
+<p>RPC是一种远程过程调用, 它是一种通过网络从远程计算机程序上请求服务, 而不需要了解底层网络技术的协议</p>
+</blockquote>
+<p>RPC可以把远程服务像本地服务一样调用, 以<code>Java</code>中为例, 客户端与服务端一般共用一个核心包, 核心包中包含了需要调用服务的接口</p>
+<p>在服务端实现这些接口, 客户端通过<code>Socket</code>等方式连接服务端, 发生调用的信息(方法名, 参数等)</p>
+<p>服务端接收后执行相应动作, 最后通过网络返回计算结果, 一次RPC调用就完成了</p>
+<p>下面是<code>Java</code>中的简单实现</p>
+<h1 id="共用接口"><a href="#共用接口" class="headerlink" title="共用接口"></a>共用接口</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TestService</span> &#123;</span><br><span class="line">    String <span class="title function_">print</span><span class="params">(String s)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个简单的打印服务, 不包含实现</p>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><p>在客户端代码中自始至终没有编写服务的实现, 只有一个接口, 但是又可以得到服务的实例, </p>
+<p>要做到这点需要用到<code>Java</code>中的动态代理<code>Proxy.newProxyInstance</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Consumer</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] as)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">TestService</span> <span class="variable">service</span> <span class="operator">=</span> (TestService) Proxy.newProxyInstance(TestService.class.getClassLoader(), <span class="keyword">new</span> <span class="title class_">Class</span>&lt;?&gt;[]&#123;TestService.class&#125;, (Object proxy, Method method, Object[] args) -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span>(<span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>())&#123;</span><br><span class="line">                socket.connect(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="number">12306</span>));</span><br><span class="line">                <span class="type">ObjectOutputStream</span> <span class="variable">os</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(socket.getOutputStream());</span><br><span class="line">                os.writeUTF(method.getName());</span><br><span class="line">                os.writeObject(method.getParameterTypes());</span><br><span class="line">                os.writeObject(args);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(socket.getInputStream()).readObject();</span><br><span class="line">            &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        System.out.println(service.print(<span class="string">&quot;abc&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过对象流把参数等信息发送给服务端</p>
+<h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><p>一般服务端是预先实例化服务, 以完整类名为<code>Key</code>把服务存进集合供调用, 或者依赖现成的<code>Springboot</code>等框架管理服务, 下面是服务端的实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Producer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>  &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">TestService</span> <span class="variable">service</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TestServiceImpl</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>())&#123;</span><br><span class="line">            serverSocket.bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="number">12306</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span>(<span class="type">Socket</span> <span class="variable">accept</span> <span class="operator">=</span> serverSocket.accept())&#123;</span><br><span class="line">                <span class="type">ObjectInputStream</span> <span class="variable">is</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(accept.getInputStream());</span><br><span class="line">                <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> is.readUTF();</span><br><span class="line">                Class&lt;?&gt;[] parameterTypes = (Class&lt;?&gt;[]) is.readObject();</span><br><span class="line">                Object[] arguments = (Object[]) is.readObject();</span><br><span class="line">                <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> TestService.class.getMethod(methodName,parameterTypes).invoke(service,arguments);</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(accept.getOutputStream()).writeObject(result);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="服务实例"><a href="#服务实例" class="headerlink" title="服务实例"></a>服务实例</h2><p>服务端编写服务实例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">TestService</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">print</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;**&quot;</span>+s+<span class="string">&quot;**&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p>至此可以看到客户端调用的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(service.print(<span class="string">&quot;abc&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>打印出了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**abc**</span><br></pre></td></tr></table></figure>
+
+<p>就好像调用了本地服务一样</p>
 
       
     </div>
@@ -430,7 +385,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/11/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/11/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

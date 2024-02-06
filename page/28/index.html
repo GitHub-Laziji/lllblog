@@ -21,18 +21,18 @@
 
     <meta property="og:type" content="website">
 <meta property="og:title" content="☻Blog(&quot;Laziji&quot;)">
-<meta property="og:url" content="http://github-laziji.github.io/lllblog/page/18/index.html">
+<meta property="og:url" content="http://github-laziji.github.io/lllblog/page/28/index.html">
 <meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:tag" content="编程,计算机,java,python,go,c++">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://github-laziji.github.io/lllblog/page/18/">
+<link rel="canonical" href="http://github-laziji.github.io/lllblog/page/28/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/18/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/28/index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>☻Blog("Laziji")</title>
@@ -160,7 +160,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/11/15/ggad/">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/11/hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -178,7 +178,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/11/15/ggad/" class="post-title-link" itemprop="url">Google AdSense的使用</a>
+          <a href="/2018/10/11/hexo/" class="post-title-link" itemprop="url">使用Hexo 在github pages 搭建博客</a>
         </h2>
 
         <div class="post-meta-container">
@@ -189,7 +189,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-11-15 14:39:52" itemprop="dateCreated datePublished" datetime="2018-11-15T14:39:52+08:00">2018-11-15</time>
+      <time title="创建时间：2018-10-11 00:28:39" itemprop="dateCreated datePublished" datetime="2018-10-11T00:28:39+08:00">2018-10-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -204,7 +204,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">工具使用</span></a>
+          <a href="/categories/%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" itemprop="url" rel="index"><span itemprop="name">环境部署</span></a>
         </span>
     </span>
 
@@ -218,105 +218,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>谷歌的广告插入方式分为传统的<code>广告单元</code>和新出的<code>自动广告</code>, 相比于百度联盟, 谷歌广告的使用说甩前者几条街也不过分, 下面介绍这两种插入方式的使用</p>
-<h1 id="自动广告"><a href="#自动广告" class="headerlink" title="自动广告"></a>自动广告</h1><p>顾名思义就是全权交给谷歌, 所有的事情都帮你处理好。<br>点击Google AdSense控制台的<code>自动广告</code>, 它会让你把一段代码插入网页。<br>这段代码最好插入所有网页的公共部分, 比如公共<code>&lt;head&gt;</code>中, 后面需在哪些网页中显示广告都可以在控制台在进行控制。<br>插入完成后, 等待几十分钟, 就可以在网站上看到广告了, 广告的位置是通过算法智能判断自动插入的, 所以称之为<code>自动广告</code>,</p>
-<p>之后就可以点击<code>新的网址群组</code>按钮进行详细设置, 群组种类可以如下。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">网域，例如 example.com</span><br><span class="line">子网域，例如 forums.example.com</span><br><span class="line">版块，例如 example.com/directory/</span><br><span class="line">网页，例如 example.com/directory/page.html</span><br></pre></td></tr></table></figure>
+          <h2 id="创建Github-Pages"><a href="#创建Github-Pages" class="headerlink" title="创建Github Pages"></a>创建Github Pages</h2><p>一个Github用户可以存在多个Github Pages每个项目都可以有自己的Github Pages, 在项目的 <code>setting &gt; github pages</code> 中进行设置 </p>
+<p>Github Pages访问路径为 <code>https://username.github.io/project</code></p>
+<p>若是项目名为 <code>username.github.io</code> 为主页项目, 则访问路径为 <code>https://username.github.io</code></p>
+<p>创建好后无需在其中添加任何文件, 待之后 git push 即可</p>
+<h2 id="安装Nodejs"><a href="#安装Nodejs" class="headerlink" title="安装Nodejs"></a>安装Nodejs</h2><p><a href="https://nodejs.org/zh-cn/">下载</a></p>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
-<p>如果设置了<code>example.com/directory/</code>, 前缀是该url的所有网站都会应用这个群组的设置, 除非匹配到更详细的群组。</p>
-<p><code>自动广告</code>虽然很省心, 但是太不可控了, 有写页面并不能很好的判断插入位置, 并且使用过后发现在移动端显示广告后出现了按钮无法点击的问题, 暂未解决。</p>
-<h1 id="广告单元"><a href="#广告单元" class="headerlink" title="广告单元"></a>广告单元</h1><p>广告单元就是传统的创建一块广告, 把代码粘进需要显示的地方<br>广告单元分为<code>文字广告</code>, <code>信息流广告</code>和<code>文章内嵌广告</code>,<br>这几种感觉比较好的就是<code>信息流广告</code>, 比较美观, 也比较通用, 不管是文章, 还是主页, 在尾部插入一条, 都不会显得违和。<br>这种类型的广告的大部分样式参数都可以自行选择, 并且宽度是自适应的, 只需创建后把代码插入网页, 之后需要修改只需修改控制台中的样式即可, 修改后会有半小时左右的延迟才会生效。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总的来说<code>自动广告</code>不适合太复杂的页面, 可以在一些博客文章之类的简单页面尝试一下, 主要方式还是使用<code>广告单元</code>进行显示。</p>
+<h2 id="创建Hexo文件"><a href="#创建Hexo文件" class="headerlink" title="创建Hexo文件"></a>创建Hexo文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ cd &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+<p>几个常见的Hexo命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//新建文章 生成的文章在source文件夹下</span><br><span class="line">$ hexo n &quot;hello&quot;</span><br><span class="line"></span><br><span class="line">//构建 生成html</span><br><span class="line">$ hexo g</span><br><span class="line"></span><br><span class="line">//清除已生成的文件</span><br><span class="line">$ hexo clean</span><br><span class="line"></span><br><span class="line">//本地预览</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/11/12/zt/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="☻Blog("Laziji")">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ☻Blog("Laziji")">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/11/12/zt/" class="post-title-link" itemprop="url">新浪博客写文章可以手动输入Html??</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-11-12 22:12:48" itemprop="dateCreated datePublished" datetime="2018-11-12T22:12:48+08:00">2018-11-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-12-15 23:10:05" itemprop="dateModified" datetime="2021-12-15T23:10:05+08:00">2021-12-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>以前从没在新浪发过文章, 今天在逛的时候进去看了一下, 感觉长得丑而且不能用<code>Markdown</code>语法, 有点过时</p>
-<p>当我要写点什么的时候, 发现下面有个按钮<strong>显示Html</strong>, 点击之后就是文章的<code>Html</code>代码, 可以完全自由的编辑</p>
-<p>怀疑可能有xss漏洞了, 毕竟看那界面, 有点漏洞也不奇怪</p>
-<p>尝试了一下, 新浪还是做了一点过滤的, 但是操作空间还是特别大, 因为里面可以自己添加元素<br><code>&lt;input&gt;</code> , <code>&lt;button&gt;</code> , <code>&lt;img&gt;</code> …. 都是可以的<br>而且<strong>可以自己添加样式</strong>, 这就有的玩了</p>
-<p>这意味着可以自己写一个<code>div</code>宽高占满整个屏幕, 填上背景, 浮动在<code>body</code>之上, 盖住博客原来的页面<br>然后这个<code>div</code>之中自己怎么操作都可以, 就像一个自定义的网页<br>尝试了一下, 这个操作是可行的, 但是唯一的不足是新浪过滤了 <code>z-index</code> 样式, 所以不能添加这个, 所以有些原来页面加了<code>z-index</code>的元素会覆盖不住</p>
-<p>暂时没找到解决的办法, 不过已经非常自定义了</p>
+<h2 id="提交至Git"><a href="#提交至Git" class="headerlink" title="提交至Git"></a>提交至Git</h2><p>打开根目录下的<code>_config.yml</code>文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//github page的访问地址</span><br><span class="line"># url: https://github-laziji.github.io</span><br><span class="line">url: https://github-laziji.github.io/lllblog</span><br><span class="line"></span><br><span class="line"># root: /</span><br><span class="line">root: /lllblog/</span><br><span class="line"></span><br><span class="line">//repo 从你新建的项目中复制过来</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:GitHub-Laziji/lllblog.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>最后提交至github</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+<p>可以看到项目已经提交了, 访问 <code>https://username.github.io/project</code> 即可看到你的博客了</p>
 
       
     </div>
@@ -336,7 +253,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/17/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/19/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/27/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span>
   </nav>
 
 </div>
