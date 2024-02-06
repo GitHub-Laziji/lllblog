@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github-laziji.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="当Web项目前后端分离开发的时候, 由于域名不一致, 会出现无法请求和无法维持会话的情况 OPTIONS在前端Ajax请求后台的时候, 打开控制台可以看到, 每一次请求之前都会有一次OPTIONS类型的请求OPTIONS称为预检请求, 通过这个请求, 浏览器会告知服务器,接下来的请求的情况 12Access-Control-Request-Method: POST Access-Control-R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前后端分离项目的跨域及保持Session会话">
+<meta property="og:url" content="http://github-laziji.github.io/lllblog/2018/10/15/http/index.html">
+<meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
+<meta property="og:description" content="当Web项目前后端分离开发的时候, 由于域名不一致, 会出现无法请求和无法维持会话的情况 OPTIONS在前端Ajax请求后台的时候, 打开控制台可以看到, 每一次请求之前都会有一次OPTIONS类型的请求OPTIONS称为预检请求, 通过这个请求, 浏览器会告知服务器,接下来的请求的情况 12Access-Control-Request-Method: POST Access-Control-R">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-14T16:24:51.000Z">
+<meta property="article:modified_time" content="2021-12-15T15:10:05.988Z">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://github-laziji.github.io/lllblog/2018/10/15/http/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://github-laziji.github.io/lllblog/2018/10/15/http/","path":"2018/10/15/http/","title":"前后端分离项目的跨域及保持Session会话"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>前后端分离项目的跨域及保持Session会话 | ☻Blog("Laziji")</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">☻Blog("Laziji")</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">System.out.print("辣子鸡的博客");</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OPTIONS"><span class="nav-number">1.</span> <span class="nav-text">OPTIONS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OPTIONS%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">OPTIONS的处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A9%E7%94%A8Token%E4%BF%9D%E6%8C%81%E4%BC%9A%E8%AF%9D"><span class="nav-number">3.</span> <span class="nav-text">利用Token保持会话</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E7%BB%B4%E6%8C%81%E4%BC%9A%E8%AF%9D"><span class="nav-number">4.</span> <span class="nav-text">为什么能维持会话</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/github-laziji" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;github-laziji" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/15/http/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="☻Blog("Laziji")">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="前后端分离项目的跨域及保持Session会话 | ☻Blog("Laziji")">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前后端分离项目的跨域及保持Session会话
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-15 00:24:51" itemprop="dateCreated datePublished" datetime="2018-10-15T00:24:51+08:00">2018-10-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-12-15 23:10:05" itemprop="dateModified" datetime="2021-12-15T23:10:05+08:00">2021-12-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">技术分享</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>当Web项目前后端分离开发的时候, 由于域名不一致, 会出现无法请求和无法维持会话的情况</p>
+<h1 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h1><p>在前端Ajax请求后台的时候, 打开控制台可以看到, 每一次请求之前都会有一次<code>OPTIONS</code>类型的请求<br><code>OPTIONS</code>称为预检请求, 通过这个请求, 浏览器会告知服务器,接下来的请求的情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Request-Method: POST </span><br><span class="line">Access-Control-Request-Headers: X-PINGOTHER, Content-Type</span><br></pre></td></tr></table></figure>
+<p>得到服务器的回应后浏览器便知道这次请求是否被允许</p>
+<h1 id="OPTIONS的处理"><a href="#OPTIONS的处理" class="headerlink" title="OPTIONS的处理"></a>OPTIONS的处理</h1><p>后台可以在拦截器或过滤器中处理这个请求, 这里以Springboot后台的拦截器为例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object o)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">method</span> <span class="operator">=</span> request.getMethod().toLowerCase();</span><br><span class="line">    response.setHeader(<span class="string">&quot;Access-Control-Allow-Origin&quot;</span>, <span class="string">&quot;*&quot;</span>);</span><br><span class="line">    response.setHeader(<span class="string">&quot;Access-Control-Allow-Methods&quot;</span>, <span class="string">&quot;GET, POST, OPTIONS, PUT, PATCH, DELETE&quot;</span>);</span><br><span class="line">    response.setHeader(<span class="string">&quot;Access-Control-Allow-Headers&quot;</span>, <span class="string">&quot;X-Requested-With,content-type&quot;</span>);</span><br><span class="line">    response.setHeader(<span class="string">&quot;Access-Control-Allow-Credentials&quot;</span>, <span class="string">&quot;true&quot;</span>);</span><br><span class="line">    response.setHeader(<span class="string">&quot;Access-Control-Expose-Headers&quot;</span>, <span class="string">&quot;TK&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (method.equals(<span class="string">&quot;options&quot;</span>))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Access-Control-Allow-Origin</code> 代表允许请求源, 设置为<code>*</code>或设置为前端的域名即可解决跨域无法请求的问题例如<code>http://domain</code><br><code>Access-Control-Allow-Methods</code> 表示允许的请求方式</p>
+<p>以下两个特别说明<br><code>Access-Control-Allow-Headers</code> 代表允许<code>浏览器</code>可以向 <code>服务器</code>发送哪些请求头<br><code>Access-Control-Expose-Headers</code> 代表允许<code>浏览器</code>可以读取哪些<code>服务器</code>发送的请求头<br>均限制在客户端上</p>
+<h1 id="利用Token保持会话"><a href="#利用Token保持会话" class="headerlink" title="利用Token保持会话"></a>利用Token保持会话</h1><p>传统开发前后端能维持会话, 是因为当服务器调用了<code>HttpSession</code>时, 会将<code>SessionId</code>放在请求头的<code>set-cookie</code>中, 浏览器读取到了这个信息, 就把<code>SessionId</code>保存在本地, 待下次请求时以<code>Cookie</code>的形式带给服务器, 服务器根据收到的<code>SessionId</code>找到<code>Session</code> 以继续会话</p>
+<p>现在由于前后端分离后使用<code>Cookie</code>的种种不便, 可以换另一种方式来进行<code>SessionId</code>的传输, 就是把<code>SessionId</code>放在请求头中带给浏览器</p>
+<p>接上一段代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object o)</span> &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="type">HttpSession</span> <span class="variable">session</span> <span class="operator">=</span> request.getSession();</span><br><span class="line">    response.setHeader(<span class="string">&quot;TK&quot;</span>,session.getId());</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于设置了<code>response.setHeader(&quot;Access-Control-Expose-Headers&quot;, &quot;TK&quot;);</code><br>表示客户端可以读取header中的<code>TK</code>字段, 客户端就可以读取放在<code>TK</code>中的<code>SessionId</code>保存到本地, 存储方式可以是<code>Cookie</code>或者是<code>LocalStorage</code>都可以<br>当需要请求时用<code>http://service;jsessionid=$&#123;token&#125;</code>的形式传给服务器, 这个与传统Web中<code>Cookie:JSESSIONID=sessionid</code>的形式效果是一致的<br>如此就达到了保持会话的目的了</p>
+<h1 id="为什么能维持会话"><a href="#为什么能维持会话" class="headerlink" title="为什么能维持会话"></a>为什么能维持会话</h1><p>服务器根据<code>sessionid</code>保持会话这件事是容器完成的, 根据的就是请求中所传来的URL后的<code>;jsessionid=</code> 或者 cookie中的<code>JSESSIONID=</code>,<br>容器根据<code>sessionid</code>自动找到内存中的Session。<br>这也是选择<code>;jsessionid=</code>方式的原因。这会让你没有感觉像在做前后端分离的开发, 就像传统的JSP开发一样, 前后端融合在一起。</p>
+<p>当然你也可以用其他方式手动操作, 比如直接传参 <code>http://service?JID=$&#123;token&#125;</code>, 在请求头中带过去之类的, 然后手动取得ID再去找对应的Session, 不过这就有点多此一举了</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/10/13/javascript-db/" rel="prev" title="JavaScript实现类似Java的泛型">
+                  <i class="fa fa-angle-left"></i> JavaScript实现类似Java的泛型
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/10/16/java-class/" rel="next" title="Java中静态成员变量的内部调用">
+                  Java中静态成员变量的内部调用 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder"></span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

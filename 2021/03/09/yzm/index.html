@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github-laziji.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="关键步骤 加上干扰点1234for (let i &#x3D; 0.05 * w * h; i &gt; 0; i--) &#123;    ctx.fillStyle &#x3D; randomColor(0, 256);    ctx.fillRect(randomInt(0, w), randomInt(0, h), 1, 1);&#125; 显示数字123456789101112131415ctx.font">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS生成验证码图片">
+<meta property="og:url" content="http://github-laziji.github.io/lllblog/2021/03/09/yzm/index.html">
+<meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
+<meta property="og:description" content="关键步骤 加上干扰点1234for (let i &#x3D; 0.05 * w * h; i &gt; 0; i--) &#123;    ctx.fillStyle &#x3D; randomColor(0, 256);    ctx.fillRect(randomInt(0, w), randomInt(0, h), 1, 1);&#125; 显示数字123456789101112131415ctx.font">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-09T13:11:15.000Z">
+<meta property="article:modified_time" content="2021-12-15T15:10:05.994Z">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://github-laziji.github.io/lllblog/2021/03/09/yzm/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://github-laziji.github.io/lllblog/2021/03/09/yzm/","path":"2021/03/09/yzm/","title":"JS生成验证码图片"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JS生成验证码图片 | ☻Blog("Laziji")</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">☻Blog("Laziji")</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">System.out.print("辣子鸡的博客");</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">关键步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">完整实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%87%BA"><span class="nav-number">3.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="nav-number">4.</span> <span class="nav-text">效果展示</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/github-laziji" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;github-laziji" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2021/03/09/yzm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="☻Blog("Laziji")">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JS生成验证码图片 | ☻Blog("Laziji")">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS生成验证码图片
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-09 21:11:15" itemprop="dateCreated datePublished" datetime="2021-03-09T21:11:15+08:00">2021-03-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-12-15 23:10:05" itemprop="dateModified" datetime="2021-12-15T23:10:05+08:00">2021-12-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">技术分享</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="关键步骤"><a href="#关键步骤" class="headerlink" title="关键步骤"></a>关键步骤</h1><ul>
+<li>加上干扰点<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0.05</span> * w * h; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">    ctx.<span class="property">fillStyle</span> = <span class="title function_">randomColor</span>(<span class="number">0</span>, <span class="number">256</span>);</span><br><span class="line">    ctx.<span class="title function_">fillRect</span>(<span class="title function_">randomInt</span>(<span class="number">0</span>, w), <span class="title function_">randomInt</span>(<span class="number">0</span>, h), <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>显示数字<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ctx.<span class="property">font</span> = <span class="string">`<span class="subst">$&#123;h - <span class="number">4</span>&#125;</span>px Consolas`</span>;</span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="title function_">randomColor</span>(<span class="number">160</span>, <span class="number">200</span>);</span><br><span class="line"><span class="keyword">let</span> value = <span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> x = (w - <span class="number">10</span>) / n * i + <span class="number">5</span>,</span><br><span class="line">        y = h - <span class="number">12</span>;</span><br><span class="line">    <span class="keyword">let</span> r = <span class="title class_">Math</span>.<span class="property">PI</span> * <span class="title function_">randomFloat</span>(-<span class="number">0.12</span>, <span class="number">0.12</span>);</span><br><span class="line">    <span class="keyword">let</span> ch = <span class="variable constant_">CHARTS</span>[<span class="title function_">randomInt</span>(<span class="number">0</span>, <span class="variable constant_">CHARTS</span>.<span class="property">length</span>)];</span><br><span class="line">    value += ch;</span><br><span class="line">    ctx.<span class="title function_">translate</span>(x, y);</span><br><span class="line">    ctx.<span class="title function_">rotate</span>(r);</span><br><span class="line">    ctx.<span class="title function_">fillText</span>(ch, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    ctx.<span class="title function_">rotate</span>(-r);</span><br><span class="line">    ctx.<span class="title function_">translate</span>(-x, -y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>获取验证码图片base64值<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">canvas.<span class="title function_">toDataURL</span>(<span class="string">&#x27;image/jpg&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="完整实现"><a href="#完整实现" class="headerlink" title="完整实现"></a>完整实现</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">&quot;img&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">getCaptcha</span>(<span class="params">w, h, n</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> <span class="variable constant_">CHARTS</span> = <span class="string">&quot;23456789ABCDEFGHJKLMNPQRSTUVWXYZ&quot;</span>.<span class="title function_">split</span>(<span class="string">&quot;&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> <span class="title function_">randomInt</span> = (<span class="params">s, e</span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (s &gt; e) &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">let</span> t = s;</span></span><br><span class="line"><span class="language-javascript">                s = e;</span></span><br><span class="line"><span class="language-javascript">                e = t;</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">            s = <span class="title class_">Math</span>.<span class="title function_">ceil</span>(s);</span></span><br><span class="line"><span class="language-javascript">            e = <span class="title class_">Math</span>.<span class="title function_">floor</span>(e);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> s + <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * (e - s))</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> <span class="title function_">randomFloat</span> = (<span class="params">s, e</span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> s + <span class="title class_">Math</span>.<span class="title function_">random</span>() * (e - s);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> <span class="title function_">randomColor</span> = (<span class="params">s, e</span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="string">`rgb(<span class="subst">$&#123;randomInt(s,e)&#125;</span>,<span class="subst">$&#123;randomInt(s,e)&#125;</span>,<span class="subst">$&#123;randomInt(s,e)&#125;</span>)`</span>;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">let</span> canvas = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;canvas&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">let</span> ctx = canvas.<span class="title function_">getContext</span>(<span class="string">&#x27;2d&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        </span></span><br><span class="line"><span class="language-javascript">        ctx.<span class="title function_">rect</span>(<span class="number">0</span>, <span class="number">0</span>, w, h);</span></span><br><span class="line"><span class="language-javascript">        ctx.<span class="title function_">clip</span>();</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        ctx.<span class="property">fillStyle</span> = <span class="title function_">randomColor</span>(<span class="number">200</span>, <span class="number">250</span>);</span></span><br><span class="line"><span class="language-javascript">        ctx.<span class="title function_">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, w, h);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0.05</span> * w * h; i &gt; <span class="number">0</span>; i--) &#123;</span></span><br><span class="line"><span class="language-javascript">            ctx.<span class="property">fillStyle</span> = <span class="title function_">randomColor</span>(<span class="number">0</span>, <span class="number">256</span>);</span></span><br><span class="line"><span class="language-javascript">            ctx.<span class="title function_">fillRect</span>(<span class="title function_">randomInt</span>(<span class="number">0</span>, w), <span class="title function_">randomInt</span>(<span class="number">0</span>, h), <span class="number">1</span>, <span class="number">1</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        ctx.<span class="property">font</span> = <span class="string">`<span class="subst">$&#123;h - <span class="number">4</span>&#125;</span>px Consolas`</span>;</span></span><br><span class="line"><span class="language-javascript">        ctx.<span class="property">fillStyle</span> = <span class="title function_">randomColor</span>(<span class="number">160</span>, <span class="number">200</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">let</span> value = <span class="string">&quot;&quot;</span>;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">let</span> x = (w - <span class="number">10</span>) / n * i + <span class="number">5</span>,</span></span><br><span class="line"><span class="language-javascript">                y = h - <span class="number">12</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">let</span> r = <span class="title class_">Math</span>.<span class="property">PI</span> * <span class="title function_">randomFloat</span>(-<span class="number">0.12</span>, <span class="number">0.12</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">let</span> ch = <span class="variable constant_">CHARTS</span>[<span class="title function_">randomInt</span>(<span class="number">0</span>, <span class="variable constant_">CHARTS</span>.<span class="property">length</span>)];</span></span><br><span class="line"><span class="language-javascript">            value += ch;</span></span><br><span class="line"><span class="language-javascript">            ctx.<span class="title function_">translate</span>(x, y);</span></span><br><span class="line"><span class="language-javascript">            ctx.<span class="title function_">rotate</span>(r);</span></span><br><span class="line"><span class="language-javascript">            ctx.<span class="title function_">fillText</span>(ch, <span class="number">0</span>, <span class="number">0</span>);</span></span><br><span class="line"><span class="language-javascript">            ctx.<span class="title function_">rotate</span>(-r);</span></span><br><span class="line"><span class="language-javascript">            ctx.<span class="title function_">translate</span>(-x, -y);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">let</span> base64Src = canvas.<span class="title function_">toDataURL</span>(<span class="string">&#x27;image/jpg&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="language-javascript">            value,</span></span><br><span class="line"><span class="language-javascript">            base64Src</span></span><br><span class="line"><span class="language-javascript">        &#125;;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">let</span> res = <span class="title function_">getCaptcha</span>(<span class="number">100</span>, <span class="number">40</span>, <span class="number">4</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#img&quot;</span>).<span class="property">src</span> = res.<span class="property">base64Src</span>;</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h1><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    base64Src<span class="punctuation">:</span> <span class="string">&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASw....&quot;</span><span class="punctuation">,</span></span><br><span class="line">    value<span class="punctuation">:</span> <span class="string">&quot;Z9KF&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h1><p><img src="data:image/png;base64,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" alt="验证码"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/08/java-json/" rel="prev" title="Java实现JSON解析">
+                  <i class="fa fa-angle-left"></i> Java实现JSON解析
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/12/wt/" rel="next" title="WindowsTerminal美化">
+                  WindowsTerminal美化 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder"></span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

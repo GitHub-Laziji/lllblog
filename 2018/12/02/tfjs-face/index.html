@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github-laziji.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在传统编程中, 图像识别一直是一个难点, 虽然人能轻松做到, 但是用逻辑来描述这个过程, 并转换成程序是很难的。机器学习的出现让图像识别技术有了突破性的进展, 卷积神经网络的出现, 又使图像识别更上了一次层次。  卷积神经网络由一个或多个卷积层和顶端的全连通层组成, 这一结构使得卷积神经网络能够利用输入数据的二维结构。与其他深度学习结构相比，卷积神经网络在图像和语音识别方面能够给出更好的结果。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习人脸性别识别">
+<meta property="og:url" content="http://github-laziji.github.io/lllblog/2018/12/02/tfjs-face/index.html">
+<meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
+<meta property="og:description" content="在传统编程中, 图像识别一直是一个难点, 虽然人能轻松做到, 但是用逻辑来描述这个过程, 并转换成程序是很难的。机器学习的出现让图像识别技术有了突破性的进展, 卷积神经网络的出现, 又使图像识别更上了一次层次。  卷积神经网络由一个或多个卷积层和顶端的全连通层组成, 这一结构使得卷积神经网络能够利用输入数据的二维结构。与其他深度学习结构相比，卷积神经网络在图像和语音识别方面能够给出更好的结果。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/GitHub-Laziji/face-gender-classification/raw/master/screenshots/1.png">
+<meta property="og:image" content="https://github.com/GitHub-Laziji/face-gender-classification/raw/master/screenshots/2.png">
+<meta property="article:published_time" content="2018-12-02T04:04:47.000Z">
+<meta property="article:modified_time" content="2021-12-15T15:10:05.991Z">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="TensorFlow">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/GitHub-Laziji/face-gender-classification/raw/master/screenshots/1.png">
+
+
+<link rel="canonical" href="http://github-laziji.github.io/lllblog/2018/12/02/tfjs-face/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://github-laziji.github.io/lllblog/2018/12/02/tfjs-face/","path":"2018/12/02/tfjs-face/","title":"机器学习人脸性别识别"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>机器学习人脸性别识别 | ☻Blog("Laziji")</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">☻Blog("Laziji")</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">System.out.print("辣子鸡的博客");</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-number">1.</span> <span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86%E4%B8%8E%E5%A4%84%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">数据收集与处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">训练模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">测试模型</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/github-laziji" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;github-laziji" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/12/02/tfjs-face/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="☻Blog("Laziji")">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="机器学习人脸性别识别 | ☻Blog("Laziji")">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机器学习人脸性别识别
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-02 12:04:47" itemprop="dateCreated datePublished" datetime="2018-12-02T12:04:47+08:00">2018-12-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-12-15 23:10:05" itemprop="dateModified" datetime="2021-12-15T23:10:05+08:00">2021-12-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">技术分享</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在传统编程中, 图像识别一直是一个难点, 虽然人能轻松做到, 但是用逻辑来描述这个过程, 并转换成程序是很难的。机器学习的出现让图像识别技术有了突破性的进展, 卷积神经网络的出现, 又使图像识别更上了一次层次。</p>
+<blockquote>
+<p>卷积神经网络由一个或多个卷积层和顶端的全连通层组成, 这一结构使得卷积神经网络能够利用输入数据的二维结构。与其他深度学习结构相比，卷积神经网络在图像和语音识别方面能够给出更好的结果。</p>
+</blockquote>
+<p>这里我们使用卷积神经网络对人脸进行性别识别, 项目中使用了<code>TensorFlow</code>机器学习库。</p>
+<h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p><a href="https://github.com/GitHub-Laziji/face-gender-classification">face-gender-classification</a></p>
+<h1 id="数据收集与处理"><a href="#数据收集与处理" class="headerlink" title="数据收集与处理"></a>数据收集与处理</h1><p>机器学习的基础就是大量的数据。我以前从网上爬了一万张证件照, 现在正好用上, 作为训练数据。<br>简便的也可以从谷歌直接搜搜索 <code>男(女)性证件照</code>也可以得到并且有标签的数据。<br>由于我收集的照片没有标签, 于是我花了一点时间从其中人工选出男女照片各200张并打上标记。</p>
+<p>为了使识别更加准确, 项目中利用<code>openCV</code>裁剪出人脸部分的图像, 并缩放至<code>28*28</code>大小。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">recognizer = cv2.CascadeClassifier(<span class="string">&quot;model/haarcascade_frontalface_default.xml&quot;</span>)</span><br><span class="line">crop(img_path):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        img = cv2.imread(img_path)</span><br><span class="line">        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line">        faces = recognizer.detectMultiScale(gray)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(faces):</span><br><span class="line">            x, y, w, h = faces[<span class="number">0</span>]</span><br><span class="line">            c_img = img[y:y + h, x:x + w]</span><br><span class="line">            <span class="keyword">return</span> cv2.resize(c_img, (<span class="number">28</span>, <span class="number">28</span>), interpolation=cv2.INTER_AREA)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<p>对所有的数据都进行这样处理, 结果如下:<br><img src="https://github.com/GitHub-Laziji/face-gender-classification/raw/master/screenshots/1.png" alt="1"><br>最后我们还需要清理异常的数据, 过一遍训练集, 把其中没有定位到人脸的图片去除掉。</p>
+<h1 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h1><p>读取训练数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">read_img</span>(<span class="params">files</span>):</span><br><span class="line">    arr = []</span><br><span class="line">    <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">        img = Image.<span class="built_in">open</span>(<span class="string">&quot;%s&quot;</span> % file)</span><br><span class="line">        pix = img.load()</span><br><span class="line">        view = np.zeros((IMAGE_H, IMAGE_W, <span class="number">1</span>), dtype=np.<span class="built_in">float</span>)</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(IMAGE_H):</span><br><span class="line">            <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(IMAGE_W):</span><br><span class="line">                r, g, b = pix[y, x]</span><br><span class="line">                view[x, y, <span class="number">0</span>] = (r + g + b) // <span class="number">3</span></span><br><span class="line">        arr.append(view)</span><br><span class="line">    <span class="keyword">return</span> np.array(arr)</span><br></pre></td></tr></table></figure>
+<p>这里对训练图像灰度化, 并且将训练数据中的一小部分作为验证集。</p>
+<p>开始创建模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">model = keras.Sequential([</span><br><span class="line">    keras.layers.Conv2D(<span class="number">32</span>, (<span class="number">3</span>, <span class="number">3</span>), input_shape=(IMAGE_W, IMAGE_H, <span class="number">1</span>), strides=(<span class="number">1</span>, <span class="number">1</span>), activation=<span class="string">&#x27;relu&#x27;</span>),</span><br><span class="line">    keras.layers.MaxPool2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>)),</span><br><span class="line">    keras.layers.Conv2D(<span class="number">64</span>, (<span class="number">3</span>, <span class="number">3</span>), strides=(<span class="number">1</span>, <span class="number">1</span>), activation=<span class="string">&#x27;relu&#x27;</span>),</span><br><span class="line">    keras.layers.MaxPool2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>)),</span><br><span class="line">    keras.layers.Flatten(),</span><br><span class="line">    keras.layers.Dense(<span class="number">128</span>, activation=tf.nn.relu),</span><br><span class="line">    keras.layers.Dropout(<span class="number">0.2</span>),</span><br><span class="line">    keras.layers.Dense(<span class="number">2</span>, activation=tf.nn.softmax)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<p>选择适当的优化器和损失函数编译模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model.<span class="built_in">compile</span>(optimizer=tf.train.AdamOptimizer(learning_rate=<span class="number">0.001</span>),</span><br><span class="line">              loss=<span class="string">&#x27;categorical_crossentropy&#x27;</span>,</span><br><span class="line">              metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<p>开始训练模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">model.fit(x=train_x,</span><br><span class="line">          y=train_y,</span><br><span class="line">          batch_size=<span class="number">32</span>,</span><br><span class="line">          epochs=<span class="number">30</span>,</span><br><span class="line">          verbose=<span class="number">1</span>,</span><br><span class="line">          callbacks=my_callbacks,</span><br><span class="line">          validation_split=<span class="number">0.05</span>,</span><br><span class="line">          shuffle=<span class="literal">True</span></span><br><span class="line">          )</span><br></pre></td></tr></table></figure>
+<h1 id="测试模型"><a href="#测试模型" class="headerlink" title="测试模型"></a>测试模型</h1><p>这里使用matplotlib来显示测试图片及结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">predictions = model.predict(test_x)</span><br><span class="line"></span><br><span class="line">class_names = [<span class="string">&quot;Female&quot;</span>, <span class="string">&quot;Male&quot;</span>]</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>, <span class="number">6</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">min</span>(<span class="number">9</span>, <span class="built_in">len</span>(test_y))):</span><br><span class="line">    result = predictions[i]</span><br><span class="line">    max_label = <span class="built_in">int</span>(np.argmax(result))</span><br><span class="line">    correct_label = <span class="built_in">int</span>(np.argmax(test_y[i]))</span><br><span class="line"></span><br><span class="line">    plt.subplot(<span class="number">3</span>, <span class="number">6</span>, <span class="number">2</span> * i + <span class="number">1</span>)</span><br><span class="line">    plt.grid(<span class="literal">False</span>)</span><br><span class="line">    plt.xticks([])</span><br><span class="line">    plt.yticks([])</span><br><span class="line">    img = test_x.reshape(test_x.shape[<span class="number">0</span>], IMAGE_W, IMAGE_H)[i]</span><br><span class="line">    plt.imshow(img, cmap=<span class="string">&quot;gray&quot;</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&quot;&#123;&#125; - prob:&#123;:2.0f&#125;%&quot;</span>.<span class="built_in">format</span>(class_names[max_label], <span class="number">100</span> * np.<span class="built_in">max</span>(result)))</span><br><span class="line"></span><br><span class="line">    plt.subplot(<span class="number">3</span>, <span class="number">6</span>, <span class="number">2</span> * i + <span class="number">2</span>)</span><br><span class="line">    plt.grid(<span class="literal">False</span>)</span><br><span class="line">    plt.yticks([])</span><br><span class="line">    plt.ylim([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">    bar = plt.bar(<span class="built_in">range</span>(<span class="number">2</span>), result)</span><br><span class="line">    bar[max_label].set_color(<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">    bar[correct_label].set_color(<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/GitHub-Laziji/face-gender-classification/raw/master/screenshots/2.png" alt="2"><br>脸部头像右侧的两列分别代表<code>女性概率</code>和<code>男性概率</code>。<br>这里我们看到全都对了, 正确率非常高。<br>模型并不复杂, 大部分工作都在收集数据和调整训练参数上, 这也体现出了卷积神经网络对图像强大的处理能力。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/11/26/a-db/" rel="prev" title="Java实现Mybatis代码生成器">
+                  <i class="fa fa-angle-left"></i> Java实现Mybatis代码生成器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/12/20/gomoku/" rel="next" title="AlphaZero五子棋的实现">
+                  AlphaZero五子棋的实现 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder"></span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

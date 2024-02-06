@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github-laziji.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;GitHub-Laziji&#x2F;js-engine  支持解析js脚本生成语法树、格式化代码 支持运行完整js脚本 支持安全模式运行单行表达式 支持设置超时时间  1. 生成语法树 并输出格式化代码示例代码1234567class Test&#123;    public static void main(String[] args)&#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始实现一个JS执行引擎">
+<meta property="og:url" content="http://github-laziji.github.io/lllblog/2022/04/03/js/index.html">
+<meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
+<meta property="og:description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;GitHub-Laziji&#x2F;js-engine  支持解析js脚本生成语法树、格式化代码 支持运行完整js脚本 支持安全模式运行单行表达式 支持设置超时时间  1. 生成语法树 并输出格式化代码示例代码1234567class Test&#123;    public static void main(String[] args)&#123;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-03T05:25:34.000Z">
+<meta property="article:modified_time" content="2022-04-03T05:27:13.518Z">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://github-laziji.github.io/lllblog/2022/04/03/js/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://github-laziji.github.io/lllblog/2022/04/03/js/","path":"2022/04/03/js/","title":"从零开始实现一个JS执行引擎"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>从零开始实现一个JS执行引擎 | ☻Blog("Laziji")</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">☻Blog("Laziji")</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">System.out.print("辣子鸡的博客");</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-number">1.</span> <span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%94%9F%E6%88%90%E8%AF%AD%E6%B3%95%E6%A0%91-%E5%B9%B6%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">1. 生成语法树 并输出格式化代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA"><span class="nav-number">2.2.</span> <span class="nav-text">输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%BF%90%E8%A1%8C%E5%AE%8C%E6%95%B4%E8%84%9A%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">2. 运行完整脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-1"><span class="nav-number">3.1.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA-1"><span class="nav-number">3.2.</span> <span class="nav-text">输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%BF%90%E8%A1%8C%E5%8D%95%E8%A1%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">3. 运行单行表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-2"><span class="nav-number">4.1.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA-2"><span class="nav-number">4.2.</span> <span class="nav-text">输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="nav-number">5.</span> <span class="nav-text">4. 设置超时时间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-3"><span class="nav-number">5.1.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA-3"><span class="nav-number">5.2.</span> <span class="nav-text">输出</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/github-laziji" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;github-laziji" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2022/04/03/js/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="☻Blog("Laziji")">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="从零开始实现一个JS执行引擎 | ☻Blog("Laziji")">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从零开始实现一个JS执行引擎
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-04-03 13:25:34 / 修改时间：13:27:13" itemprop="dateCreated datePublished" datetime="2022-04-03T13:25:34+08:00">2022-04-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">技术分享</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a href="https://github.com/GitHub-Laziji/js-engine">https://github.com/GitHub-Laziji/js-engine</a></p>
+<ul>
+<li>支持解析js脚本生成语法树、格式化代码</li>
+<li>支持运行完整js脚本</li>
+<li>支持安全模式运行单行表达式</li>
+<li>支持设置超时时间</li>
+</ul>
+<h2 id="1-生成语法树-并输出格式化代码"><a href="#1-生成语法树-并输出格式化代码" class="headerlink" title="1. 生成语法树 并输出格式化代码"></a>1. 生成语法树 并输出格式化代码</h2><h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        Top.init();</span><br><span class="line">        <span class="type">DocNode</span> <span class="variable">doc</span> <span class="operator">=</span> Top.compile(<span class="string">&quot;let      a=1+2,b=3,c=&quot;</span>string<span class="string">&quot;,d=a*(b+c/2),func=function()&#123;&#125;;&quot;</span>);</span><br><span class="line">        System.out.println(doc);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let a = 1 + 2, b = 3, c = &quot;string&quot;, d = a * (b + c / 2), func = function () &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-运行完整脚本"><a href="#2-运行完整脚本" class="headerlink" title="2. 运行完整脚本"></a>2. 运行完整脚本</h2><p>以下示例为运行快排算法（运行环境线程隔离）</p>
+<h3 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * function sort(arr, i, j) &#123;</span></span><br><span class="line"><span class="comment">     *   if (i &gt;= j) &#123;</span></span><br><span class="line"><span class="comment">     *     return;</span></span><br><span class="line"><span class="comment">     *   &#125;</span></span><br><span class="line"><span class="comment">     *   let p = i, q = j;</span></span><br><span class="line"><span class="comment">     *   let temp = arr[p];</span></span><br><span class="line"><span class="comment">     *   while (p &lt; q) &#123;</span></span><br><span class="line"><span class="comment">     *     while (p &lt; q &amp;&amp; arr[q] &gt;= temp) &#123;</span></span><br><span class="line"><span class="comment">     *       q-=1;</span></span><br><span class="line"><span class="comment">     *     &#125;</span></span><br><span class="line"><span class="comment">     *     arr[p] = arr[q];</span></span><br><span class="line"><span class="comment">     *     while (p &lt; q &amp;&amp; arr[p] &lt;= temp) &#123;</span></span><br><span class="line"><span class="comment">     *       p+=1;</span></span><br><span class="line"><span class="comment">     *     &#125;</span></span><br><span class="line"><span class="comment">     *     arr[q] = arr[p];</span></span><br><span class="line"><span class="comment">     *   &#125;</span></span><br><span class="line"><span class="comment">     *   arr[q] = temp;</span></span><br><span class="line"><span class="comment">     *   sort(arr, i, q - 1);</span></span><br><span class="line"><span class="comment">     *   sort(arr, q + 1, j);</span></span><br><span class="line"><span class="comment">     * &#125;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * let arr = [234, 57, 12, 123, 346, 1234, 2];</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * sort(arr, 0, arr.length - 1);</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        Top.init();</span><br><span class="line">        Top.eval(<span class="string">&quot;function sort(arr, i, j) &#123;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    if (i &gt;= j) &#123;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        return;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    &#125;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    let p = i, q = j;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    let temp = arr[p];\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    while (p &lt; q) &#123;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        while (p &lt; q &amp;&amp; arr[q] &gt;= temp) &#123;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;            q-=1;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        &#125;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        arr[p] = arr[q];\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        while (p &lt; q &amp;&amp; arr[p] &lt;= temp) &#123;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;            p+=1;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        &#125;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        arr[q] = arr[p];\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    &#125;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    arr[q] = temp;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    sort(arr, i, q - 1);\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    sort(arr, q + 1, j);\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;&#125;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;let arr = [234, 57, 12, 123, 346, 1234, 2];\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;sort(arr, 0, arr.length - 1);&quot;</span>);</span><br><span class="line">        Top.loop();</span><br><span class="line">        System.out.println(Top.getThreadLocalTop().getMainContexts().getContexts().peek().toSimpleString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr: [2, 12, 57, 123, 234, 346, 1234]</span><br><span class="line">sort: [object Object]</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="3-运行单行表达式"><a href="#3-运行单行表达式" class="headerlink" title="3. 运行单行表达式"></a>3. 运行单行表达式</h2><p>该模式下只支持单行表达式 并且无法使用for、while、function、lambda、import关键字</p>
+<h3 id="示例代码-2"><a href="#示例代码-2" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        Top.init();</span><br><span class="line">        System.out.println(Top.exprEval(<span class="string">&quot;&#x27;hello &#x27;+(1*2*3*4)&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="输出-2"><a href="#输出-2" class="headerlink" title="输出"></a>输出</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello 24</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-设置超时时间"><a href="#4-设置超时时间" class="headerlink" title="4. 设置超时时间"></a>4. 设置超时时间</h2><p>通过<code>Top.getThreadLocalTop().setOvertime(100L);</code>设置超时时间，单位毫秒</p>
+<h3 id="示例代码-3"><a href="#示例代码-3" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        Top.init();</span><br><span class="line">        Top.getThreadLocalTop().setOvertime(<span class="number">100L</span>);</span><br><span class="line">        Top.addInternalModules(<span class="string">&quot;sys&quot;</span>, <span class="keyword">new</span> <span class="title class_">SystemModuleValue</span>());</span><br><span class="line">        Top.eval(<span class="string">&quot;import &#123; print &#125; from &quot;</span>sys<span class="string">&quot;;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;let i=1;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;while(true)&#123;\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    print(i++);\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;&#125;&quot;</span>);</span><br><span class="line">        Top.loop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="输出-3"><a href="#输出-3" class="headerlink" title="输出"></a>输出</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">org.laziji.commons.js.exception.RunException: Run timeout.</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/13/pd/" rel="prev" title="PD17跳过试用弹窗">
+                  <i class="fa fa-angle-left"></i> PD17跳过试用弹窗
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder"></span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

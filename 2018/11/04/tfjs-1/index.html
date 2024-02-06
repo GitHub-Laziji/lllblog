@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github-laziji.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="项目地址谷歌的TensorFlow.js示例代码中的polynomial-regression-core拟合曲线https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;tfjs-examples&#x2F;tree&#x2F;master&#x2F;polynomial-regression-core 代码理解主要代码在index.js中, 代码做的事情是随机生成一条y &#x3D; a x 3 + b x 2 + c x + d的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow.js (一)">
+<meta property="og:url" content="http://github-laziji.github.io/lllblog/2018/11/04/tfjs-1/index.html">
+<meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
+<meta property="og:description" content="项目地址谷歌的TensorFlow.js示例代码中的polynomial-regression-core拟合曲线https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;tfjs-examples&#x2F;tree&#x2F;master&#x2F;polynomial-regression-core 代码理解主要代码在index.js中, 代码做的事情是随机生成一条y &#x3D; a x 3 + b x 2 + c x + d的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-11-04T13:04:04.000Z">
+<meta property="article:modified_time" content="2021-12-15T15:10:05.990Z">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="TensorFlow">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://github-laziji.github.io/lllblog/2018/11/04/tfjs-1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://github-laziji.github.io/lllblog/2018/11/04/tfjs-1/","path":"2018/11/04/tfjs-1/","title":"TensorFlow.js (一)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>TensorFlow.js (一) | ☻Blog("Laziji")</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">☻Blog("Laziji")</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">System.out.print("辣子鸡的博客");</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-number">1.</span> <span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%90%86%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">代码理解</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/github-laziji" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;github-laziji" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/11/04/tfjs-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="☻Blog("Laziji")">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="TensorFlow.js (一) | ☻Blog("Laziji")">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TensorFlow.js (一)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-04 21:04:04" itemprop="dateCreated datePublished" datetime="2018-11-04T21:04:04+08:00">2018-11-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-12-15 23:10:05" itemprop="dateModified" datetime="2021-12-15T23:10:05+08:00">2021-12-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">技术分享</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p>谷歌的<code>TensorFlow.js</code>示例代码中的<code>polynomial-regression-core</code>拟合曲线<br><a href="https://github.com/tensorflow/tfjs-examples/tree/master/polynomial-regression-core">https://github.com/tensorflow/tfjs-examples/tree/master/polynomial-regression-core</a></p>
+<h1 id="代码理解"><a href="#代码理解" class="headerlink" title="代码理解"></a>代码理解</h1><p>主要代码在<code>index.js</code>中, 代码做的事情是随机生成一条<code>y = a x 3 + b x 2 + c x + d</code>的<code>曲线A</code>, 然后在这条曲线上下随机生成一些点做为数据集。<br>通过这些数据集我们要找到合适<code>a, b, c, d</code>。正常情况下我们找到的<code>a, b, c, d</code>生成的曲线和<code>曲线A</code>会基本重合。<br>数据集生成在<code>data.js</code>中, 以下是对<code>index.js</code>代码的理解</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> tf <span class="keyword">from</span> <span class="string">&#x27;@tensorflow/tfjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; generateData &#125; <span class="keyword">from</span> <span class="string">&#x27;./data&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; plotData, plotDataAndPredictions, renderCoefficients &#125; <span class="keyword">from</span> <span class="string">&#x27;./ui&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>生成随机的<code>a, b, c, d</code>作为初始值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = tf.<span class="title function_">variable</span>(tf.<span class="title function_">scalar</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()));</span><br><span class="line"><span class="keyword">const</span> b = tf.<span class="title function_">variable</span>(tf.<span class="title function_">scalar</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()));</span><br><span class="line"><span class="keyword">const</span> c = tf.<span class="title function_">variable</span>(tf.<span class="title function_">scalar</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()));</span><br><span class="line"><span class="keyword">const</span> d = tf.<span class="title function_">variable</span>(tf.<span class="title function_">scalar</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>()));</span><br></pre></td></tr></table></figure>
+<p><code>迭代次数</code>, 可以自行调整, 调高可以提供准确性, 花费时间更长</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numIterations = <span class="number">300</span>;</span><br></pre></td></tr></table></figure>
+<p><code>学习率</code>, 相当于每次迭代调整的步伐, 步伐小,则需要迭代更多轮, 但并不是越大越好, 太大可能一步跨过最佳的值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> learningRate = <span class="number">0.5</span>;</span><br></pre></td></tr></table></figure>
+<p><code>SGD优化器</code>在下面迭代的时候用到</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> optimizer = tf.<span class="property">train</span>.<span class="title function_">sgd</span>(learningRate);</span><br></pre></td></tr></table></figure>
+
+<p>构建模型, <code>tf.tidy</code>可以在方法执行之后自动清理其中的张量, 释放内存, 但是不会清除<code>函数的返回值</code><br>这里构建了一个<code>y = a * x ^ 3 + b * x ^ 2 + c * x + d</code>的模型, 这里的<code>x</code>指的不是单个<code>x</code>, 而是<code>x的矩阵</code>, 进行矩阵运算, 得到<code>y</code>的矩阵</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">predict</span>(<span class="params">x</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> tf.<span class="title function_">tidy</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a.<span class="title function_">mul</span>(x.<span class="title function_">pow</span>(tf.<span class="title function_">scalar</span>(<span class="number">3</span>, <span class="string">&#x27;int32&#x27;</span>)))</span><br><span class="line">      .<span class="title function_">add</span>(b.<span class="title function_">mul</span>(x.<span class="title function_">square</span>()))</span><br><span class="line">      .<span class="title function_">add</span>(c.<span class="title function_">mul</span>(x))</span><br><span class="line">      .<span class="title function_">add</span>(d);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义损失函数, 返回的值是结果与预期值的<code>方差</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">loss</span>(<span class="params">prediction, labels</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> error = prediction.<span class="title function_">sub</span>(labels).<span class="title function_">square</span>().<span class="title function_">mean</span>();</span><br><span class="line">  <span class="keyword">return</span> error;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>循环训练模型, <code>numIterations</code>是开头定义的迭代次数, <code>optimizer</code>是<code>SGD优化器</code>, 这里<code>async</code>z指明<code>train</code>是异步函数, 每次迭代通过<code>await tf.nextFrame();</code>等待一次计算的结束再进行下一次计算, 对于<code>a, b, c, d</code>值的修改更新, 都由优化器负责</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">train</span>(<span class="params">xs, ys, numIterations</span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> iter = <span class="number">0</span>; iter &lt; numIterations; iter++) &#123;</span><br><span class="line">    optimizer.<span class="title function_">minimize</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> pred = <span class="title function_">predict</span>(xs);</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">loss</span>(pred, ys);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">await</span> tf.<span class="title function_">nextFrame</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后的代码是生成训练数据, 运行项目, 我们可以看到三幅图, 第二副图的曲线是初始状态随机的<code>a, b, c, d</code>所生成的曲线, 第三幅图是训练之后的, 结果与<code>曲线A</code>相差无几</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br><span class="line">$ npm run watch</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/11/02/acm-lc-45/" rel="prev" title="LeetCode 45.跳跃游戏 II (DP+线段树)">
+                  <i class="fa fa-angle-left"></i> LeetCode 45.跳跃游戏 II (DP+线段树)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/11/07/vue/" rel="next" title="Vue组件插槽的使用以及调用组件内的方法">
+                  Vue组件插槽的使用以及调用组件内的方法 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder"></span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

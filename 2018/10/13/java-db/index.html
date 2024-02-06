@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github-laziji.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="接上一篇, 上一篇文章写了Dao、Service、Controller的实现, 这篇讲述其中用到的Query以及Page 还是以app表为例, 表结构如下 1234&#96;id&#96; bigint(20)&#96;gmt_create&#96; datetime&#96;gmt_modified&#96; datetime&#96;name&#96; varchar(32)  Query 查询类Query是select查询信息 如limit, page,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Springboot Mybatis 实现通用Dao、Service、Controller (二)">
+<meta property="og:url" content="http://github-laziji.github.io/lllblog/2018/10/13/java-db/index.html">
+<meta property="og:site_name" content="☻Blog(&quot;Laziji&quot;)">
+<meta property="og:description" content="接上一篇, 上一篇文章写了Dao、Service、Controller的实现, 这篇讲述其中用到的Query以及Page 还是以app表为例, 表结构如下 1234&#96;id&#96; bigint(20)&#96;gmt_create&#96; datetime&#96;gmt_modified&#96; datetime&#96;name&#96; varchar(32)  Query 查询类Query是select查询信息 如limit, page,">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-12T16:57:06.000Z">
+<meta property="article:modified_time" content="2021-12-15T15:10:05.988Z">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://github-laziji.github.io/lllblog/2018/10/13/java-db/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://github-laziji.github.io/lllblog/2018/10/13/java-db/","path":"2018/10/13/java-db/","title":"Springboot Mybatis 实现通用Dao、Service、Controller (二)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Springboot Mybatis 实现通用Dao、Service、Controller (二) | ☻Blog("Laziji")</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">☻Blog("Laziji")</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">System.out.print("辣子鸡的博客");</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Query-%E6%9F%A5%E8%AF%A2%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">Query 查询类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AppQuery-java"><span class="nav-number">1.1.</span> <span class="nav-text">AppQuery.java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BaseQuery-java"><span class="nav-number">1.2.</span> <span class="nav-text">BaseQuery.java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Query-java"><span class="nav-number">1.3.</span> <span class="nav-text">Query.java</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Page-%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">Page 分页查询结果类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Page-java"><span class="nav-number">2.1.</span> <span class="nav-text">Page.java</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/github-laziji" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;github-laziji" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://github-laziji.github.io/lllblog/2018/10/13/java-db/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="☻Blog("Laziji")">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Springboot Mybatis 实现通用Dao、Service、Controller (二) | ☻Blog("Laziji")">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Springboot Mybatis 实现通用Dao、Service、Controller (二)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-13 00:57:06" itemprop="dateCreated datePublished" datetime="2018-10-13T00:57:06+08:00">2018-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-12-15 23:10:05" itemprop="dateModified" datetime="2021-12-15T23:10:05+08:00">2021-12-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">技术分享</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>接上一篇, 上一篇文章写了Dao、Service、Controller的实现, 这篇讲述其中用到的Query<D>以及Page<D></p>
+<p>还是以app表为例, 表结构如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">`id` <span class="type">bigint</span>(<span class="number">20</span>)</span><br><span class="line">`gmt_create` datetime</span><br><span class="line">`gmt_modified` datetime</span><br><span class="line">`name` <span class="type">varchar</span>(<span class="number">32</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Query-查询类"><a href="#Query-查询类" class="headerlink" title="Query 查询类"></a>Query 查询类</h1><p>Query是select查询信息 如limit, page, order by的封装</p>
+<h2 id="AppQuery-java"><a href="#AppQuery-java" class="headerlink" title="AppQuery.java"></a>AppQuery.java</h2><p>省略其中get, set方法, Query的属性是DO的扩展,如其中<code>nameLike</code>为name字段的模糊查询, <code>toBean()</code>实现Query转换为DO</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AppQuery</span> <span class="keyword">extends</span> <span class="title class_">BaseQuery</span>&lt;AppDO&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> Date gmtCreate;</span><br><span class="line">    <span class="keyword">private</span> Date gmtModified;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String nameLike;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...get()</span></span><br><span class="line">    <span class="comment">// ...set()</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ClassifyDO <span class="title function_">toBean</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> JSON.parseObject(JSON.toJSONString(<span class="built_in">this</span>),ClassifyDO.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BaseQuery-java"><a href="#BaseQuery-java" class="headerlink" title="BaseQuery.java"></a>BaseQuery.java</h2><p>BaseQuery中包含公共的查询属性, 例如分页, 排序, 省略其他默认的get, set</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">BaseQuery</span>&lt;D&gt; <span class="keyword">implements</span> <span class="title class_">Query</span>&lt;D&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">Integer</span> <span class="variable">limit</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Integer</span> <span class="variable">page</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Integer</span> <span class="variable">offset</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> String sort;</span><br><span class="line">    <span class="keyword">private</span> String order;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setLimit</span><span class="params">(Integer limit)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.limit = limit &gt; <span class="number">0</span> ? limit : <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">this</span>.offset = <span class="built_in">this</span>.page * <span class="built_in">this</span>.limit;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPage</span><span class="params">(<span class="type">int</span> page)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.page = page &gt;= <span class="number">0</span> ? page : <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">this</span>.offset = <span class="built_in">this</span>.page * <span class="built_in">this</span>.limit;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...get()</span></span><br><span class="line">    <span class="comment">// ...set()</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> JSON.toJSONString(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Query-java"><a href="#Query-java" class="headerlink" title="Query.java"></a>Query.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Query</span>&lt;D&gt; &#123;</span><br><span class="line"></span><br><span class="line">    D <span class="title function_">toBean</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Page-分页查询结果类"><a href="#Page-分页查询结果类" class="headerlink" title="Page 分页查询结果类"></a>Page 分页查询结果类</h1><p>由于前端分页显示时常常同时需要每页数据以及总条目数, 所以对分页查询结果简单封装</p>
+<h2 id="Page-java"><a href="#Page-java" class="headerlink" title="Page.java"></a>Page.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Page</span>&lt;D&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;D&gt; list;</span><br><span class="line">    <span class="keyword">private</span> Integer total;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...get()</span></span><br><span class="line">    <span class="comment">// ...set()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/Spring/" rel="tag"># Spring</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/10/12/java-db/" rel="prev" title="Springboot Mybatis 实现通用Dao、Service、Controller">
+                  <i class="fa fa-angle-left"></i> Springboot Mybatis 实现通用Dao、Service、Controller
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/10/13/javascript-db/" rel="next" title="JavaScript实现类似Java的泛型">
+                  JavaScript实现类似Java的泛型 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder"></span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
